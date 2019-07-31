@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>使用 Sphinx + Readthedoc + GitHub 建立个人的博客 &mdash; Welcome to Fomalhaut&#39;s Blog  文档</title>
+  <title>1. 使用 Sphinx + Readthedoc + GitHub 建立个人的博客 &mdash; Welcome to Fomalhaut&#39;s Blog  文档</title>
   
 
   
@@ -35,7 +35,8 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
-    <link rel="search" title="搜索" href="../search.html" /> 
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="prev" title="杂七杂八" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -79,9 +80,26 @@
               
             
             
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../openstack/index.html">OpenStack</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html">杂七杂八</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">杂七杂八</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1. 使用 Sphinx + Readthedoc + GitHub 建立个人的博客</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">1.1. 基本介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sphinx">1.1.1. Sphinx</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readthedoc">1.1.2. Readthedoc</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">1.2. 安装</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">1.2.1. 环境及版本说明</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">1.2.2. 安装Sphinx及组件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#github">1.2.3. 配置GitHub</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#read-the-docs">1.2.4. 配置Read The Docs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -127,7 +145,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>使用 Sphinx + Readthedoc + GitHub 建立个人的博客</li>
+          <li><a href="index.html">杂七杂八</a> &raquo;</li>
+        
+      <li>1. 使用 Sphinx + Readthedoc + GitHub 建立个人的博客</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -147,7 +167,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="sphinx-readthedoc-github">
-<span id="deploy-sphinx-readthedoc-github"></span><h1><a class="toc-backref" href="#id8">使用 Sphinx + Readthedoc + GitHub 建立个人的博客</a><a class="headerlink" href="#sphinx-readthedoc-github" title="永久链接至标题">¶</a></h1>
+<span id="deploy-sphinx-readthedoc-github"></span><h1><a class="toc-backref" href="#id8">1. 使用 Sphinx + Readthedoc + GitHub 建立个人的博客</a><a class="headerlink" href="#sphinx-readthedoc-github" title="永久链接至标题">¶</a></h1>
 <div class="contents topic" id="id1">
 <p class="topic-title first">目录</p>
 <ul class="simple">
@@ -180,9 +200,9 @@
 因此我也打算基于这个来构建自己的知识库系统</p>
 </div>
 <div class="section" id="id2">
-<h2><a class="toc-backref" href="#id9">基本介绍</a><a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id9">1.1. 基本介绍</a><a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <div class="section" id="sphinx">
-<h3><a class="toc-backref" href="#id10">Sphinx</a><a class="headerlink" href="#sphinx" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id10">1.1.1. Sphinx</a><a class="headerlink" href="#sphinx" title="永久链接至标题">¶</a></h3>
 <p>Sphinx是一个工具，她能够轻易地创建智慧和优雅的文档，她是出自Georg Brandl之手，在BSD许可证下授权。</p>
 <p>她最初是为了新版的python文档， 因此在python项目的文档具有完美的特性，但是同样支持c/c++，目前正在计划增加对其他的语言的支持。 理所当然，本页面也是使用Sphinx创造自reStructuredText格式源！Sphinx具有如下的特点：</p>
 <p>输出格式：</p>
@@ -197,7 +217,7 @@
 <p>Sphinx 使用 reStructuredText 作为标记语言, 可以享有 Docutils 为reStructuredText提供的分析，转换等多种工具.</p>
 </div>
 <div class="section" id="readthedoc">
-<h3><a class="toc-backref" href="#id11">Readthedoc</a><a class="headerlink" href="#readthedoc" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id11">1.1.2. Readthedoc</a><a class="headerlink" href="#readthedoc" title="永久链接至标题">¶</a></h3>
 <p>Read the Docs是一个在线文档托管服务，可以从各种版本控制系统中导入文档,
 支持webhooks，当你提交代码时，文档将被自动构建。
 Readthedocs支持Markdown格式和sphinx格式的文档排版，是部署项目文档的绝佳平台。
@@ -205,9 +225,9 @@ Readthedocs支持Markdown格式和sphinx格式的文档排版，是部署项目�
 </div>
 </div>
 <div class="section" id="id3">
-<h2><a class="toc-backref" href="#id12">安装</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<h2><a class="toc-backref" href="#id12">1.2. 安装</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <div class="section" id="id4">
-<h3><a class="toc-backref" href="#id13">环境及版本说明</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id13">1.2.1. 环境及版本说明</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 <ul class="simple">
 <li><p>Windows 10 企业版 1803</p></li>
 <li><p>Python 3.7.3</p></li>
@@ -215,7 +235,7 @@ Readthedocs支持Markdown格式和sphinx格式的文档排版，是部署项目�
 </ul>
 </div>
 <div class="section" id="id5">
-<h3><a class="toc-backref" href="#id14">安装Sphinx及组件</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id14">1.2.2. 安装Sphinx及组件</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
 <p>1. 安装sphinx</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="n">sphinx</span>
 </pre></div>
@@ -256,7 +276,7 @@ Readthedocs支持Markdown格式和sphinx格式的文档排版，是部署项目�
 </div>
 </div>
 <div class="section" id="github">
-<h3><a class="toc-backref" href="#id15">配置GitHub</a><a class="headerlink" href="#github" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">1.2.3. 配置GitHub</a><a class="headerlink" href="#github" title="永久链接至标题">¶</a></h3>
 <ol class="arabic simple">
 <li><p>在github中创建一个repo</p></li>
 </ol>
@@ -272,7 +292,7 @@ Readthedocs支持Markdown格式和sphinx格式的文档排版，是部署项目�
 </div>
 </div>
 <div class="section" id="read-the-docs">
-<h3><a class="toc-backref" href="#id16">配置Read The Docs</a><a class="headerlink" href="#read-the-docs" title="永久链接至标题">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">1.2.4. 配置Read The Docs</a><a class="headerlink" href="#read-the-docs" title="永久链接至标题">¶</a></h3>
 <p>1. 登入到
 <a class="reference external" href="https://readthedocs.org/">https://readthedocs.org/</a></p>
 <p>2. 进入
@@ -317,6 +337,13 @@ Readthedocs支持Markdown格式和sphinx格式的文档排版，是部署项目�
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="杂七杂八" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

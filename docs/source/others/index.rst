@@ -10,7 +10,7 @@
     :maxdepth: 3
     :numbered: 3
 
-    deploy_sphinx_readthedoc_github
+    sphinx_readthedoc_github
 
 
 
