@@ -6,9 +6,11 @@
 北落师门
 ====================================
 
-.. note::
-个人博客站点，欢迎交流。
-邮箱：yifan7193@163.com
+.. note :: 
+
+  个人博客站点，欢迎交流
+
+  邮箱：yifan7193@163.com
 
 --------------
 
@@ -22,15 +24,23 @@
 之前写的文档也会慢慢迁移到本站点.
 
 --------------
+
+目录：
+
+^^^^^
+
+
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+    :maxdepth: 2
+    :glob:
+
+    openstack/index
+    others/index
+
+
+..    web/index
+
+..    rst_template
 
 
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

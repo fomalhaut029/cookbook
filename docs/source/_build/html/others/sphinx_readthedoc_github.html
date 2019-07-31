@@ -1,0 +1,355 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>使用 Sphinx + Readthedoc + GitHub 建立个人的博客 &mdash; Welcome to Fomalhaut&#39;s Blog  文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Welcome to Fomalhaut's Blog
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../openstack/index.html">OpenStack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">杂七杂八</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Welcome to Fomalhaut's Blog</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>使用 Sphinx + Readthedoc + GitHub 建立个人的博客</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/others/sphinx_readthedoc_github.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sphinx-readthedoc-github">
+<span id="deploy-sphinx-readthedoc-github"></span><h1><a class="toc-backref" href="#id8">使用 Sphinx + Readthedoc + GitHub 建立个人的博客</a><a class="headerlink" href="#sphinx-readthedoc-github" title="永久链接至标题">¶</a></h1>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#sphinx-readthedoc-github" id="id8">使用 Sphinx + Readthedoc + GitHub 建立个人的博客</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id9">基本介绍</a></p>
+<ul>
+<li><p><a class="reference internal" href="#sphinx" id="id10">Sphinx</a></p></li>
+<li><p><a class="reference internal" href="#readthedoc" id="id11">Readthedoc</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id3" id="id12">安装</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id4" id="id13">环境及版本说明</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id14">安装Sphinx及组件</a></p></li>
+<li><p><a class="reference internal" href="#github" id="id15">配置GitHub</a></p></li>
+<li><p><a class="reference internal" href="#read-the-docs" id="id16">配置Read The Docs</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>一直都想准备搭建一个个人的知识库，方便自己总结归纳，原先一直是使用有道云笔记，但是
+都是比较的零散,看到apache cloudstack 的文档是使用Readthedoc,从风格看起来是我比较
+喜欢的。因此去了解一下是基于Sphinx + Readthedoc + GitHub来构建的。感觉挺不错的。
+因此我也打算基于这个来构建自己的知识库系统</p>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id9">基本介绍</a><a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="sphinx">
+<h3><a class="toc-backref" href="#id10">Sphinx</a><a class="headerlink" href="#sphinx" title="永久链接至标题">¶</a></h3>
+<p>Sphinx是一个工具，她能够轻易地创建智慧和优雅的文档，她是出自Georg Brandl之手，在BSD许可证下授权。</p>
+<p>她最初是为了新版的python文档， 因此在python项目的文档具有完美的特性，但是同样支持c/c++，目前正在计划增加对其他的语言的支持。 理所当然，本页面也是使用Sphinx创造自reStructuredText格式源！Sphinx具有如下的特点：</p>
+<p>输出格式：</p>
+<ul class="simple">
+<li><p>超文本标记语言 (包括Windows HTML帮助)，LaTeX (可打印的PDF版本)，手册页，纯文本</p></li>
+<li><p>丰富的交叉引用： 语义标记以及针对函数，类，引用，词汇表（术语）和相似的信息块的自动链接</p></li>
+<li><p>层次结构： 简单的文本树定义，就能自动地链接到同层（兄弟姐妹）、上一层（父母）以及下一层（子女）的文本位置</p></li>
+<li><p>自动生成目录： 通用索引以及语言模块的目录</p></li>
+<li><p>代码高亮： 代码自动高亮，通过使用 Pygments</p></li>
+<li><p>扩展功能： 自动测试的代码片段，包括从Python模块（API文档）的文档字符串</p></li>
+</ul>
+<p>Sphinx 使用 reStructuredText 作为标记语言, 可以享有 Docutils 为reStructuredText提供的分析，转换等多种工具.</p>
+</div>
+<div class="section" id="readthedoc">
+<h3><a class="toc-backref" href="#id11">Readthedoc</a><a class="headerlink" href="#readthedoc" title="永久链接至标题">¶</a></h3>
+<p>Read the Docs是一个在线文档托管服务，可以从各种版本控制系统中导入文档,
+支持webhooks，当你提交代码时，文档将被自动构建。
+Readthedocs支持Markdown格式和sphinx格式的文档排版，是部署项目文档的绝佳平台。
+利用Github的托管服务，我们可以方便地将文档托管于Github，并利用Readthedocs查阅</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id12">安装</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id13">环境及版本说明</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li><p>Windows 10 企业版 1803</p></li>
+<li><p>Python 3.7.3</p></li>
+<li><p>pip 19.0.3</p></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id14">安装Sphinx及组件</a><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>1. 安装sphinx</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="n">sphinx</span>
+</pre></div>
+</div>
+<p>2. 安装完成后,我们创建一个文档目录，我这里创建一个cookbook目录
+<code class="docutils literal notranslate"><span class="pre">D:\gitcode\cookbook</span></code>
+并进入``cookbook``目录，启动</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sphinx</span><span class="o">-</span><span class="n">quickstart</span>
+</pre></div>
+</div>
+<p>3. 执行
+<code class="docutils literal notranslate"><span class="pre">sphinx-quickstart</span></code>
+后，按照向导提示选择,会生成make.bat脚本，方便后续直接使用生成html文档</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">make</span> <span class="n">html</span>
+</pre></div>
+</div>
+<p>最后会生成 Sphinx 一个文档项目必需的核心文件，包括：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>│ make.bat
+│ Makefile
+├─build
+└─source
+　　│ conf.py
+　　│ index.rst
+　　├─_static
+　　└─_templates::
+</pre></div>
+</div>
+<p>如果向导中的所有设置都保存在 conf.py 中，可以随时调整。</p>
+<p>4. 安装支持mackdown的扩展</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip3</span> <span class="n">install</span> <span class="n">recommonmark</span>
+</pre></div>
+</div>
+<p>5. 安装完成后.需要在
+<code class="docutils literal notranslate"><span class="pre">config.py</span></code>
+中配置</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;recommonmark&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="github">
+<h3><a class="toc-backref" href="#id15">配置GitHub</a><a class="headerlink" href="#github" title="永久链接至标题">¶</a></h3>
+<ol class="arabic simple">
+<li><p>在github中创建一个repo</p></li>
+</ol>
+<p>2. 将本地
+<code class="docutils literal notranslate"><span class="pre">cookbook</span></code>
+目录与远程目录关联</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">init</span>
+<span class="n">git</span> <span class="n">add</span> <span class="n">README</span><span class="o">.</span><span class="n">md</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">&quot;first commit&quot;</span>
+<span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">xxxxxxx</span><span class="o">/</span><span class="n">cookbook</span><span class="o">.</span><span class="n">git</span>
+<span class="n">git</span> <span class="n">push</span> <span class="o">-</span><span class="n">u</span> <span class="n">origin</span> <span class="n">master</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="read-the-docs">
+<h3><a class="toc-backref" href="#id16">配置Read The Docs</a><a class="headerlink" href="#read-the-docs" title="永久链接至标题">¶</a></h3>
+<p>1. 登入到
+<a class="reference external" href="https://readthedocs.org/">https://readthedocs.org/</a></p>
+<p>2. 进入
+<code class="docutils literal notranslate"><span class="pre">设置</span></code>
+在
+<code class="docutils literal notranslate"><span class="pre">已连接的服务</span></code>
+中选择
+<code class="docutils literal notranslate"><span class="pre">Connect</span> <span class="pre">to</span> <span class="pre">GitHub</span></code></p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/readthedoc1.png"><img alt="../_images/readthedoc1.png" src="../_images/readthedoc1.png" style="width: 1041.0px; height: 668.0px;" /></a>
+</div>
+<p>3. 进入
+<code class="docutils literal notranslate"><span class="pre">我的项目</span></code>
+选择
+<code class="docutils literal notranslate"><span class="pre">Import</span> <span class="pre">a</span> <span class="pre">Project</span></code>
+选择github中创建的cookbook库</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/readthedoc2.png"><img alt="../_images/readthedoc2.png" src="../_images/readthedoc2.png" style="width: 957.0px; height: 493.0px;" /></a>
+</div>
+<div class="line-block">
+<div class="line">这样我们就能通过构建。然后查看托管的文档了</div>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/readthedoc3.png"><img alt="../_images/readthedoc3.png" src="../_images/readthedoc3.png" style="width: 1077.0px; height: 637.0px;" /></a>
+</div>
+<hr class="docutils" />
+<p>参考文档：</p>
+<dl class="footnote brackets">
+<dt class="label" id="id6"><span class="brackets">1</span></dt>
+<dd><p><a class="reference external" href="http://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html">http://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html</a></p>
+</dd>
+<dt class="label" id="id7"><span class="brackets">2</span></dt>
+<dd><p><a class="reference external" href="https://kyzhang.me/2018/05/08/Sphinx-Readthedocs-GitHub2build-wiki/">https://kyzhang.me/2018/05/08/Sphinx-Readthedocs-GitHub2build-wiki/</a></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, lee@Fomalhaut
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
