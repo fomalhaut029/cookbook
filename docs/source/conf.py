@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'Welcome to Fomalhaut's Blog'
+project = 'Welcome to Fomalhaut\'s Blog'
 copyright = '2019, lee@Fomalhaut'
 author = 'lee_fomalhaut'
 
