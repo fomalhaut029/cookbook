@@ -5,13 +5,7 @@
 使用 Sphinx + Readthedoc + GitHub 建立个人的博客
 ########################
 
-.. contents:: 目录
 
-..
-   section-numbering::
-
-
---------------------------
 
 .. note :: 
 
@@ -19,6 +13,14 @@
    都是比较的零散,看到apache cloudstack 的文档是使用Readthedoc,从风格看起来是我比较
    喜欢的。因此去了解一下是基于Sphinx + Readthedoc + GitHub来构建的。感觉挺不错的。
    因此我也打算基于这个来构建自己的知识库系统
+
+.. contents:: 目录
+
+..
+   section-numbering::
+
+
+--------------------------
 
 ========================
 基本介绍
