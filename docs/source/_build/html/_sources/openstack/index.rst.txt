@@ -1,21 +1,21 @@
-.. _openstack_index:
 
-OpenStack 
-============================
-
-.. note:: 
-
-    这里记录openstack开发笔记及学习总结
-
---------------
-
-
-目录：
-^^^^^
+openstack
+============
 
 .. toctree::
     :maxdepth: 3
     :numbered: 3
+    
+    deploy/index
+    ironic/index
+    neutron/index
+    monasca/index
+    develop/index
+    source/index
+    others/index
 
-    source/index 
+
+
+
+
 

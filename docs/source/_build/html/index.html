@@ -1,14 +1,14 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>北落师门 &mdash; Welcome to Fomalhaut&#39;s Blog  文档</title>
+  <title>北落师门 &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
   
 
   
@@ -25,18 +25,17 @@
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
-        <script type="text/javascript" src="_static/translations.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
 
   
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/my_theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="index" title="索引" href="genindex.html" />
-    <link rel="search" title="搜索" href="search.html" />
-    <link rel="next" title="OpenStack" href="openstack/index.html" /> 
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="cloudstack" href="cloudstack/index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -58,6 +57,10 @@
 
           
             
+            
+              <div class="version">
+                1.0
+              </div>
             
           
 
@@ -81,9 +84,14 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="openstack/index.html">OpenStack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloudstack/index.html">cloudstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="openstack/index.html">openstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="redis/index.html">Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="design-pattern/index.html">设计模式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ceph/index.html">ceph</a></li>
 <li class="toctree-l1"><a class="reference internal" href="others/index.html">杂七杂八</a></li>
-<li class="toctree-l1"><a class="reference internal" href="others/index.html#id2">目录</a></li>
+<li class="toctree-l1"><a class="reference internal" href="work/index.html">部门管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="linux/index.html">Linux</a></li>
 </ul>
 
             
@@ -149,9 +157,9 @@
            <div itemprop="articleBody">
             
   <div class="section" id="id1">
-<h1>北落师门<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<h1>北落师门<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <div class="admonition note">
-<p class="admonition-title">注解</p>
+<p class="admonition-title">Note</p>
 <p>个人博客站点，欢迎交流</p>
 <p>邮箱：<a class="reference external" href="mailto:yifan7193&#37;&#52;&#48;163&#46;com">yifan7193<span>&#64;</span>163<span>&#46;</span>com</a></p>
 </div>
@@ -165,21 +173,69 @@
 <p>之前写的文档也会慢慢迁移到本站点.</p>
 <hr class="docutils" />
 <div class="section" id="id2">
-<h2>目录:<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<h2>目录:<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="openstack/index.html">OpenStack</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="openstack/index.html#id1">目录：</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloudstack/index.html">cloudstack</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloudstack/index.html#id1">参考链接</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="others/index.html">杂七杂八</a></li>
-<li class="toctree-l1"><a class="reference internal" href="others/index.html#id2">目录</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="others/sphinx_readthedoc_github.html">1. 使用 Sphinx + Readthedoc + GitHub 建立个人的博客</a></li>
+<li class="toctree-l1"><a class="reference internal" href="openstack/index.html">openstack</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="openstack/deploy/index.html">1. 安装部署实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openstack/ironic/index.html">2. Ironic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openstack/neutron/index.html">3. Neutron</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openstack/monasca/index.html">4. Monasca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openstack/develop/index.html">5. OpenStack 二次开发</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openstack/source/index.html">6. OpenStack 源码解析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openstack/others/index.html">7. OpenStack 其他相关文档</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="redis/index.html">Redis</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="design-pattern/index.html">设计模式</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="design-pattern/index.html#id2">参考链接</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ceph/index.html">ceph</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="others/index.html">杂七杂八</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="others/sphinx_readthedoc_github.html">1. 使用 Sphinx + Readthedoc + GitHub 建立个人的博客站点</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others/docker_promethus_snmp_smokeping.html">2. prometheus 线路监控方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others/switch_cmd_learning.html">3. 常用交换机命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others/deploy_debain_local_source.html">4. Proxome-VE 集群部署</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others/install_muti_python_on_win.html">5. Windows 下安装多版本Python 环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others/kvm_virtul_performance_test.html">6. KVM 虚拟机性能测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others/proxmoxVE_with_ceph_deploy.html">7. Proxmox-VE搭配Ceph存储组建高可用虚拟化平台</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others/switch_traffic_monitor_system.html">8. 交换机流量监控方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others/virt_manager_kvm_vm.html">9. 使用virt_manager管理kvm虚拟机</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others/cloud_technology_iptables.html">10. 云计算-Iptables&amp;Netfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others/cloud_technology_linux_bridge.html">11. 云计算-Linux/Bridge详解</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others/cloud_technology_openvswitch.html">12. 云计算-OpenvSwitch 详解</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others/cloud_technology_tap_tun_vnet.html">13. 云计算-虚拟网络设备</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others/reStructuredText_quick_copy_pic.html">14. reStructuredText 实现粘贴图片</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others/rst_usage.html">15. rst 用法总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others/vscode_usage.html">16. Vscode 使用技巧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others/git_usage.html">17. Git 使用技巧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others/linux_cmd_usage.html">18. Linux 命令行 使用技巧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others/autoHotKey_usage.html">19. AutoHotKey 使用技巧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others/sphinx_doc.html">20. sphinx模板</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="work/index.html">部门管理</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="work/diary.html">1. 问题集</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="linux/index.html">Linux</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="linux/linux_vlan_config.html">1. linux网卡的vlan配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux/frp.html">2. 内网穿透-FRP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux/configure_ubuntu_develoy_env.html">3. 使用ubuntu作为开发环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux/shell_usage.html">4. 常用的shell命令详解</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<hr class="docutils" />
 </div>
 </div>
 
@@ -191,7 +247,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="openstack/index.html" class="btn btn-neutral float-right" title="OpenStack" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cloudstack/index.html" class="btn btn-neutral float-right" title="cloudstack" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -201,7 +257,7 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, lee@Fomalhaut
+        &copy; Copyright 2016, fomalhaut
 
     </p>
   </div>

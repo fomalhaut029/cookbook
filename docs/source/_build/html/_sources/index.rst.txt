@@ -33,15 +33,17 @@
     :maxdepth: 2
     :glob:
 
+    cloudstack/index
     openstack/index
+    redis/index
+    design-pattern/index
+    ceph/index
     others/index
+    work/index
+    linux/index
 
 
-..    web/index
 
-..    rst_template
-
---------------
 
 
 

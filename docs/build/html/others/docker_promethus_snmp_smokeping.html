@@ -1,0 +1,582 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2. prometheus 线路监控方案 &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/my_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. 常用交换机命令" href="switch_cmd_learning.html" />
+    <link rel="prev" title="1. 使用 Sphinx + Readthedoc + GitHub 建立个人的博客站点" href="sphinx_readthedoc_github.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Welcome to Fomalhaut's Blog
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../cloudstack/index.html">cloudstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../openstack/index.html">openstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../redis/index.html">Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design-pattern/index.html">设计模式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ceph/index.html">ceph</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">杂七杂八</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="sphinx_readthedoc_github.html">1. 使用 Sphinx + Readthedoc + GitHub 建立个人的博客站点</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2. prometheus 线路监控方案</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2.1. 基本介绍</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#promethues">2.1.1. Promethues</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#snmp">2.1.2. snmp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smokeping">2.1.3. smokeping</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2.2. 安装</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">2.2.1. 环境及版本说明</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">2.2.2. 项目文件目录</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#docker-compose">2.2.3. docker-compose 文件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">2.2.4. 普罗米斯监控大屏部署文档</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="switch_cmd_learning.html">3. 常用交换机命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deploy_debain_local_source.html">4. Proxome-VE 集群部署</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install_muti_python_on_win.html">5. Windows 下安装多版本Python 环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kvm_virtul_performance_test.html">6. KVM 虚拟机性能测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxmoxVE_with_ceph_deploy.html">7. Proxmox-VE搭配Ceph存储组建高可用虚拟化平台</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switch_traffic_monitor_system.html">8. 交换机流量监控方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virt_manager_kvm_vm.html">9. 使用virt_manager管理kvm虚拟机</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_technology_iptables.html">10. 云计算-Iptables&amp;Netfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_technology_linux_bridge.html">11. 云计算-Linux/Bridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_technology_openvswitch.html">12. 云计算-OpenvSwitch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_technology_tap_tun_vnet.html">13. 云计算-虚拟网络设备</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reStructuredText_quick_copy_pic.html">14. reStructuredText 实现粘贴图片</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rst_usage.html">15. rst 用法总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vscode_usage.html">16. Vscode 使用技巧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git_usage.html">17. Git 使用技巧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux_cmd_usage.html">18. Linux 命令行 使用技巧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autoHotKey_usage.html">19. AutoHotKey 使用技巧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx_doc.html">20. sphinx模板</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../work/index.html">部门管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">Linux</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Welcome to Fomalhaut's Blog</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">杂七杂八</a> &raquo;</li>
+        
+      <li>2. prometheus 线路监控方案</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/others/docker_promethus_snmp_smokeping.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="prometheus">
+<span id="dpsm"></span><h1><a class="toc-backref" href="#id11">2. prometheus 线路监控方案</a><a class="headerlink" href="#prometheus" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>公司提出新的需求，需要监控总公司到各个子公司的线路质量的监控。能获取的资源包括
+出口的snmp信息以及互联ip地址，经过调研分析。
+这里采用promethus来监控采集数据。
+通过smokeping来采集互联地址的时延数据
+通过snmp协议来获取交换机端口数据</p>
+</div>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#prometheus" id="id11">prometheus 线路监控方案</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id12">基本介绍</a></p>
+<ul>
+<li><p><a class="reference internal" href="#promethues" id="id13">Promethues</a></p></li>
+<li><p><a class="reference internal" href="#snmp" id="id14">snmp</a></p></li>
+<li><p><a class="reference internal" href="#smokeping" id="id15">smokeping</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id3" id="id16">安装</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id4" id="id17">环境及版本说明</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id18">项目文件目录</a></p></li>
+<li><p><a class="reference internal" href="#docker-compose" id="id19">docker-compose 文件</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id20">普罗米斯监控大屏部署文档</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id7" id="id21">服务列表</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id22">端口对应关系</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id23">安装部署</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id24">清理环境</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id12">2.1. 基本介绍</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="promethues">
+<h3><a class="toc-backref" href="#id13">2.1.1. Promethues</a><a class="headerlink" href="#promethues" title="Permalink to this headline">¶</a></h3>
+<p>Prometheus 是一套开源的系统监控报警框架。它启发于 Google 的 borgmon 监控系统，
+由工作在 SoundCloud 的 google 前员工在 2012 年创建，作为社区开源项目进行开发，
+并于 2015 年正式发布。2016 年，Prometheus 正式加入
+Cloud Native Computing Foundation，成为受欢迎度仅次于 Kubernetes 的项目。</p>
+<p>作为新一代的监控框架，Prometheus 具有以下特点：</p>
+<ul>
+<li><p>强大的多维度数据模型：</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>时间序列数据通过 metric 名和键值对来区分。</p></li>
+<li><p>所有的 metrics 都可以设置任意的多维标签。</p></li>
+<li><p>数据模型更随意，不需要刻意设置为以点分隔的字符串。</p></li>
+<li><p>可以对数据模型进行聚合，切割和切片操作。</p></li>
+<li><p>支持双精度浮点类型，标签可以设为全 unicode。</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>灵活而强大的查询语句（PromQL）：在同一个查询语句，可以对多个 metrics 进行乘法、加法、连接、取分数位等操作。</p></li>
+<li><p>易于管理： Prometheus server 是一个单独的二进制文件，可直接在本地工作，不依赖于分布式存储。</p></li>
+<li><p>高效：平均每个采样点仅占 3.5 bytes，且一个 Prometheus server 可以处理数百万的 metrics。</p></li>
+<li><p>使用 pull 模式采集时间序列数据，这样不仅有利于本机测试而且可以避免有问题的服务器推送坏的 metrics。</p></li>
+<li><p>可以采用 push gateway 的方式把时间序列数据推送至 Prometheus server 端。</p></li>
+<li><p>可以通过服务发现或者静态配置去获取监控的 targets。</p></li>
+<li><p>有多种可视化图形界面。</p></li>
+<li><p>易于伸缩。</p></li>
+</ul>
+<p>需要指出的是，由于数据采集可能会有丢失，所以 Prometheus
+不适用对采集数据要 100% 准确的情形。但如果用于记录时间序列数据，
+Prometheus 具有很大的查询优势，此外，Prometheus 适用于微服务的体系架构。</p>
+</div>
+<div class="section" id="snmp">
+<h3><a class="toc-backref" href="#id14">2.1.2. snmp</a><a class="headerlink" href="#snmp" title="Permalink to this headline">¶</a></h3>
+<p>简单网络管理协议（SNMP） 是专门设计用于在 IP 网络管理网络节点（服务器、工作站、路由器、交换机及HUBS等）
+的一种标准协议，它是一种应用层协议。</p>
+</div>
+<div class="section" id="smokeping">
+<h3><a class="toc-backref" href="#id15">2.1.3. smokeping</a><a class="headerlink" href="#smokeping" title="Permalink to this headline">¶</a></h3>
+<p>Smokeping是rrdtool的作者TobiOetiker 的作品，是用Perl 写的，
+主要是监视网络性能，包括常规的ping，
+用echoping 监www 服务器性能，监视dns 查询性能，监视ssh 性能等</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id16">2.2. 安装</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id17">2.2.1. 环境及版本说明</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>CentOS Linux release 7.6.1810 (Core)</p></li>
+<li><p>Docker version 18.09.6, build 481bc77156</p></li>
+<li><p>docker-compose version 1.18.0, build 8dd22a9</p></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h3><a class="toc-backref" href="#id18">2.2.2. 项目文件目录</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>├── alertmanager
+│   └── config
+│       └── alertmanager.yml
+├── alertmanager-dingtalk
+│   └── default.tmpl
+├── clean.sh
+├── docker-compose.yml
+├── docker-compose.yml.bak
+├── install.sh
+├── prometheus
+│   ├── config
+│   │   ├── prometheus.yml
+│   │   └── rules.d
+│   │       └── alertmanager.rules
+│   └── target.json
+├── README.md
+├── smokeping
+│   ├── config
+│   │   ├── Alerts
+│   │   ├── Database
+│   │   ├── General
+│   │   ├── httpd.conf
+│   │   ├── location
+│   │   │   ├── szswzx
+│   │   │   └── szxf
+│   │   ├── pathnames
+│   │   ├── Presentation
+│   │   ├── Probes
+│   │   ├── site-confs
+│   │   │   └── smokeping.conf
+│   │   ├── Slaves
+│   │   ├── ssmtp.conf
+│   │   └── Targets
+│   └── data
+├── smokeping-exporter
+│   ├── config
+│   │   └── smokeping_exporter.py
+│   └── Dockerfile
+├── snmp-exporter
+│   └── config
+│       └── snmp.yml
+</pre></div>
+</div>
+</div>
+<div class="section" id="docker-compose">
+<h3><a class="toc-backref" href="#id19">2.2.3. docker-compose 文件</a><a class="headerlink" href="#docker-compose" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Author: jack_lee (lifc@humenggroup.com)</span>
+<span class="c1"># Created: 2019/7/1</span>
+<span class="c1"># Desription: prms监控大屏部署启动</span>
+
+<span class="n">version</span><span class="p">:</span> <span class="s1">&#39;3&#39;</span>
+<span class="n">services</span><span class="p">:</span>
+<span class="n">prometheus</span><span class="p">:</span>
+    <span class="n">image</span><span class="p">:</span> <span class="n">prom</span><span class="o">/</span><span class="n">prometheus</span><span class="p">:</span><span class="n">v2</span><span class="o">.</span><span class="mf">11.1</span>
+    <span class="n">restart</span><span class="p">:</span> <span class="n">unless</span><span class="o">-</span><span class="n">stopped</span>
+    <span class="n">container_name</span><span class="p">:</span> <span class="n">prms_prometheus</span>
+    <span class="n">networks</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">backend</span>
+    <span class="n">depends_on</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">alertmanager</span>
+    <span class="n">privileged</span><span class="p">:</span> <span class="n">true</span>
+    <span class="n">links</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">alertmanager</span>
+    <span class="o">-</span> <span class="n">snmp</span><span class="o">-</span><span class="n">exporter</span>
+    <span class="o">-</span> <span class="n">smokeping</span><span class="o">-</span><span class="n">exporter</span>
+    <span class="n">ports</span><span class="p">:</span>
+    <span class="o">-</span> <span class="mi">19090</span><span class="p">:</span><span class="mi">9090</span>
+    <span class="n">volumes</span><span class="p">:</span>
+    <span class="o">-</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">localtime</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">localtime</span><span class="p">:</span><span class="n">ro</span>
+    <span class="o">-</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">prometheus</span><span class="o">/</span><span class="n">data</span><span class="p">:</span><span class="o">/</span><span class="n">prometheus</span>
+    <span class="o">-</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">prometheus</span><span class="o">/</span><span class="n">config</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">prometheus</span>
+    <span class="n">command</span><span class="p">:</span> <span class="o">--</span><span class="n">web</span><span class="o">.</span><span class="n">enable</span><span class="o">-</span><span class="n">lifecycle</span>
+<span class="n">alertmanager</span><span class="p">:</span>
+    <span class="n">image</span><span class="p">:</span> <span class="n">prom</span><span class="o">/</span><span class="n">alertmanager</span><span class="p">:</span><span class="n">v0</span><span class="o">.</span><span class="mf">18.0</span>
+    <span class="n">restart</span><span class="p">:</span> <span class="n">unless</span><span class="o">-</span><span class="n">stopped</span>
+    <span class="n">container_name</span><span class="p">:</span> <span class="n">prms_alertmanager</span>
+    <span class="n">networks</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">backend</span>
+    <span class="n">depends_on</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">alertmanager</span><span class="o">-</span><span class="n">dingtalk</span>
+    <span class="n">ports</span><span class="p">:</span>
+    <span class="o">-</span> <span class="mi">19093</span><span class="p">:</span><span class="mi">9093</span>
+    <span class="n">volumes</span><span class="p">:</span>
+    <span class="o">-</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">localtime</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">localtime</span><span class="p">:</span><span class="n">ro</span>
+    <span class="o">-</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">alertmanager</span><span class="o">/</span><span class="n">data</span><span class="p">:</span><span class="o">/</span><span class="n">alertmanager</span>
+    <span class="o">-</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">alertmanager</span><span class="o">/</span><span class="n">config</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">alertmanager</span>
+<span class="n">alertmanager</span><span class="o">-</span><span class="n">dingtalk</span><span class="p">:</span>
+    <span class="n">image</span><span class="p">:</span> <span class="n">timonwong</span><span class="o">/</span><span class="n">prometheus</span><span class="o">-</span><span class="n">webhook</span><span class="o">-</span><span class="n">dingtalk</span>
+    <span class="n">restart</span><span class="p">:</span> <span class="n">unless</span><span class="o">-</span><span class="n">stopped</span>
+    <span class="n">container_name</span><span class="p">:</span> <span class="n">prms_alertmanager_dingtalk</span>
+    <span class="n">networks</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">backend</span>
+    <span class="n">ports</span><span class="p">:</span>
+    <span class="o">-</span> <span class="mi">18001</span><span class="p">:</span><span class="mi">8001</span>
+    <span class="n">volumes</span><span class="p">:</span>
+    <span class="o">-</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">localtime</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">localtime</span><span class="p">:</span><span class="n">ro</span>
+    <span class="o">-</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">alertmanager</span><span class="o">-</span><span class="n">dingtalk</span><span class="p">:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">prometheus</span><span class="o">-</span><span class="n">webhook</span><span class="o">-</span><span class="n">dingtalk</span><span class="o">/</span><span class="n">template</span>
+    <span class="n">command</span><span class="p">:</span> <span class="o">--</span><span class="n">web</span><span class="o">.</span><span class="n">listen</span><span class="o">-</span><span class="n">address</span><span class="o">=</span><span class="s2">&quot;:8001&quot;</span> <span class="o">--</span><span class="n">ding</span><span class="o">.</span><span class="n">profile</span><span class="o">=</span><span class="s2">&quot;ops_dingtalk=https://oapi.dingtalk.com/robot/send?access_token=5561a13a71af02580c77c3a406a70bf1dca326ac28a87a4dbda435b7ebd365b2&quot;</span> <span class="o">--</span><span class="n">ding</span><span class="o">.</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="n">s</span>  <span class="o">--</span><span class="n">log</span><span class="o">.</span><span class="n">level</span><span class="o">=</span><span class="n">debug</span>
+<span class="n">smokeping</span><span class="p">:</span>
+    <span class="n">image</span><span class="p">:</span> <span class="n">linuxserver</span><span class="o">/</span><span class="n">smokeping</span>
+    <span class="n">container_name</span><span class="p">:</span> <span class="n">prms_smokeping</span>
+    <span class="n">networks</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">backend</span>
+    <span class="n">environment</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">PUID</span><span class="o">=</span><span class="mi">1000</span>
+    <span class="o">-</span> <span class="n">PGID</span><span class="o">=</span><span class="mi">1000</span>
+    <span class="o">-</span> <span class="n">TZ</span><span class="o">=</span><span class="n">Asia</span><span class="o">/</span><span class="n">Shanghai</span>
+    <span class="n">volumes</span><span class="p">:</span>
+    <span class="o">-</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">smokeping</span><span class="o">/</span><span class="n">config</span><span class="p">:</span><span class="o">/</span><span class="n">config</span>
+    <span class="o">-</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">smokeping</span><span class="o">/</span><span class="n">data</span><span class="p">:</span><span class="o">/</span><span class="n">data</span>
+    <span class="o">-</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">localtime</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">localtime</span><span class="p">:</span><span class="n">ro</span>
+    <span class="n">ports</span><span class="p">:</span>
+    <span class="o">-</span> <span class="mi">18002</span><span class="p">:</span><span class="mi">8002</span>
+    <span class="n">restart</span><span class="p">:</span> <span class="n">unless</span><span class="o">-</span><span class="n">stopped</span>
+<span class="n">smokeping</span><span class="o">-</span><span class="n">exporter</span><span class="p">:</span>
+    <span class="n">image</span><span class="p">:</span> <span class="n">smokeping</span><span class="o">-</span><span class="n">exporter</span>
+    <span class="n">container_name</span><span class="p">:</span> <span class="n">prms_smokeping_exporter</span>
+    <span class="n">networks</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">backend</span>
+    <span class="n">depends_on</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">smokeping</span>
+    <span class="n">volumes</span><span class="p">:</span>
+    <span class="o">-</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">smokeping</span><span class="o">-</span><span class="n">exporter</span><span class="o">/</span><span class="n">config</span><span class="p">:</span><span class="o">/</span><span class="n">config</span>
+    <span class="o">-</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">smokeping</span><span class="o">/</span><span class="n">data</span><span class="p">:</span><span class="o">/</span><span class="n">data</span>
+    <span class="o">-</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">localtime</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">localtime</span><span class="p">:</span><span class="n">ro</span>
+    <span class="n">ports</span><span class="p">:</span>
+    <span class="o">-</span> <span class="mi">18003</span><span class="p">:</span><span class="mi">8003</span>
+    <span class="n">command</span><span class="p">:</span> <span class="o">-</span><span class="n">p</span> <span class="mi">8003</span>
+    <span class="n">restart</span><span class="p">:</span> <span class="n">unless</span><span class="o">-</span><span class="n">stopped</span>
+<span class="n">snmp</span><span class="o">-</span><span class="n">exporter</span><span class="p">:</span>
+    <span class="n">image</span><span class="p">:</span> <span class="n">prom</span><span class="o">/</span><span class="n">snmp</span><span class="o">-</span><span class="n">exporter</span><span class="p">:</span><span class="n">v0</span><span class="o">.</span><span class="mf">15.0</span>
+    <span class="n">container_name</span><span class="p">:</span> <span class="n">prms_snmp_exporter</span>
+    <span class="n">networks</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">backend</span>
+    <span class="n">volumes</span><span class="p">:</span>
+    <span class="o">-</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">snmp</span><span class="o">-</span><span class="n">exporter</span><span class="o">/</span><span class="n">config</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">snmp_exporter</span>
+    <span class="o">-</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">localtime</span><span class="p">:</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">localtime</span><span class="p">:</span><span class="n">ro</span>
+    <span class="n">ports</span><span class="p">:</span>
+    <span class="o">-</span> <span class="mi">19116</span><span class="p">:</span><span class="mi">9116</span>
+    <span class="n">restart</span><span class="p">:</span> <span class="n">unless</span><span class="o">-</span><span class="n">stopped</span>
+<span class="n">networks</span><span class="p">:</span>
+<span class="n">backend</span><span class="p">:</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="id6">
+<h3><a class="toc-backref" href="#id20">2.2.4. 普罗米斯监控大屏部署文档</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id7">
+<h4><a class="toc-backref" href="#id21">服务列表</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>prms_prometheus 普罗米修斯监控模块</p></li>
+<li><p>prms_alertmanager 普罗米修斯报警模块</p></li>
+<li><p>prms_alertmanager_dingtalk 普罗米修斯钉钉报警插件</p></li>
+<li><p>prms_smokeping ping监控</p></li>
+<li><p>smokeping-exporter smokeping 数据采集exporter</p></li>
+<li><p>snmp-exporter 交换机snmp协议数据采集exporter</p></li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h4><a class="toc-backref" href="#id22">端口对应关系</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 44%" />
+<col style="width: 17%" />
+<col style="width: 17%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>服务名称</p></th>
+<th class="head"><p>本地端口</p></th>
+<th class="head"><p>外部端口</p></th>
+<th class="head"><p>备注</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>prms_prometheus</p></td>
+<td><p>9090</p></td>
+<td><p>19090</p></td>
+<td><p>服务监听端口</p></td>
+</tr>
+<tr class="row-odd"><td><p>prms_alertmanager</p></td>
+<td><p>9093</p></td>
+<td><p>19093</p></td>
+<td><p>服务监听端口</p></td>
+</tr>
+<tr class="row-even"><td><p>prms_alertmanager_dingtalk</p></td>
+<td><p>8001</p></td>
+<td><p>18001</p></td>
+<td><p>服务监听端口</p></td>
+</tr>
+<tr class="row-odd"><td><p>prms_smokeping</p></td>
+<td><p>8002</p></td>
+<td><p>18002</p></td>
+<td><p>服务监听端口</p></td>
+</tr>
+<tr class="row-even"><td><p>smokeping-exporter</p></td>
+<td><p>8003</p></td>
+<td><p>18003</p></td>
+<td><p>服务监听端口</p></td>
+</tr>
+<tr class="row-odd"><td><p>snmp-exporter</p></td>
+<td><p>9116</p></td>
+<td><p>19116</p></td>
+<td><p>服务监听端口</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id9">
+<h4><a class="toc-backref" href="#id23">安装部署</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="o">./</span><span class="n">install</span><span class="o">.</span><span class="n">sh</span>
+<span class="o">./</span><span class="n">install</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id10">
+<h4><a class="toc-backref" href="#id24">清理环境</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="o">./</span><span class="n">clean</span><span class="o">.</span><span class="n">sh</span>
+<span class="o">./</span><span class="n">clean</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<hr class="docutils" />
+<p>参考文档：</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html">http://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html</a></p></li>
+<li><p><a class="reference external" href="https://kyzhang.me/2018/05/08/Sphinx-Readthedocs-GitHub2build-wiki/">https://kyzhang.me/2018/05/08/Sphinx-Readthedocs-GitHub2build-wiki/</a></p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="switch_cmd_learning.html" class="btn btn-neutral float-right" title="3. 常用交换机命令" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="sphinx_readthedoc_github.html" class="btn btn-neutral float-left" title="1. 使用 Sphinx + Readthedoc + GitHub 建立个人的博客站点" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, fomalhaut
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

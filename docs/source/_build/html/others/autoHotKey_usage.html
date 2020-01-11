@@ -1,0 +1,256 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>19. AutoHotKey 使用技巧 &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/my_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="20. sphinx模板" href="sphinx_doc.html" />
+    <link rel="prev" title="18. Linux 命令行 使用技巧" href="linux_cmd_usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Welcome to Fomalhaut's Blog
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../cloudstack/index.html">cloudstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../openstack/index.html">openstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../redis/index.html">Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design-pattern/index.html">设计模式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ceph/index.html">ceph</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">杂七杂八</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="sphinx_readthedoc_github.html">1. 使用 Sphinx + Readthedoc + GitHub 建立个人的博客站点</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker_promethus_snmp_smokeping.html">2. prometheus 线路监控方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switch_cmd_learning.html">3. 常用交换机命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deploy_debain_local_source.html">4. Proxome-VE 集群部署</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install_muti_python_on_win.html">5. Windows 下安装多版本Python 环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kvm_virtul_performance_test.html">6. KVM 虚拟机性能测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxmoxVE_with_ceph_deploy.html">7. Proxmox-VE搭配Ceph存储组建高可用虚拟化平台</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switch_traffic_monitor_system.html">8. 交换机流量监控方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virt_manager_kvm_vm.html">9. 使用virt_manager管理kvm虚拟机</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_technology_iptables.html">10. 云计算-Iptables&amp;Netfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_technology_linux_bridge.html">11. 云计算-Linux/Bridge详解</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_technology_openvswitch.html">12. 云计算-OpenvSwitch 详解</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_technology_tap_tun_vnet.html">13. 云计算-虚拟网络设备</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reStructuredText_quick_copy_pic.html">14. reStructuredText 实现粘贴图片</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rst_usage.html">15. rst 用法总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vscode_usage.html">16. Vscode 使用技巧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git_usage.html">17. Git 使用技巧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux_cmd_usage.html">18. Linux 命令行 使用技巧</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">19. AutoHotKey 使用技巧</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">19.1. 安装部署</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">19.2. 基本使用</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx_doc.html">20. sphinx模板</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../work/index.html">部门管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">Linux</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Welcome to Fomalhaut's Blog</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">杂七杂八</a> &raquo;</li>
+        
+      <li>19. AutoHotKey 使用技巧</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/others/autoHotKey_usage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="autohotkey">
+<span id="git-usage"></span><h1>19. AutoHotKey 使用技巧<a class="headerlink" href="#autohotkey" title="Permalink to this headline">¶</a></h1>
+<p>AutoHotkey —— 是一款轻量级小众软件
+由于其可以很方便的完成热键修改、文本替换、自定义宏、等等而得到了广泛的认可
+其软件大小仅仅3M，我们自定义编译后，可以很方便的生成我们所需的宏
+并且可直接转为 .exe 程序，使用起来非常非常方便</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference external" href="http://ahkcn.sourceforge.net/docs/AutoHotkey.htm">具体请参考中文手册</a></p>
+</div>
+<div class="section" id="id2">
+<h2>19.1. 安装部署<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>略，下载安装文件直接安装即可，下载链接：<a class="reference external" href="https://www.autohotkey.com/">https://www.autohotkey.com/</a>。</p>
+</div>
+<div class="section" id="id3">
+<h2>19.2. 基本使用<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sphinx_doc.html" class="btn btn-neutral float-right" title="20. sphinx模板" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="linux_cmd_usage.html" class="btn btn-neutral float-left" title="18. Linux 命令行 使用技巧" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, fomalhaut
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

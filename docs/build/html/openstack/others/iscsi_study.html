@@ -1,0 +1,225 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>安装服务端 &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Welcome to Fomalhaut's Blog
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cloudstack/index.html">cloudstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">openstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../redis/index.html">Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../design-pattern/index.html">设计模式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ceph/index.html">ceph</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../others/index.html">杂七杂八</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../work/index.html">部门管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../linux/index.html">Linux</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Welcome to Fomalhaut's Blog</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>安装服务端</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/openstack/others/iscsi_study.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>安装服务端<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">yum</span> <span class="o">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">scsi</span><span class="o">-</span><span class="n">target</span><span class="o">-</span><span class="n">utils</span>
+
+<span class="c1">#启动服务</span>
+<span class="n">systemctl</span> <span class="n">start</span> <span class="n">tgtd</span>
+<span class="n">systemctl</span> <span class="n">enable</span> <span class="n">tgtd</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h1>配置<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>指定CentOS7本机的sdb设备为iSCSI设备，注意sdb这个设备我只是挂上去，没有在系统上挂载和格式化，也千万不要格式化和挂载，然后用这个sdb创建iSCSI设备并授权192.168.100.0/24这个网段的可以访问</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tgtadm</span> <span class="o">--</span><span class="n">lld</span> <span class="n">iscsi</span> <span class="o">--</span><span class="n">mode</span> <span class="n">target</span> <span class="o">--</span><span class="n">op</span> <span class="n">new</span> <span class="o">--</span><span class="n">targetname</span> <span class="n">iqn</span><span class="o">.</span><span class="mi">2019</span><span class="o">-</span><span class="mf">04.</span><span class="n">cn</span><span class="o">.</span><span class="n">com</span><span class="o">.</span><span class="n">itox</span><span class="o">.</span><span class="n">iscsi</span><span class="p">:</span><span class="n">myscsi</span><span class="o">.</span><span class="n">disk1</span> <span class="o">--</span><span class="n">tid</span> <span class="mi">1</span>
+
+<span class="c1">#指定磁盘</span>
+<span class="n">tgtadm</span> <span class="o">--</span><span class="n">lld</span> <span class="n">iscsi</span> <span class="o">--</span><span class="n">mode</span> <span class="n">logicalunit</span> <span class="o">--</span><span class="n">op</span> <span class="n">new</span> <span class="o">--</span><span class="n">tid</span> <span class="mi">1</span> <span class="o">--</span><span class="n">lun</span> <span class="mi">1</span> <span class="o">--</span><span class="n">backing</span><span class="o">-</span><span class="n">store</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sdb</span>
+
+<span class="c1">#指定访问网段</span>
+<span class="n">tgtadm</span> <span class="o">--</span><span class="n">lld</span> <span class="n">iscsi</span> <span class="o">--</span><span class="n">mode</span> <span class="n">target</span> <span class="o">--</span><span class="n">op</span> <span class="n">bind</span> <span class="o">--</span><span class="n">tid</span> <span class="mi">1</span> <span class="o">--</span><span class="n">initiator</span><span class="o">-</span><span class="n">address</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.0</span><span class="o">/</span><span class="mi">24</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, fomalhaut
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

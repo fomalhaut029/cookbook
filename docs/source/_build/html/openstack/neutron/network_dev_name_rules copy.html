@@ -1,0 +1,255 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>openstack网络设备总结 &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Welcome to Fomalhaut's Blog
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../cloudstack/index.html">cloudstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">openstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../redis/index.html">Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../design-pattern/index.html">设计模式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ceph/index.html">ceph</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../others/index.html">杂七杂八</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../work/index.html">部门管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../linux/index.html">Linux</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Welcome to Fomalhaut's Blog</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>openstack网络设备总结</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/openstack/neutron/network_dev_name_rules copy.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="openstack">
+<span id="network-dev-name-rules"></span><h1>openstack网络设备总结<a class="headerlink" href="#openstack" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>缩写解释<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>q=quantum</p></li>
+<li><p>r=router</p></li>
+<li><p>g=gateway</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>相关概念<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>bridge</strong></p></li>
+</ul>
+<p>Bridge（桥）是 Linux 上用来做 TCP/IP 二层协议交换的设备,与现实环境中的HUB和二层交换机设备类似。
+具体介绍请参考
+<a class="reference internal" href="../../others/cloud_technology_linux_bridge.html#cloud-technology-linux-bridge"><span class="std std-ref">云计算-Linux/Bridge详解</span></a></p>
+<ul class="simple">
+<li><p><strong>openvswitch</strong></p></li>
+</ul>
+<p>虚拟交换机,就如同它的名字一样，它是linux上通过软件是实现的交换机设备，具备硬件交换机的功能，目前
+常用的虚拟机交换机主要为：linux bridge 和 openvswitch
+具体介绍请参考
+<a class="reference internal" href="../../others/cloud_technology_openvswitch.html#cloud-technology-openvswitch"><span class="std std-ref">云计算-OpenvSwitch 详解</span></a></p>
+<ul class="simple">
+<li><p><strong>tap-xxx</strong></p></li>
+</ul>
+<p>模拟一个二层的网络设备，用于发送和接受二层网络数据包</p>
+<ul class="simple">
+<li><p><strong>tun-xxx</strong></p></li>
+</ul>
+<p>模拟一个三层的网络设备，用于发送和接受三层数据包</p>
+<ul class="simple">
+<li><p><strong>veth</strong></p></li>
+</ul>
+<p>虚拟的ethernet接口，以太网接口，通过以成对的形式出现，通常也称之为veth-pair,
+一端发送的数据包会被另一端接受，因此这个设备通常用于连接各个虚拟设备，
+比如两个namespace的连接，Bridge和OVS之间的连接，Docker容器之间的连接</p>
+<ul class="simple">
+<li><p><strong>qvb-xxx</strong></p></li>
+</ul>
+<p>Neturon 的veth接口，用于linux Bridge 端</p>
+<ul class="simple">
+<li><p><strong>qvo-xxx</strong></p></li>
+</ul>
+<p>Neturon 的veth接口，用于OVS 端</p>
+<ul class="simple">
+<li><p><strong>qr-xxx</strong></p></li>
+<li><p><strong>qg-xxx</strong></p></li>
+<li><p><strong>brq-xxx</strong></p></li>
+<li><p><strong>br-int</strong></p></li>
+</ul>
+<p>OVS 下的内部网桥，也称为集成网桥,主要用于内部网络功能的网球</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, fomalhaut
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

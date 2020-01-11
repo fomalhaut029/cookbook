@@ -1,6 +1,6 @@
 .. _openstack_source_index:
 
-
+============================
 OpenStack 源码解析
 ============================
 
@@ -10,14 +10,9 @@ OpenStack 源码解析
 
 
 
---------------
-
-目录：
-
-
-
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 3
+    :numbered: 3
 
     nova_api

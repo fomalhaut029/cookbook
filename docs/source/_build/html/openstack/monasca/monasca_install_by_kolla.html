@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>4.2. Monasca 安装(Kolla) &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5. OpenStack 二次开发" href="../develop/index.html" />
+    <link rel="prev" title="4.1. Monasca 介绍" href="monasca.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Welcome to Fomalhaut's Blog
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../cloudstack/index.html">cloudstack</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">openstack</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../deploy/index.html">1. 安装部署实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ironic/index.html">2. Ironic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../neutron/index.html">3. Neutron</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">4. Monasca</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="monasca.html">4.1. Monasca 介绍</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4.2. Monasca 安装(Kolla)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">4.2.1. 编译镜像</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#monasca">4.2.2. 开启monasca</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">4.2.3. 部署&amp;安装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libvirt">4.2.4. 配置libvirt插件</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../develop/index.html">5. OpenStack 二次开发</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/index.html">6. OpenStack 源码解析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/index.html">7. OpenStack 其他相关文档</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../redis/index.html">Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../design-pattern/index.html">设计模式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ceph/index.html">ceph</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../others/index.html">杂七杂八</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../work/index.html">部门管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../linux/index.html">Linux</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Welcome to Fomalhaut's Blog</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">openstack</a> &raquo;</li>
+        
+          <li><a href="index.html">4. Monasca</a> &raquo;</li>
+        
+      <li>4.2. Monasca 安装(Kolla)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/openstack/monasca/monasca_install_by_kolla.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="monasca-kolla">
+<span id="monasca-install-by-kolla"></span><h1><a class="toc-backref" href="#id4">4.2. Monasca 安装(Kolla)</a><a class="headerlink" href="#monasca-kolla" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="id1">
+<p class="topic-title first">目录</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#monasca-kolla" id="id4">Monasca 安装(Kolla)</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id2" id="id5">编译镜像</a></p></li>
+<li><p><a class="reference internal" href="#monasca" id="id6">开启monasca</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id7">部署&amp;安装</a></p></li>
+<li><p><a class="reference internal" href="#libvirt" id="id8">配置libvirt插件</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id5">4.2.1. 编译镜像</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>由于我这边是通过源码编译的方式安装monasca，因此需要将monasca以及依赖的组件的镜像全部进行编译</p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#进入kolla 虚拟环境</span>
+<span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">os_hum</span><span class="o">/</span><span class="n">kolla_env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+
+<span class="c1">#编译依赖组件</span>
+<span class="n">python</span> <span class="o">./</span><span class="n">build</span><span class="o">.</span><span class="n">py</span> <span class="n">monasca</span> <span class="n">zookeeper</span> <span class="n">elasticsearch</span>
+<span class="n">python</span> <span class="o">./</span><span class="n">build</span><span class="o">.</span><span class="n">py</span> <span class="n">influxdb</span> <span class="n">kibana</span> <span class="n">grafana</span> <span class="n">kafka</span> <span class="n">logstash</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="monasca">
+<h2><a class="toc-backref" href="#id6">4.2.2. 开启monasca</a><a class="headerlink" href="#monasca" title="Permalink to this headline">¶</a></h2>
+<p>修改 <code class="docutils literal notranslate"><span class="pre">/etc/kolla/globals.yml</span></code> 文件，添加 <code class="docutils literal notranslate"><span class="pre">enable_monasca:</span> <span class="pre">&quot;yes&quot;</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">---</span>
+<span class="n">kolla_base_distro</span><span class="p">:</span> <span class="s2">&quot;centos&quot;</span>
+<span class="n">kolla_install_type</span><span class="p">:</span> <span class="s2">&quot;source&quot;</span>
+<span class="n">kolla_dev_mode</span><span class="p">:</span> <span class="n">true</span>
+<span class="n">openstack_release</span><span class="p">:</span> <span class="s2">&quot;8.0.1&quot;</span>
+<span class="n">kolla_internal_vip_address</span><span class="p">:</span> <span class="s2">&quot;10.199.33.153&quot;</span>
+<span class="n">network_interface</span><span class="p">:</span> <span class="s2">&quot;eth0&quot;</span>
+<span class="n">neutron_external_interface</span><span class="p">:</span> <span class="s2">&quot;eth1&quot;</span>
+<span class="n">enable_haproxy</span><span class="p">:</span> <span class="s2">&quot;no&quot;</span>
+<span class="n">enable_cinder</span><span class="p">:</span> <span class="s2">&quot;yes&quot;</span>
+<span class="n">enable_cinder_backup</span><span class="p">:</span> <span class="s2">&quot;no&quot;</span>
+<span class="n">enable_cinder_backend_nfs</span><span class="p">:</span> <span class="s2">&quot;yes&quot;</span>
+<span class="n">enable_trove</span><span class="p">:</span> <span class="s2">&quot;yes&quot;</span>
+<span class="n">cinder_backup_driver</span><span class="p">:</span> <span class="s2">&quot;nfs&quot;</span>
+<span class="n">cinder_backup_share</span><span class="p">:</span> <span class="s2">&quot;10.199.33.153:/opt/nfs/os/stein&quot;</span>
+<span class="n">nova_compute_virt_type</span><span class="p">:</span> <span class="s2">&quot;qemu&quot;</span>
+<span class="c1">#enable_ceilometer: &quot;yes&quot;</span>
+<span class="c1">#enable_panko: &quot;yes&quot;</span>
+<span class="c1">#enable_gnocchi: &quot;yes&quot;</span>
+<span class="c1">#enable_aodh: &quot;yes&quot;</span>
+
+<span class="n">enable_monasca</span><span class="p">:</span> <span class="s2">&quot;yes&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2><a class="toc-backref" href="#id7">4.2.3. 部署&amp;安装</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#进入虚拟环境</span>
+<span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">os_hum</span><span class="o">/</span><span class="n">kolla</span><span class="o">-</span><span class="n">ansible_env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+
+<span class="c1">#安装部署</span>
+<span class="n">cd</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">os_hum</span><span class="o">/</span><span class="n">kolla</span><span class="o">-</span><span class="n">ansible</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span>
+
+<span class="o">./</span><span class="n">kolla</span><span class="o">-</span><span class="n">ansible</span> <span class="n">bootstrap</span><span class="o">-</span><span class="n">servers</span>
+<span class="o">./</span><span class="n">kolla</span><span class="o">-</span><span class="n">ansible</span>  <span class="n">prechecks</span>
+<span class="o">./</span><span class="n">kolla</span><span class="o">-</span><span class="n">ansible</span>  <span class="n">deploy</span>
+<span class="o">./</span><span class="n">kolla</span><span class="o">-</span><span class="n">ansible</span>  <span class="n">post</span><span class="o">-</span><span class="n">deploy</span>
+
+<span class="c1">#生成环境变量</span>
+<span class="n">source</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">kolla</span><span class="o">/</span><span class="n">admin</span><span class="o">-</span><span class="n">openrc</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="libvirt">
+<h2><a class="toc-backref" href="#id8">4.2.4. 配置libvirt插件</a><a class="headerlink" href="#libvirt" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#进入monasca collector容器 安装libvirt插件</span>
+<span class="n">docker</span> <span class="n">exec</span> <span class="o">-</span><span class="n">it</span> <span class="o">-</span><span class="n">u</span> <span class="mi">0</span> <span class="n">monasca_agent_collector</span> <span class="n">bash</span>
+
+<span class="c1"># 安装libvirt系统组件</span>
+<span class="n">yum</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">libvirt</span> <span class="n">libvirt</span><span class="o">-</span><span class="n">devel</span>
+
+<span class="c1">#进入容器python虚拟环境</span>
+<span class="n">source</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">kolla</span><span class="o">/</span><span class="n">venv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+
+
+
+<span class="c1">#安装monasca libvirt插件 执行此命令将会安装libvirt-python</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">monasca</span><span class="o">-</span><span class="n">agent</span><span class="p">[</span><span class="n">libvirt</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../develop/index.html" class="btn btn-neutral float-right" title="5. OpenStack 二次开发" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="monasca.html" class="btn btn-neutral float-left" title="4.1. Monasca 介绍" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, fomalhaut
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

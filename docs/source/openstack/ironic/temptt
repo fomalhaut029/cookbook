@@ -1,0 +1,530 @@
+hostnamectl set-hostname kolla-ironic
+sed -i "s/^SELINUX=.*/SELINUX=disabled/g" /etc/selinux/config
+setenforce 0
+systemctl disable firewalld
+systemctl stop firewalld
+
+systemctl disable NetworkManager
+systemctl stop NetworkManager
+systemctl enable network
+systemctl start network
+
+
+mkdir ~/.pip
+cat > ~/.pip/pip.conf << EOF
+[global]
+trusted-host=mirrors.aliyun.com
+index-url=https://mirrors.aliyun.com/pypi/simple/
+EOF
+
+yum install -y wget
+rm -f /etc/yum.repos.d/*
+wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
+yum clean all
+yum makecache
+
+yum install -y yum-utils device-mapper-persistent-data lvm2
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum list docker-ce --showduplicates | sort -r
+yum makecache fast
+yum install docker-ce -y
+
+
+systemctl enable docker
+systemctl restart docker
+docker --version
+
+yum install -y python-devel libffi-devel gcc openssl-devel libselinux-python
+yum install -y python-pip git
+
+
+pip install -U ansible
+pip install -U tox
+pip install -U python-openstackclient
+pip install -U docker
+pip install -U jinja2
+pip install -U ipaddres
+pip install --ignore-installed ipaddress
+pip install more-itertools==5.0.0
+pip install GitPython==2.1.14
+
+cd /home
+
+git clone https://github.com/openstack/kolla -b stable/stein
+git clone https://github.com/openstack/kolla-ansible -b stable/stein
+
+virtualenv kolla_env
+source kolla_env/bin/activate
+pip install more-itertools==5.0.0
+pip install GitPython==2.1.14
+pip install -r requirements.txt -r test-requirements.txt -e .
+deactivate
+
+virtualenv kolla-ansible_env
+source kolla-ansible_env/bin/activate
+pip install more-itertools==5.0.0
+pip install GitPython==2.1.14
+cd kolla-ansible
+pip install -r requirements.txt -r test-requirements.txt -e .
+
+mkdir -p /etc/kolla
+cp etc/kolla/* /etc/kolla/
+
+cd tools/
+./generate_passwords.py
+sed -i 's/^keystone_admin_password: .*/keystone_admin_password: wwwwww/g' /etc/kolla/passwords.yml
+echo >/etc/kolla/globals.yml
+cat > /etc/kolla/globals.yml << EOF
+kolla_base_distro: "centos"
+kolla_install_type: "source"
+openstack_release: "stein"
+network_interface: "eth0"
+neutron_external_interface: "eth1"
+kolla_internal_vip_address: "10.199.32.110"
+openstack_logging_debug: "True"
+nova_compute_virt_type: "qemu"
+enable_haproxy: "no"
+neutron_tenant_network_types: "flat,vxlan"
+
+####ironic#####
+enable_ironic: "yes"
+enable_ironic_ipxe: "yes"
+#enable_ironic_neutron_agent: "{{ enable_neutron | bool and enable_ironic | bool }}"
+#enable_ironic_pxe_uefi: "no"
+ironic_dnsmasq_default_gateway: 10.199.33.1
+ironic_cleaning_network: "vlan32"
+ironic_dnsmasq_dhcp_range: "10.199.33.20,10.199.33.25"
+
+####dev####
+#kolla_dev_repos_directory: "/opt/stack/"
+#kolla_dev_repos_git: "https://opendev.org/openstack"
+#kolla_dev_repos_pull: "no"
+#kolla_dev_mode: "no"
+#kolla_source_version: "master"
+
+EOF
+
+
+
+#####裸机配置######
+mkdir -p /etc/kolla/config/ironic
+
+wget -O /etc/kolla/config/ironic/ironic-agent.kernel http://tarballs.openstack.org/ironic-python-agent/coreos/files/coreos_production_pxe-stable-stein.vmlinuz
+wget -O /etc/kolla/config/ironic/ironic-agent.initramfs http://tarballs.openstack.org/ironic-python-agent/coreos/files/coreos_production_pxe_image-oem-stable-stein.cpio.gz
+#wget -O /etc/kolla/config/ironic/ironic-agent.kernel http://172.28.12.10/lifc/kolla/ironic-agent.kernel
+#wget -O /etc/kolla/config/ironic/ironic-agent.initramfs http://172.28.12.10/lifc/kolla/ironic-agent.initramfs
+
+cat > /etc/kolla/config/ironic/ironic.conf << EOF
+[DEFAULT]
+# Enable all fake hardware types and interfaces.
+enabled_hardware_types = ipmi,redfish,idrac
+enabled_boot_interfaces = pxe
+enabled_console_interfaces = ipmitool-socat,no-console
+enabled_deploy_interfaces = iscsi,direct
+enabled_inspect_interfaces = inspector,idrac
+enabled_management_interfaces = ipmitool,redfish,idrac
+enabled_network_interfaces = flat,neutron
+enabled_power_interfaces = ipmitool,redfish,idrac
+enabled_raid_interfaces = agent,no-raid,idrac
+enabled_storage_interfaces = cinder,noop
+enabled_vendor_interfaces = ipmitool,no-vendor,idrac
+
+[neutron]
+cleaning_network = vlan32
+provisioning_network = vlan32
+
+EOF
+
+./kolla-ansible bootstrap-servers
+./kolla-ansible prechecks
+./kolla-ansible -vvvv deploy
+./kolla-ansible -vvvv  post-deploy
+
+
+
+############创建网络
+openstack network create --provider-network-type vlan --provider-physical-network physnet1 --provider-segment 32 --disable-port-security vlan32
+openstack subnet create  --allocation-pool start=10.199.32.20,end=10.199.32.25 --network vlan32 --subnet-range 10.199.32.0/24 --gateway 10.199.32.19  vlan32-subnet
+
+openstack network create --provider-network-type vlan --provider-physical-network physnet1 --provider-segment 33 --disable-port-security vlan33
+openstack subnet create --subnet-range 10.199.33.0/24 --network vlan33 vlan33-subnet
+
+
+
+############交换机配置
+##access配置
+sh run in gi 2/0/12
+conf t
+default in gi 2/0/12
+in gi 2/0/12
+switchport mode access
+sw ac vl 101
+end
+wr
+
+sh run in gi 2/0/18
+conf t
+default in gi 2/0/18
+in gi 2/0/18
+switchport mode access
+sw ac vl 101
+end
+wr
+
+##trunk配置
+sh run in gi 2/0/12
+conf t
+default in gi 2/0/12
+in gi 2/0/12
+switchport trunk encapsulation dot1q 
+switchport mode trunk
+sw trunk allowed vlan add 100-150
+end
+wr
+
+#############网络抓包测试
+
+
+
+_________________________________________________________________________________________________
+
+
+
+source /etc/kolla/admin-openrc.sh
+
+s1_ipmi_address=10.199.32.110
+s1_ipmi_port=6230
+s1_ipmi_username=admin
+s1_ipmi_password=password
+s1_nic_mac_address=00:1e:67:63:0b:58
+
+RAM=8192
+DISK=20
+VCPUS=4
+HOST_CPU_ARCH=x86_64
+export IRONIC_API_VERSION=1.20
+
+EXT_NET_CIDR='10.199.32.0/24'
+EXT_NET_RANGE='start=10.199.33.60,end=10.199.33.70'
+EXT_NET_GATEWAY='10.199.33.59'
+
+# ironic init setup
+# create ironic manage network
+openstack network create --provider-physical-network physnet1 \
+--provider-network-type flat --share public
+
+openstack subnet create  \
+--allocation-pool ${EXT_NET_RANGE} --network public \
+--subnet-range ${EXT_NET_CIDR} --gateway ${EXT_NET_GATEWAY} --dhcp  -- public-subnet
+
+openstack image create --disk-format aki --container-format aki --public \
+--file /etc/kolla/config/ironic/ironic-agent.kernel deploy-vmlinuz
+openstack image create --disk-format ari --container-format ari --public \
+--file /etc/kolla/config/ironic/ironic-agent.initramfs deploy-initrd
+  
+glance image-create --name my-kernel --visibility public \
+--disk-format aki --container-format aki < /opt/my-image.vmlinuz
+
+openstack image create --public  --shared --disk-format aki --container-format aki  --file <FILE> <IMAGE_NAME>
+
+glance image-create --name my-image.initrd --visibility public \
+--disk-format ari --container-format ari < /opt/my-image.initrd
+
+openstack image create --public  --shared --disk-format ari --container-format ari  --file <FILE> <IMAGE_NAME>
+  
+MY_VMLINUZ_UUID=$(glance image-list|grep my-kernel|awk -F "| " '{print $2}')
+MY_INITRD_UUID=$(glance image-list|grep my-image.initrd|awk -F "| " '{print $2}')
+
+glance image-create --name my-image-with-dev-user --visibility public \
+  --disk-format qcow2 --container-format bare --property \
+  kernel_id=$MY_VMLINUZ_UUID --property \
+  ramdisk_id=$MY_INITRD_UUID < /opt/my-image.qcow2
+ 
+ ssh-keygen -t rsa -f ~/.ssh/id_rsa
+openstack keypair create --public-key ~/.ssh/id_rsa.pub mykey
+
+nova quota-class-update --instances 50 default
+nova quota-class-update --ram 5120000 default
+nova quota-class-update --cores 2000 default
+
+
+
+
+# node1
+nova flavor-create ai-bm-node1 1 ${RAM} ${DISK} ${VCPUS}
+nova flavor-key ai-bm-node1 set cpu_arch=x86_64
+nova flavor-key ai-bm-node1 set resources:CUSTOM_BAREMETAL_NODE1_AI=1
+nova flavor-key ai-bm-node1 set resources:VCPU=0
+nova flavor-key ai-bm-node1 set resources:MEMORY_MB=0
+nova flavor-key ai-bm-node1 set resources:DISK_GB=0
+
+openstack baremetal node create --driver ipmi --name node1
+
+NODE1_UUID=$(openstack baremetal node list|grep node1 |awk -F "| " '{print $2}')
+
+
+openstack baremetal node set $NODE1_UUID \
+--driver-info ipmi_username=$s2_ipmi_username \
+--driver-info ipmi_password=$s2_ipmi_password \
+--driver-info ipmi_address=$s2_ipmi_address \
+--driver-info ipmi_port=$s2_ipmi_port 
+
+DEPLOY_VMLINUZ_UUID=$(glance image-list|grep deploy-vmlinuz|awk -F "| " '{print $2}')
+DEPLOY_INITRD_UUID=$(glance image-list|grep deploy-initrd|awk -F "| " '{print $2}')
+
+openstack baremetal node set $NODE1_UUID \
+--driver-info deploy_kernel=$DEPLOY_VMLINUZ_UUID \
+--driver-info deploy_ramdisk=$DEPLOY_INITRD_UUID
+
+openstack baremetal node set $NODE1_UUID \
+--property cpus=${VCPUS} \
+--property memory_mb=${RAM} \
+--property local_gb=${DISK} \
+--property cpu_arch=${HOST_CPU_ARCH}
+
+openstack --os-baremetal-api-version 1.21 baremetal node set $NODE1_UUID \
+--resource-class  BAREMETAL_NODE1_AI
+
+openstack baremetal port create $s1_nic_mac_address --node $NODE1_UUID
+
+openstack baremetal node manage $NODE1_UUID
+openstack baremetal node provide $NODE1_UUID
+
+openstack baremetal node list
+
+openstack server create --image my-image --flavor ai-bm-node1  --key-name mykey --network public  node1
+
+
+
+###################ironic网络清理
+
+
+
+#####################故障排除
+从K版以后支持部署阶段完成后使用本地启动，即部署阶段完成后进入用户系统的过程从物理机本地启动，而不使用PXE启动。设置本地启动需要在节点信息中加入本地启动的信息，镜像内需要安装grab2。
+
+#1.不需要nova-computer节点
+ironic node-update <node-uuid> add instance_info/capabilities='{"boot_option": "local"}'
+
+#2.或者需要nova-computer节点
+ironic node-update <node-uuid> add properties/capabilities="boot_option:local"
+nova flavor-key baremetal set capabilities:boot_option="local"
+
+
+
+####################网络清理一般步骤
+
+
+
+#####Debug###############
+docker exec -it -u root heat_api pip install remote_pdb
+from remote_pdb import RemotePdb
+RemotePdb('127.0.0.1', 4444).set_trace()
+
+
+
+To connect just run telnet 127.0.0.1 4444. When you are finished debugging, either exit the debugger, or press Control-], then Control-d.
+
+Alternately, one can connect with NetCat: nc -C 127.0.0.1 4444 or Socat: socat readline tcp:127.0.0.1:4444 (for line editing and history support). When finished debugging, either exit the debugger, or press Control-c.
+
+
+
+
+
+“清除openstack网络与路由”和”添加openstack网络与路由”的操作步骤相反。
+
+添加网络或路由时是先建
+
+搭建网络>搭建子网>建立端口，
+
+而清除网络与路由则相反，顺序如下：
+
+删除网络的顺序
+
+删除设备的顺序>删除端口->删除设备
+
+删除路由
+
+删除设备端口->删除子网->删除网络
+
+下面，我们以删除一个路由设备为例，讲解整个过程（以下命令都在控制节点执行）。
+
+
+
+#####################################################
+virtualbmc 使用
+
+环境： eth0 eth1 两个网卡
+	   centost7 1810
+	   
+
+安装：
+	  
+sed -i "s/^SELINUX=.*/SELINUX=disabled/g" /etc/selinux/config
+setenforce 0
+systemctl disable firewalld
+systemctl stop firewalld
+
+systemctl disable NetworkManager
+systemctl stop NetworkManager
+systemctl enable network
+systemctl start network
+
+
+mkdir ~/.pip
+cat > ~/.pip/pip.conf << EOF
+[global]
+trusted-host=mirrors.aliyun.com
+index-url=https://mirrors.aliyun.com/pypi/simple/
+EOF
+
+yum install -y wget
+rm -f /etc/yum.repos.d/*
+wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
+wget -O /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
+yum clean all
+yum makecache
+
+yum -y install bridge-utils qemu-kvm libvirt virt-install virt-manager bridge-utils
+
+配置桥接略
+bridge name	bridge id		STP enabled	interfaces
+br1		8000.44a8420beb53	no		em1
+br2		8000.44a8420beb54	no		em2
+
+
+
+qemu-img create -f raw /opt/centos7.raw 100G
+virt-install --name=centos --ram=8196 --vcpus=4 -f /opt/centos7.raw --location /opt/CentOS-7-x86_64-Minimal-1810.iso  --network bridge=br2 --extra-args='console=tty0 console=ttyS0,115200n8 serial' --force
+
+
+yum  -y install gcc libvirt-devel python-devel
+pip install virtualbmc
+
+
+
+####################ironic vlan 网络
+openstack baremetal node create --network-interface neutron --driver ipmi --name node2
+
+
+RAM=4096
+DISK=20
+VCPUS=2
+HOST_CPU_ARCH=x86_64
+
+nova flavor-create ai-bm-node2 2 ${RAM} ${DISK} ${VCPUS}
+nova flavor-key ai-bm-node2 set cpu_arch=x86_64
+nova flavor-key ai-bm-node2 set resources:CUSTOM_BAREMETAL_NODE2_AI=1
+nova flavor-key ai-bm-node2 set resources:VCPU=0
+nova flavor-key ai-bm-node2 set resources:MEMORY_MB=0
+nova flavor-key ai-bm-node2 set resources:DISK_GB=0
+
+
+NODE2_UUID=$(openstack baremetal node list|grep node2 |awk -F "| " '{print $2}')
+openstack baremetal node set $NODE2_UUID \
+--driver-info ipmi_username=root \
+--driver-info ipmi_password=wwwwww \
+--driver-info ipmi_address=10.199.32.113 \
+--driver-info ipmi_port=623 
+
+DEPLOY_VMLINUZ_UUID=$(glance image-list|grep deploy-vmlinuz|awk -F "| " '{print $2}')
+DEPLOY_INITRD_UUID=$(glance image-list|grep deploy-initrd|awk -F "| " '{print $2}')
+
+openstack baremetal node set $NODE2_UUID \
+--driver-info deploy_kernel=$DEPLOY_VMLINUZ_UUID \
+--driver-info deploy_ramdisk=$DEPLOY_INITRD_UUID
+
+openstack baremetal node set $NODE2_UUID \
+--property cpus=${VCPUS} \
+--property memory_mb=${RAM} \
+--property local_gb=${DISK} \
+--property cpu_arch=${HOST_CPU_ARCH}
+
+openstack --os-baremetal-api-version 1.21 baremetal node set $NODE2_UUID \
+--resource-class  BAREMETAL_NODE2_AI
+
+openstack baremetal port create --node $NODE2_UUID --local-link-connection switch_id=00:26:CA:2E:15:80 --local-link-connection switch_info=L15_C3750-Stack --local-link-connection port_id=Gig2/0/18 --pxe-enabled true --physical-network physnet1 52:54:00:e7:be:b2
+
+openstack baremetal node manage $NODE2_UUID
+openstack baremetal node provide $NODE2_UUID
+
+openstack baremetal node list
+
+openstack server create --image my-image --flavor ai-bm-node1  --key-name mykey --network public  node1
+
+
+#########################virtualbmc install######################
+yum -y install bridge-utils qemu-kvm libvirt virt-install virt-manager bridge-utils
+yum install -y acpi
+qemu-img create -f raw /opt/centos7.raw 100G
+virt-install --name=centos --ram=8196 --vcpus=4 -f /opt/centos7.raw --location /opt/CentOS-7-x86_64-Minimal-1810.iso  --network bridge=br2 --extra-args='console=tty0 console=ttyS0,115200n8 serial' --force
+vbmc add centos --username root --password wwwwww --port 623
+vbmc start centos
+
+默认监听是127.0.0.7 应该改为listen='0.0.0.0'
+通过spice协议查看控制台：“
+spice://10.199.32.113:5900
+
+
+#########################DIB 制作镜像######################
+
+1.制作用户镜像：
+export DIB_DEV_USER_USERNAME=centos   //初始用户名centos
+export DIB_DEV_USER_PASSWORD=password   //初始密码password
+export DIB_DEV_USER_PWDLESS_SUDO=YES   //允许sudo
+export DIB_CLOUD_INIT_DATASOURCES="ConfigDrive, OpenStack"   //cloud-init 的datasource是ConfigDrive
+
+disk-image-create centos7 baremetal dhcp-all-interfaces grub2 install-static devuser -o centos7 cloud-init-datasources
+
+yum install -y libguestfs-tools
+export LIBGUESTFS_BACKEND=direct  
+virt-sysprep --root-password password:password -a centos7.qcow2   （修改密码为password）
+virt-sysprep --root-password password:password -a centos7.qcow2   （修改密码为password）
+
+
+
+
+#####################问题集合#################################
+
+1.在创建vlan网络的时候，交换机端口必须设置成trunk模式。否则网络不通
+
+2.外部网络连接的网卡的物理网络必须为access模式。否则不通
+
+
+
+
+####################console####################################
+首先裸机节点必须工作在 enroll, inspecting, inspect wait, manageable, available states or in maintenance mode
+如果裸机不是在上述状态下：
+
+设置available状态：
+openstack baremetal node manage $NODE1_UUID
+openstack baremetal node provide $NODE1_UUID
+
+
+
+openstack --os-baremetal-api-version 1.31 baremetal node set <node-uuid> --console-interface ipmitool-socat
+openstack baremetal node set <node-uuid> --driver-info ipmi_terminal_port=<port>
+openstack baremetal node console enable <node-uuid>
+openstack baremetal node validate <node-uuid>
+
+openstack baremetal node console disable  <node-uuid>
+openstack baremetal node unset <node-uuid> --driver-info <ipmi_terminal_port>
+
+openstack console url show --serial node1
+
+
+
+docker images |grep ironic | awk {'print $1":"$2'} | xargs -i  docker tag {} 10.177.9.186:5000/{}
+docker images |grep ironic | awk {'print $1":"$2'} | xargs -i  docker push 10.177.9.186:5000/{}
+
+
+
+
+############################################# dirac ###############
+openstack baremetal node create --driver idrac --driver-info drac_username=root --driver-info drac_password=wwwwww --driver-info drac_address=10.199.32.121 --name node1
+
+
+####切换用户
+alias openmember='openstack --os-project-name project-152202708661111 --os-username 152202708661111 --os-password password'

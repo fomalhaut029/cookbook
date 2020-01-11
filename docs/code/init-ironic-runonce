@@ -1,0 +1,207 @@
+#!/bin/bash
+
+set -o errexit
+
+
+ARCH=$(uname -m)
+IMAGE_PATH=/opt/cache/files/
+IMAGE_URL=http://172.28.12.10/lifc/openstack/image/
+IMAGE=centos7.qcow2
+IMAGE_KERNEL=centos7.vmlinuz
+IMAGE_INITRD=centos7.initrd
+IMAGE_NAME=centos7
+IMAGE_TYPE=linux
+
+
+NODE_NAME=b1
+NODE_IPMI_ADDRESS=10.199.32.166
+NODE_IPMI_PORT=623
+NODE_IPMI_TERMINAL_PORT=12388
+NODE_IPMI_USER=root
+NODE_IPMI_PASS=calvin
+NODE_NIC_MAC=BC:30:5B:F0:7E:98
+
+SWITCH_ID=00:26:CA:2E:15:80
+SWITCH_INFO=L15_C3750-Stack
+SWITCH_PORT_ID=Gig2/0/12
+
+
+DEPLOY_NET_NAME=ironic-deploy
+DEPLOY_NET_VLAN_ID=187
+DEPLOY_NET_CIDR='10.187.0.0/22'
+DEPLOY_NET_GATEWAY='10.187.0.1'
+DEPLOY_NET_RANGE=start=10.187.0.50,end=10.187.0.200
+
+USER_NET_NAME=ironic-vlan3100-net
+USER_NET_VLAN_ID=3100
+USER_NET_CIDR='10.199.3100.0/24'
+USER_NET_GATEWAY='10.199.3100.1'
+
+unset LANG
+unset LANGUAGE
+LC_ALL=C
+export LC_ALL
+for i in curl openstack; do
+    if [[ ! $(type ${i} 2>/dev/null) ]]; then
+        if [ "${i}" == 'curl' ]; then
+            echo "Please install ${i} before proceeding"
+        else
+            echo "Please install python-${i}client before proceeding"
+        fi
+        exit
+    fi
+done
+
+# Test for credentials set
+if [[ "${OS_USERNAME}" == "" ]]; then
+    echo "No Keystone credentials specified. Try running source /etc/kolla/admin-openrc.sh command"
+    exit
+fi
+
+# Test to ensure configure script is run only once
+if openstack image list | grep -q centos7; then
+    echo "This tool should only be run once per deployment."
+    exit
+fi
+
+echo Checking for locally available centos7 image.
+# Let's first try to see if the image is available locally
+# nodepool nodes caches them in $IMAGE_PATH
+if ! [ -f "${IMAGE_PATH}/${IMAGE}" ]; then
+    IMAGE_PATH='./'
+    if ! [ -f "${IMAGE_PATH}/${IMAGE}" ]; then
+        echo None found, downloading cirros image.
+        curl -L -o ${IMAGE_PATH}/${IMAGE} ${IMAGE_URL}/${IMAGE}
+        curl -L -o ${IMAGE_PATH}/${IMAGE_KERNEL} ${IMAGE_URL}/${IMAGE_KERNEL}
+        curl -L -o ${IMAGE_PATH}/${IMAGE_INITRD} ${IMAGE_URL}/${IMAGE_INITRD}
+    fi
+else
+    echo Using cached centos7 image from the nodepool node.
+fi
+
+EXTRA_PROPERTIES=
+if [ ${ARCH} == aarch64 ]; then
+    EXTRA_PROPERTIES="--property hw_firmware_type=uefi"
+fi
+
+echo Creating Ironic deploy glance image.
+openstack image create --disk-format aki --container-format aki --public \
+    --file /etc/kolla/config/ironic/ironic-agent.kernel deploy-vmlinuz
+openstack image create --disk-format ari --container-format ari --public \
+    --file /etc/kolla/config/ironic/ironic-agent.initramfs deploy-initrd
+
+echo Creating Ironic user glance image
+
+openstack image create --public --disk-format aki --container-format \
+    aki  --file ${IMAGE_PATH}/${IMAGE_KERNEL} ${IMAGE_KERNEL}
+
+openstack image create --public --disk-format ari --container-format \
+    ari  --file ${IMAGE_PATH}/${IMAGE_INITRD} ${IMAGE_INITRD}
+
+CENTOS7_VMLINUZ_UUID=$(openstack image list |grep centos7|grep vmlinuz|awk -F "| " '{print $2}')
+CENTOS7_INITRD_UUID=$(openstack image list |grep centos7|grep initrd|awk -F "| " '{print $2}')
+
+openstack image create --disk-format qcow2 --container-format bare --public \
+    --property os_type=${IMAGE_TYPE} \
+    --property kernel_id=$CENTOS7_VMLINUZ_UUID \
+    --property ramdisk_id=$CENTOS7_INITRD_UUID \
+    ${EXTRA_PROPERTIES} \
+    --file ${IMAGE_PATH}/${IMAGE} ${IMAGE_NAME}
+
+echo Configuring Ironic  network.
+
+openstack network create --provider-network-type vlan --provider-physical-network physnet1 \
+    --provider-segment ${DEPLOY_NET_VLAN_ID} --disable-port-security ${DEPLOY_NET_NAME}
+
+openstack subnet create  --allocation-pool  ${DEPLOY_NET_RANGE} \
+    --network ${DEPLOY_NET_NAME} --subnet-range ${DEPLOY_NET_CIDR} \
+    --gateway ${DEPLOY_NET_GATEWAY}  ${DEPLOY_NET_NAME}-subnet
+
+
+openstack network create --provider-network-type vlan --provider-physical-network physnet1 \
+    --provider-segment ${USER_NET_VLAN_ID} --disable-port-security ${USER_NET_NAME}
+
+openstack subnet create \
+    --network ${USER_NET_NAME} --subnet-range ${USER_NET_CIDR} \
+    --gateway ${USER_NET_GATEWAY}  ${USER_NET_NAME}-subnet
+
+
+echo Configuring Ironic flavor.
+RAM=1024
+DISK=20
+VCPUS=1
+HOST_CPU_ARCH=x86_64
+
+openstack flavor create --id 30001 --public --ram ${RAM} --disk ${DISK} --vcpus ${VCPUS} \
+    --property cpu_arch=x86_64 --property resources:CUSTOM_BAREMETAL_NODE1=1 \
+    --property resources:MEMORY_MB=0 --property resources:VCPU=0 --property resources:DISK_GB=0 \
+    b1.tiny
+
+echo Configuring Ironic node.
+openstack baremetal node create --network-interface neutron --driver ipmi --name ${NODE_NAME}
+NODE_UUID=$(openstack baremetal node list|grep ${NODE_NAME} |awk -F "| " '{print $2}')
+
+openstack baremetal node set ${NODE_UUID} \
+    --driver-info ipmi_username=${NODE_IPMI_USER} \
+    --driver-info ipmi_password=${NODE_IPMI_PASS} \
+    --driver-info ipmi_address=${NODE_IPMI_ADDRESS} \
+    --driver-info ipmi_port=${NODE_IPMI_PORT} 
+
+
+DEPLOY_VMLINUZ_UUID=$(openstack image list|grep deploy-vmlinuz|awk -F "| " '{print $2}')
+DEPLOY_INITRD_UUID=$(openstack image list|grep deploy-initrd|awk -F "| " '{print $2}')
+
+openstack baremetal node set ${NODE_UUID} \
+    --driver-info deploy_kernel=${DEPLOY_VMLINUZ_UUID} \
+    --driver-info deploy_ramdisk=${DEPLOY_INITRD_UUID}
+
+openstack baremetal node set ${NODE_UUID} \
+    --property cpus=${VCPUS} \
+    --property memory_mb=${RAM} \
+    --property local_gb=${DISK} \
+    --property cpu_arch=${HOST_CPU_ARCH}
+
+openstack baremetal node set --instance-info capabilities='{"boot_option": "local"}' ${NODE_UUID}
+
+openstack --os-baremetal-api-version 1.21 baremetal node set ${NODE_UUID} \
+    --resource-class BM_MEDIUM
+
+openstack baremetal port create --node ${NODE_UUID} \
+    --local-link-connection switch_id=${SWITCH_ID} \
+    --local-link-connection switch_info=${SWITCH_INFO} \
+    --local-link-connection port_id=${SWITCH_PORT_ID} \
+    --pxe-enabled true \
+    --physical-network physnet1 ${NODE_NIC_MAC}
+
+echo "Configure console enabled"
+
+openstack --os-baremetal-api-version 1.31 baremetal node set ${NODE_UUID} \
+    --console-interface ipmitool-socat
+openstack baremetal node set ${NODE_UUID} --driver-info ipmi_terminal_port=${NODE_IPMI_TERMINAL_PORT}
+openstack baremetal node console enable ${NODE_UUID}
+openstack console url show --serial ${NODE_UUID}
+openstack baremetal node validate ${NODE_UUID}
+
+openstack baremetal node manage ${NODE_UUID}
+openstack baremetal node list |grep $NODE_UUID|grep enroll
+
+
+
+openstack baremetal node provide ${NODE_UUID}
+
+openstack baremetal node list
+
+cat << EOF
+
+Done.
+
+To deploy a demo instance, run:
+
+
+openstack server create \\
+    --image ${IMAGE_NAME} \\
+    --flavor ${NODE_NAME} \\
+    --key-name mykey \\
+    --network ${USER_NET_NAME} \\
+    ${NODE_NAME}
+EOF

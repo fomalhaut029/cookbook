@@ -1,3 +1,8 @@
 {
-    "restructuredtext.confPath": "${workspaceFolder}\\docs\\source"
+    "restructuredtext.confPath": "${workspaceFolder}\\docs\\source",
+    "python.pythonPath": "D:\\python37\\python.exe",
+    "restructuredtext.linter.extraArgs": [
+        "--ignore D002",
+        "--ignore D004"
+    ]
 }

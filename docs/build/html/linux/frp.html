@@ -1,0 +1,329 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2. 内网穿透-FRP &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/my_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. 使用ubuntu作为开发环境" href="configure_ubuntu_develoy_env.html" />
+    <link rel="prev" title="1. linux网卡的vlan配置" href="linux_vlan_config.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Welcome to Fomalhaut's Blog
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../cloudstack/index.html">cloudstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../openstack/index.html">openstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../redis/index.html">Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design-pattern/index.html">设计模式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ceph/index.html">ceph</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../others/index.html">杂七杂八</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../work/index.html">部门管理</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Linux</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="linux_vlan_config.html">1. linux网卡的vlan配置</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2. 内网穿透-FRP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2.1. 使用场景</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2.2. 安装部署</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">2.2.1. 将frp注册为服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">2.2.2. 使用场景</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configure_ubuntu_develoy_env.html">3. 使用ubuntu作为开发环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shell_usage.html">4. 常用的shell命令详解</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Welcome to Fomalhaut's Blog</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Linux</a> &raquo;</li>
+        
+      <li>2. 内网穿透-FRP</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/linux/frp.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="frp">
+<span id="id1"></span><h1>2. 内网穿透-FRP<a class="headerlink" href="#frp" title="Permalink to this headline">¶</a></h1>
+<p>frp 是一个高性能的反向代理应用，可以帮助您轻松地进行内网穿透，对外网提供服务，支持 tcp, udp, http, https 等协议类型，
+并且 web 服务支持根据域名进行路由转发。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>项目地址：
+码云: <a class="reference external" href="https://gitee.com/yijicai/frp/">https://gitee.com/yijicai/frp/</a>  github: <a class="reference external" href="https://github.com/fatedier/frp/">https://github.com/fatedier/frp/</a></p>
+</div>
+<div class="section" id="id2">
+<h2>2.1. 使用场景<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>内网穿透-类似花生壳，对于没有公网ip的内网用户,可以利用内网机子。提供外网httphttps服务</p></li>
+<li><p>对于 http 服务支持基于域名的虚拟主机，支持自定义域名绑定，使多个域名可以共用一个80端口</p></li>
+<li><p>用处于内网或防火墙后的机器，对外网环境提供 tcp 服务，例如在家里通过 ssh 访问处于公司内网环境内的主机。</p></li>
+</ol>
+</div>
+<div class="section" id="id3">
+<h2>2.2. 安装部署<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>软件下载地址：<a class="reference external" href="https://github.com/fatedier/frp/releases">https://github.com/fatedier/frp/releases</a></p>
+</div>
+<p>我们这里以linux为例：
+下载解压
+++++++++</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">frp</span><span class="o">/</span>
+<span class="n">wget</span> <span class="o">-</span><span class="n">O</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">frp</span><span class="o">/</span><span class="n">frp</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">fatedier</span><span class="o">/</span><span class="n">frp</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">download</span><span class="o">/</span><span class="n">v0</span><span class="o">.</span><span class="mf">29.1</span><span class="o">/</span><span class="n">frp_0</span><span class="o">.</span><span class="mf">29.1</span><span class="n">_linux_amd64</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">cd</span>  <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">frp</span><span class="o">/</span>
+<span class="n">tar</span> <span class="n">xzvf</span> <span class="n">frp</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">mv</span> <span class="n">frp_0</span><span class="o">.</span><span class="mf">29.1</span><span class="n">_linux_amd64</span> <span class="n">frp</span>
+</pre></div>
+</div>
+<div class="section" id="id4">
+<h3>2.2.1. 将frp注册为服务<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#注册服务端服务
+mkdir /etc/frp
+cp frps.ini /etc/frp/frps.ini
+tee /usr/lib/systemd/system/frps.service &lt;&lt;EOF
+[Unit]
+Description=frps
+After=network.target
+
+[Service]
+TimeoutStartSec=30
+ExecStart=/usr/local/frp/frp/frps -c /etc/frp/frps.ini
+ExecStop=/bin/kill $MAINPID
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+#注册客户端服务（我这里服务端和客户端位于同一个服务）
+cp frpc.ini /etc/frp/frpc.ini
+tee /usr/lib/systemd/system/frpc.service &lt;&lt;EOF
+[Unit]
+Description=frpc
+After=network.target
+
+[Service]
+TimeoutStartSec=30
+ExecStart=/usr/local/frp/frp/frpc -c /etc/frp/frpc.ini
+ExecStop=/bin/kill $MAINPID
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+
+#启动服务
+systemctl enable frps
+systemctl start frps
+systemctl status frps
+
+systemctl enable frpc
+systemctl start frpc
+systemctl status frpc
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>2.2.2. 使用场景<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>ssh访问内网服务器</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>vi /etc/frp/frpc.ini
+#加入以下内容
+[ssh-10.199.32.123]
+type = tcp #转发协议
+local_ip = 10.199.32.123 #内网服务器ip
+local_port = 22 #内网服务器ssh端口
+remote_port = 12322 #代理服务器（frps服务器端口）
+
+连接：我的frps地址为：172.28.12.252
+ssh 172.28.12.252 12322
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>sfa</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="configure_ubuntu_develoy_env.html" class="btn btn-neutral float-right" title="3. 使用ubuntu作为开发环境" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="linux_vlan_config.html" class="btn btn-neutral float-left" title="1. linux网卡的vlan配置" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, fomalhaut
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

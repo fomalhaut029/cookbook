@@ -1,0 +1,302 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>3. 常用交换机命令 &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/my_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4. Proxome-VE 集群部署" href="deploy_debain_local_source.html" />
+    <link rel="prev" title="2. prometheus 线路监控方案" href="docker_promethus_snmp_smokeping.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Welcome to Fomalhaut's Blog
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../cloudstack/index.html">cloudstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../openstack/index.html">openstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../redis/index.html">Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design-pattern/index.html">设计模式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ceph/index.html">ceph</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">杂七杂八</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="sphinx_readthedoc_github.html">1. 使用 Sphinx + Readthedoc + GitHub 建立个人的博客站点</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker_promethus_snmp_smokeping.html">2. prometheus 线路监控方案</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3. 常用交换机命令</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#access-vlan-32">3.1. 场景1： 配置端口2/0/4 access vlan 32</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#trunk-vlan-100-150">3.2. 场景1： 配置端口2/0/14 trunk vlan 100-150</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vlan">3.3. 删除默认的全部放行vlan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">3.4. 查看交换机信息</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="deploy_debain_local_source.html">4. Proxome-VE 集群部署</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install_muti_python_on_win.html">5. Windows 下安装多版本Python 环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kvm_virtul_performance_test.html">6. KVM 虚拟机性能测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxmoxVE_with_ceph_deploy.html">7. Proxmox-VE搭配Ceph存储组建高可用虚拟化平台</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switch_traffic_monitor_system.html">8. 交换机流量监控方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virt_manager_kvm_vm.html">9. 使用virt_manager管理kvm虚拟机</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_technology_iptables.html">10. 云计算-Iptables&amp;Netfilter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_technology_linux_bridge.html">11. 云计算-Linux/Bridge</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_technology_openvswitch.html">12. 云计算-OpenvSwitch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_technology_tap_tun_vnet.html">13. 云计算-虚拟网络设备</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reStructuredText_quick_copy_pic.html">14. reStructuredText 实现粘贴图片</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rst_usage.html">15. rst 用法总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vscode_usage.html">16. Vscode 使用技巧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git_usage.html">17. Git 使用技巧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux_cmd_usage.html">18. Linux 命令行 使用技巧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autoHotKey_usage.html">19. AutoHotKey 使用技巧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx_doc.html">20. sphinx模板</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../work/index.html">部门管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">Linux</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Welcome to Fomalhaut's Blog</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">杂七杂八</a> &raquo;</li>
+        
+      <li>3. 常用交换机命令</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/others/switch_cmd_learning.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="switch-cmd-list">
+<span id="id1"></span><h1>3. 常用交换机命令<a class="headerlink" href="#switch-cmd-list" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>记录常用的交换机命令：</p>
+</div>
+<div class="section" id="access-vlan-32">
+<h2>3.1. 场景1： 配置端口2/0/4 access vlan 32<a class="headerlink" href="#access-vlan-32" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>查看端口情况</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>L15_C3750-Stack#sh run in gi 2/0/4 #查看端口情况
+
+Building configuration...
+
+Current configuration : 181 bytes
+!
+interface GigabitEthernet2/0/4
+description TO L15_ROS ETH1
+switchport trunk encapsulation dot1q
+switchport trunk allowed vlan 2,32-34,118
+switchport mode trunk
+shutdown
+end
+</pre></div>
+</div>
+<p>#. 清理原来的配置信息并配置</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">L15_C3750</span><span class="o">-</span><span class="n">Stack</span><span class="c1">#configure terminal   #进入配置模式</span>
+<span class="n">L15_C3750</span><span class="o">-</span><span class="n">Stack</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#default interface gigabitEthernet  2/0/4  #将端口设置为默认模式</span>
+<span class="n">L15_C3750</span><span class="o">-</span><span class="n">Stack</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#int gigabitEthernet  2/0/4 #配置端口2/0/4</span>
+<span class="n">L15_C3750</span><span class="o">-</span><span class="n">Stack</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#sw mode access #设置端口模式</span>
+<span class="n">L15_C3750</span><span class="o">-</span><span class="n">Stack</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#sw access vlan 32 #设置端口为access vlan 32</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="trunk-vlan-100-150">
+<h2>3.2. 场景1： 配置端口2/0/14 trunk vlan 100-150<a class="headerlink" href="#trunk-vlan-100-150" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">L15_C3750</span><span class="o">-</span><span class="n">Stack</span><span class="c1">#configure terminal   #进入配置模式</span>
+<span class="n">L15_C3750</span><span class="o">-</span><span class="n">Stack</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#default interface gigabitEthernet  2/0/4  #将端口设置为默认模式</span>
+<span class="n">L15_C3750</span><span class="o">-</span><span class="n">Stack</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#int gigabitEthernet  2/0/4 #配置端口2/0/4</span>
+<span class="n">L15_C3750</span><span class="o">-</span><span class="n">Stack</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#switchport trunk encapsulation dot1q #设置端口模式</span>
+<span class="n">L15_C3750</span><span class="o">-</span><span class="n">Stack</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#switchport mode trunk</span>
+<span class="n">L15_C3750</span><span class="o">-</span><span class="n">Stack</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#sw trunk allowed vlan 32 #设置端口为access vlan 32</span>
+
+<span class="n">L15_C3750</span><span class="o">-</span><span class="n">Stack</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#sw trunk allowed vlan add 100-150 #添加vlan</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="vlan">
+<h2>3.3. 删除默认的全部放行vlan<a class="headerlink" href="#vlan" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">switchport</span> <span class="n">trunk</span> <span class="n">allowed</span> <span class="n">vlan</span> <span class="n">remove</span> <span class="mi">1</span><span class="o">-</span><span class="mi">4094</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>3.4. 查看交换机信息<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt>::</dt><dd><p>show version</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="deploy_debain_local_source.html" class="btn btn-neutral float-right" title="4. Proxome-VE 集群部署" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="docker_promethus_snmp_smokeping.html" class="btn btn-neutral float-left" title="2. prometheus 线路监控方案" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, fomalhaut
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,444 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>需求 &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/my_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Welcome to Fomalhaut's Blog
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../cloudstack/index.html">cloudstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../openstack/index.html">openstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../redis/index.html">Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design-pattern/index.html">设计模式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ceph/index.html">ceph</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../others/index.html">杂七杂八</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">部门管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">Linux</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Welcome to Fomalhaut's Blog</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>需求</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/work/plms_router_upgrade.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="plms-router-upgrade">
+<span id="id1"></span><h1>需求<a class="headerlink" href="#plms-router-upgrade" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li><p>CIDR:172.21.72.0/21</p></li>
+<li><p>每个现法一个网段，总共8个现法 172.21.72.0~172.21.79.0</p></li>
+<li><p>每个现法可以互联</p></li>
+<li><p>可以通过acl控制访问</p></li>
+</ol>
+</div>
+<div class="section" id="id2">
+<h1>现状<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li><p>目前专属云只有一个vpc CIDR : 172.21.72.0/21 已经创建了如下子网段：</p></li>
+</ol>
+<div class="line-block">
+<div class="line">172.21.72.33/28</div>
+<div class="line">172.21.72.33/28</div>
+<div class="line">172.21.72.1/30</div>
+<div class="line">172.21.72.5/30</div>
+<div class="line">172.21.72.9/30</div>
+<div class="line">172.21.72.13/30</div>
+<div class="line">172.21.72.29/30</div>
+<div class="line">172.21.72.81/29</div>
+<div class="line">172.21.72.49/29</div>
+<div class="line">172.21.72.57/29</div>
+<div class="line">172.21.72.65/29</div>
+<div class="line">172.21.72.73/29</div>
+<div class="line">172.21.72.21/30</div>
+<div class="line">172.21.72.133/30</div>
+<div class="line">172.21.72.137/30</div>
+<div class="line">172.21.72.141/30</div>
+<div class="line">172.21.72.145/28</div>
+<div class="line">172.21.72.89/29</div>
+<div class="line">172.21.72.97/29</div>
+</div>
+<p>由于一个vpc下只能挂载24个网卡。那么意味着除去系统必须的eth0(本地链路)、eth1(外网网卡)、eth2(私有网关)，
+那么一个vpc下可用的子网段就只能为24-3=21个
+因此必须进行扩充</p>
+</div>
+<div class="section" id="id3">
+<h1>方案1<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h1>
+<p>采用多vpc方案。vpc间通过vpn隧道互联,那么设计3个vpc 建立3条vpn隧道 每个vpc 部署三个子网。
+那么刚好可以涵盖</p>
+<p>优点：通过现有的架构即可实现,可以通过acs的api接口操作。不需要手动执行命令
+缺点：扩充后。vpn隧道会指数增加，比如由3个扩充到4个，那么要新增3个vpc隧道</p>
+</div>
+<div class="section" id="id4">
+<h1>方案2<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h1>
+<p>每个子网一个vpc。然后将每个vpc 挂载一个网络接口到一个虚拟机上，这个虚拟机充当路由器的作用，拓扑图如下：</p>
+<p>目前的拓扑图</p>
+<p>替换网关迁移步骤：
+1. 在PRMS VPC下新建一个互联子网交换机原则上使用172.21.72.253 255.255.255.252
+. 删除现有私有网关(导出静态路由)
+2. 新建L2网络 vlan: 306
+3. 新建路由云主机：配置静态ip地址：172.21.71.1 ，并开启路由转发
+echo “1” &gt; /proc/sys/net/ipv4/ip_forward
+echo “net.ipv4.ip_forward = 1” &gt;&gt;/etc/sysctl.conf
+4. 测试路由云主机与172.21.71.2连通性,连通性正常
+ping 172.21.71.2</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#路由主机设备添加
+ip route add 172.32.0.0/16 via 172.21.72.253   dev eth2
+ip route add 192.168.0.0/16  via 172.21.72.253 dev eth2
+ip route add 172.24.0.0/13   via 172.21.72.253 dev eth2
+ip route add 172.22.0.0/15   via 172.21.72.253 dev eth2
+ip route add 172.21.128.0/17 via 172.21.72.253 dev eth2
+ip route add 172.21.96.0/19  via 172.21.72.253 dev eth2
+ip route add 172.21.80.0/20  via 172.21.72.253 dev eth2
+ip route add 172.21.70.0/24  via 172.21.72.253 dev eth2
+ip route add 172.21.68.0/23  via 172.21.72.253 dev eth2
+ip route add 172.21.64.0/22  via 172.21.72.253 dev eth2
+ip route add 172.21.0.0/18   via 172.21.72.253 dev eth2
+ip route add 172.20.0.0/16   via 172.21.72.253 dev eth2
+ip route add 172.16.0.0/14   via 172.21.72.253 dev eth2
+
+ip route add 172.21.71.0/24 via 172.21.72.253  ####172.21.71.1在172.21.72.0/24所在vpc网络下，英寸去往71段的都指向72.253
+ip route add 172.21.72.0/24 via 172.21.72.253
+ip route add 172.21.73.0/24 via 172.21.73.253
+ip route add 172.21.74.0/24 via 172.21.74.253
+ip route add 172.21.75.0/24 via 172.21.75.253
+ip route add 172.21.76.0/24 via 172.21.76.253
+ip route add 172.21.77.0/24 via 172.21.77.253
+ip route add 172.21.78.0/24 via 172.21.78.253
+ip route add 172.21.79.0/24 via 172.21.79.253
+
+
+#每个vpc路由 比如在72网段的路由器上添加以下静态路由，其他网段同理
+ip route add 172.21.73.0/24 via 172.21.72.254
+ip route add 172.21.74.0/24 via 172.21.72.254
+ip route add 172.21.75.0/24 via 172.21.72.254
+ip route add 172.21.76.0/24 via 172.21.72.254
+ip route add 172.21.77.0/24 via 172.21.72.254
+ip route add 172.21.78.0/24 via 172.21.72.254
+ip route add 172.21.79.0/24 via 172.21.72.254
+
+
+
+#上海现法：172.21.79.0/24 宿主机Prms_computel21
+ssh -i /root/.ssh/id_rsa.cloud -p 3922 169.254.1.31 &quot;
+ip route add 172.21.71.0/24 via 172.21.79.254
+ip route add 172.21.72.0/24 via 172.21.79.254
+ip route add 172.21.73.0/24 via 172.21.79.254
+ip route add 172.21.74.0/24 via 172.21.79.254
+ip route add 172.21.75.0/24 via 172.21.79.254
+ip route add 172.21.76.0/24 via 172.21.79.254
+ip route add 172.21.77.0/24 via 172.21.79.254
+ip route add 172.21.78.0/24 via 172.21.79.254
+ip route list
+&quot;
+
+#武汉现法：172.21.78.0/24 宿主机Prms_computel21
+ssh -i /root/.ssh/id_rsa.cloud -p 3922 169.254.0.83 &quot;
+ip route add 172.21.71.0/24 via 172.21.78.254
+ip route add 172.21.72.0/24 via 172.21.78.254
+ip route add 172.21.73.0/24 via 172.21.78.254
+ip route add 172.21.74.0/24 via 172.21.78.254
+ip route add 172.21.75.0/24 via 172.21.78.254
+ip route add 172.21.76.0/24 via 172.21.78.254
+ip route add 172.21.77.0/24 via 172.21.78.254
+ip route add 172.21.79.0/24 via 172.21.78.254
+ip route list
+&quot;
+
+
+#成都现法：172.21.77.0/24 宿主机Prms_computel23
+ssh -i /root/.ssh/id_rsa.cloud -p 3922 169.254.3.3 &quot;
+ip route add 172.21.71.0/24 via 172.21.77.254
+ip route add 172.21.72.0/24 via 172.21.77.254
+ip route add 172.21.73.0/24 via 172.21.77.254
+ip route add 172.21.74.0/24 via 172.21.77.254
+ip route add 172.21.75.0/24 via 172.21.77.254
+ip route add 172.21.76.0/24 via 172.21.77.254
+ip route add 172.21.78.0/24 via 172.21.77.254
+ip route add 172.21.79.0/24 via 172.21.77.254
+ip route list
+&quot;
+
+
+#重庆现法：172.21.76.0/24 宿主机Prms_SSD_computel43
+ssh -i /root/.ssh/id_rsa.cloud -p 3922 169.254.0.21 &quot;
+ip route add 172.21.71.0/24 via 172.21.76.254
+ip route add 172.21.72.0/24 via 172.21.76.254
+ip route add 172.21.73.0/24 via 172.21.76.254
+ip route add 172.21.74.0/24 via 172.21.76.254
+ip route add 172.21.75.0/24 via 172.21.76.254
+ip route add 172.21.77.0/24 via 172.21.76.254
+ip route add 172.21.78.0/24 via 172.21.76.254
+ip route add 172.21.79.0/24 via 172.21.76.254
+ip route list
+&quot;
+
+#天津现法：172.21.75.0/24 宿主机Prms_SSD_computel43
+ssh -i /root/.ssh/id_rsa.cloud -p 3922 169.254.3.150 &quot;
+ip route add 172.21.71.0/24 via 172.21.75.254
+ip route add 172.21.72.0/24 via 172.21.75.254
+ip route add 172.21.73.0/24 via 172.21.75.254
+ip route add 172.21.74.0/24 via 172.21.75.254
+ip route add 172.21.76.0/24 via 172.21.75.254
+ip route add 172.21.77.0/24 via 172.21.75.254
+ip route add 172.21.78.0/24 via 172.21.75.254
+ip route add 172.21.79.0/24 via 172.21.75.254
+ip route list
+&quot;
+
+#沈阳现法：172.21.74.0/24 宿主机Prms_SSD_computel41
+ssh -i /root/.ssh/id_rsa.cloud -p 3922 169.254.3.246 &quot;
+ip route add 172.21.71.0/24 via 172.21.74.254
+ip route add 172.21.72.0/24 via 172.21.74.254
+ip route add 172.21.73.0/24 via 172.21.74.254
+ip route add 172.21.75.0/24 via 172.21.74.254
+ip route add 172.21.76.0/24 via 172.21.74.254
+ip route add 172.21.77.0/24 via 172.21.74.254
+ip route add 172.21.78.0/24 via 172.21.74.254
+ip route add 172.21.79.0/24 via 172.21.74.254
+ip route list
+&quot;
+
+#深圳现法：172.21.73.0/24 宿主机Prms_SSD_computel41
+ssh -i /root/.ssh/id_rsa.cloud -p 3922 169.254.2.45 &quot;
+ip route add 172.21.71.0/24 via 172.21.73.254
+ip route add 172.21.72.0/24 via 172.21.73.254
+ip route add 172.21.74.0/24 via 172.21.73.254
+ip route add 172.21.75.0/24 via 172.21.73.254
+ip route add 172.21.76.0/24 via 172.21.73.254
+ip route add 172.21.77.0/24 via 172.21.73.254
+ip route add 172.21.78.0/24 via 172.21.73.254
+ip route add 172.21.79.0/24 via 172.21.73.254
+ip route list
+&quot;
+
+#深圳事务中心：172.21.72.0/24 宿主机Prms_computel23
+ssh -i /root/.ssh/id_rsa.cloud -p 3922 169.254.3.241 &quot;
+ip route add 172.21.73.0/24 via 172.21.72.254
+ip route add 172.21.74.0/24 via 172.21.72.254
+ip route add 172.21.75.0/24 via 172.21.72.254
+ip route add 172.21.76.0/24 via 172.21.72.254
+ip route add 172.21.77.0/24 via 172.21.72.254
+ip route add 172.21.78.0/24 via 172.21.72.254
+ip route add 172.21.79.0/24 via 172.21.72.254
+ip route list
+&quot;
+
+
+
+
+
+
+##################prms 现有vpc下的子网交换机：
+172.21.72.33/28
+172.21.72.33/28
+172.21.72.1/30
+172.21.72.5/30
+172.21.72.9/30
+172.21.72.13/30
+172.21.72.29/30
+172.21.72.81/29
+172.21.72.49/29
+172.21.72.57/29
+172.21.72.65/29
+172.21.72.73/29
+172.21.72.21/30
+172.21.72.133/30
+172.21.72.137/30
+172.21.72.141/30
+172.21.72.145/28
+172.21.72.89/29
+172.21.72.97/29
+
+
+每个vpc下需要执行一下补丁程序
+登入到vpc的vr下执行：
+cp /opt/cloud/bin/configure.py /opt/cloud/bin/configure.py.bak
+sed -i &#39;266d&#39; /opt/cloud/bin/configure.py
+sed -i &#39;262d&#39; /opt/cloud/bin/configure.py
+sed -i &#39;261a\                logging.info(&quot;#####################################@%s&quot;,rule[&quot;destcidr&quot;])&#39; /opt/cloud/bin/configure.py
+sed -i &#39;262a\                if &quot;destcidr&quot; in rule.keys():&#39; /opt/cloud/bin/configure.py
+sed -i &#39;263a\                    self.ingressdest = rule[&quot;destcidr&quot;]&#39; /opt/cloud/bin/configure.py
+sed -i &#39;264a\                else:&#39; /opt/cloud/bin/configure.py
+sed -i &#39;265a\                    self.ingressdest = &quot;0.0.0.0/0&quot;&#39; /opt/cloud/bin/configure.py
+sed -i &#39;266a\                if self.ingressdest.strip()==&quot;&quot;:&#39; /opt/cloud/bin/configure.py
+sed -i &#39;267a\                    self.ingressdest = &quot;0.0.0.0/0&quot;&#39; /opt/cloud/bin/configure.py
+sed -i &#39;268a\                self.dest = &quot;-s %s -d %s&quot; % (rule[&quot;cidr&quot;],self.ingressdest)&#39; /opt/cloud/bin/configure.py
+sed -i &#39;272a\                    self.dest = &quot;-d %s -s %s&quot; % (rule[&quot;cidr&quot;],self.ingressdest)&#39; /opt/cloud/bin/configure.py
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, fomalhaut
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

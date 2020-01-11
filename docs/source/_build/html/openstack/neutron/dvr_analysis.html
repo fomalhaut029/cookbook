@@ -1,0 +1,496 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>3.2. DVR模式下网络流量分析 &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4. Monasca" href="../monasca/index.html" />
+    <link rel="prev" title="3.1. openstack网络设备总结" href="network_dev_name_rules.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Welcome to Fomalhaut's Blog
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../cloudstack/index.html">cloudstack</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">openstack</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../deploy/index.html">1. 安装部署实践</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ironic/index.html">2. Ironic</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">3. Neutron</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="network_dev_name_rules.html">3.1. openstack网络设备总结</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">3.2. DVR模式下网络流量分析</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">3.2.1. 实验环境</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">3.2.2. DVR配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">3.2.3. 实验环境1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../monasca/index.html">4. Monasca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../develop/index.html">5. OpenStack 二次开发</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/index.html">6. OpenStack 源码解析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/index.html">7. OpenStack 其他相关文档</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../redis/index.html">Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../design-pattern/index.html">设计模式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ceph/index.html">ceph</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../others/index.html">杂七杂八</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../work/index.html">部门管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../linux/index.html">Linux</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Welcome to Fomalhaut's Blog</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">openstack</a> &raquo;</li>
+        
+          <li><a href="index.html">3. Neutron</a> &raquo;</li>
+        
+      <li>3.2. DVR模式下网络流量分析</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/openstack/neutron/dvr_analysis.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="dvr">
+<span id="dvr-analysis"></span><h1>3.2. DVR模式下网络流量分析<a class="headerlink" href="#dvr" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>3.2.1. 实验环境<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>虚拟交换机采用 linuxbridge</p></li>
+<li><p>租户网络模式：vxlan</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>3.2.2. DVR配置<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>我这里环境采用kolla部署,相关配置如下：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">enable_neutron_dvr</span><span class="p">:</span> <span class="s2">&quot;yes&quot;</span>
+</pre></div>
+</div>
+<p>docker生成后，各个配置文件如下：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#l3_agent.ini</span>
+<span class="p">[</span><span class="n">root</span><span class="nd">@nanwan</span><span class="o">-</span><span class="n">e18</span><span class="o">-</span><span class="n">neutron1</span> <span class="o">~</span><span class="p">]</span><span class="c1"># cat /etc/kolla/neutron-l3-agent/l3_agent.ini</span>
+<span class="p">[</span><span class="n">DEFAULT</span><span class="p">]</span>
+<span class="n">agent_mode</span> <span class="o">=</span> <span class="n">dvr_snat</span>
+
+<span class="c1">#neutron.conf</span>
+<span class="p">[</span><span class="n">root</span><span class="nd">@nanwan</span><span class="o">-</span><span class="n">e18</span><span class="o">-</span><span class="n">neutron1</span> <span class="o">~</span><span class="p">]</span><span class="c1"># cat /etc/kolla/neutron-l3-agent/neutron.conf</span>
+<span class="p">[</span><span class="n">DEFAULT</span><span class="p">]</span>
+<span class="n">router_distributed</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>3.2.3. 实验环境1<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>创建一个外部网络public1 10.182.0.0/24</p></li>
+<li><p>创建一个vxlan网络demo-net 192.168.100.0/24</p></li>
+<li><p>创建一个VR，指定public1作为其外部网络，并添加接口连接到demo-net网络</p></li>
+<li><p>在demo-net网络下新建一个虚拟机demo1,ip为：192.168.100.50</p></li>
+</ul>
+<p>如下图所示：</p>
+<div class="figure align-default">
+<img alt="../../_images/20200107_160126.png" src="../../_images/20200107_160126.png" />
+</div>
+<p>构键完成后，我们来看看给个节点都新增哪些命名空间，
+首先我们看下与VR相关的命名空间：</p>
+<p>我们可以看到计算节点和网络节点上都新增了一个qrouter-cb64323b-56a8-40f4-a75d-9acc8c4ecc82的namespace,其中cb64323b-56a8-40f4-a75d-9acc8c4ecc82
+为VR的ID</p>
+<div class="figure align-default">
+<img alt="../../_images/20200107_160036.png" src="../../_images/20200107_160036.png" />
+</div>
+<p>我们在看下与demo-net网络相关的命名空间有那些：</p>
+<div class="figure align-default">
+<img alt="../../_images/20200107_160824.png" src="../../_images/20200107_160824.png" />
+</div>
+<p>从上面可以看出，构建完成后openstack分别在nanwan-e17-compute1、nanwan-e18-neutron2、nanwan-e18-neutron3，这个三个节点上
+都新增了一个qrouter-xxx的命名空间，并在nanwan-e18-neutron3上新增了一个snat-xxx的命名空间
+同时在nanwan-e18-neutron2上新增了一个qdhcp-xxx的命名空间</p>
+<p>我们看下与vr相关的namespace:</p>
+<div class="figure align-default">
+<img alt="../../_images/20200107_160432.png" src="../../_images/20200107_160432.png" />
+</div>
+<p>可以看出计算节点和网络节点的router的namespace的配置是一样的，那么接下来。我们来查看具体的虚拟机的流量是
+如何到达网关的也就是这里的router的namespace</p>
+<p>我们将按照下面的思路来判断流量的走向</p>
+<ol class="arabic simple">
+<li><p>我们从虚拟机192.168.100.50去ping网关地址10.199.100.1,虚拟机流量通过虚拟机的eth0发出</p></li>
+<li><p>通过在每个虚拟网络设备处抓包。判断流量是否经过</p></li>
+</ol>
+<p>1.首先我们先查询出demo-net网络关联的所有端口，这些端口作为我们查询的条件进行过滤</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">bare</span><span class="p">)</span> <span class="p">[</span><span class="n">root</span><span class="nd">@kolla</span><span class="o">-</span><span class="n">ansible</span> <span class="n">kolla</span><span class="p">]</span><span class="c1"># openstack --os-project-name test --os-username test --os-password password port list --network demo-net</span>
+<span class="o">+--------------------------------------+------+-------------------+--------------------------------------------------------------------------------+--------+</span>
+<span class="o">|</span> <span class="n">ID</span>                                   <span class="o">|</span> <span class="n">Name</span> <span class="o">|</span> <span class="n">MAC</span> <span class="n">Address</span>       <span class="o">|</span> <span class="n">Fixed</span> <span class="n">IP</span> <span class="n">Addresses</span>                                                             <span class="o">|</span> <span class="n">Status</span> <span class="o">|</span>
+<span class="o">+--------------------------------------+------+-------------------+--------------------------------------------------------------------------------+--------+</span>
+<span class="o">|</span> <span class="mi">4</span><span class="n">de80f99</span><span class="o">-</span><span class="mi">3</span><span class="n">b5e</span><span class="o">-</span><span class="mf">4e8</span><span class="n">c</span><span class="o">-</span><span class="n">af1e</span><span class="o">-</span><span class="n">b8bcc5d22691</span> <span class="o">|</span>      <span class="o">|</span> <span class="n">fa</span><span class="p">:</span><span class="mi">16</span><span class="p">:</span><span class="mi">3</span><span class="n">e</span><span class="p">:</span><span class="mi">7</span><span class="n">b</span><span class="p">:</span><span class="n">dc</span><span class="p">:</span><span class="mi">72</span> <span class="o">|</span> <span class="n">ip_address</span><span class="o">=</span><span class="s1">&#39;192.168.100.2&#39;</span><span class="p">,</span> <span class="n">subnet_id</span><span class="o">=</span><span class="s1">&#39;07e1eaa9-992d-46f6-99d5-34dcc055558b&#39;</span>   <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>
+<span class="o">|</span> <span class="mi">9</span><span class="n">a6b957c</span><span class="o">-</span><span class="mi">70</span><span class="n">fc</span><span class="o">-</span><span class="mi">42</span><span class="n">eb</span><span class="o">-</span><span class="mi">9</span><span class="n">a4e</span><span class="o">-</span><span class="mi">7</span><span class="n">dfd8b9557a4</span> <span class="o">|</span>      <span class="o">|</span> <span class="n">fa</span><span class="p">:</span><span class="mi">16</span><span class="p">:</span><span class="mi">3</span><span class="n">e</span><span class="p">:</span><span class="mi">70</span><span class="p">:</span><span class="mi">93</span><span class="p">:</span><span class="mi">80</span> <span class="o">|</span> <span class="n">ip_address</span><span class="o">=</span><span class="s1">&#39;192.168.100.1&#39;</span><span class="p">,</span> <span class="n">subnet_id</span><span class="o">=</span><span class="s1">&#39;07e1eaa9-992d-46f6-99d5-34dcc055558b&#39;</span>   <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">a136db2d</span><span class="o">-</span><span class="mi">1585</span><span class="o">-</span><span class="mi">4988</span><span class="o">-</span><span class="n">ae22</span><span class="o">-</span><span class="mi">9535432</span><span class="n">a86fb</span> <span class="o">|</span>      <span class="o">|</span> <span class="n">fa</span><span class="p">:</span><span class="mi">16</span><span class="p">:</span><span class="mi">3</span><span class="n">e</span><span class="p">:</span><span class="mi">2</span><span class="n">a</span><span class="p">:</span><span class="mi">42</span><span class="p">:</span><span class="n">b7</span> <span class="o">|</span> <span class="n">ip_address</span><span class="o">=</span><span class="s1">&#39;192.168.100.189&#39;</span><span class="p">,</span> <span class="n">subnet_id</span><span class="o">=</span><span class="s1">&#39;07e1eaa9-992d-46f6-99d5-34dcc055558b&#39;</span> <span class="o">|</span> <span class="n">ACTIVE</span> <span class="o">|</span>
+<span class="o">|</span> <span class="n">f60fa760</span><span class="o">-</span><span class="n">ee28</span><span class="o">-</span><span class="mi">4</span><span class="n">dcf</span><span class="o">-</span><span class="n">bc91</span><span class="o">-</span><span class="mi">23</span><span class="n">c8fbc39ffc</span> <span class="o">|</span>      <span class="o">|</span> <span class="n">fa</span><span class="p">:</span><span class="mi">16</span><span class="p">:</span><span class="mi">3</span><span class="n">e</span><span class="p">:</span><span class="mi">53</span><span class="p">:</span><span class="mi">7</span><span class="n">d</span><span class="p">:</span><span class="mi">29</span> <span class="o">|</span> <span class="n">ip_address</span><span class="o">=</span><span class="s1">&#39;192.168.100.50&#39;</span><span class="p">,</span> <span class="n">subnet_id</span><span class="o">=</span><span class="s1">&#39;07e1eaa9-992d-46f6-99d5-34dcc055558b&#39;</span>  <span class="o">|</span> <span class="n">BUILD</span>  <span class="o">|</span>
+<span class="o">+--------------------------------------+------+-------------------+--------------------------------------------------------------------------------+--------+</span>
+</pre></div>
+</div>
+<div class="figure align-default">
+<img alt="../../_images/20200107_180341.png" src="../../_images/20200107_180341.png" />
+</div>
+<p>2.我们知道192.168.100.50就是我们虚拟机的eth0 ip 因此tapf60fa760-ee设备就是连接虚拟机eth0的设备</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">我们也可以通过如下命令行获取tab设备名称</span>
+<span class="p">(</span><span class="n">bare</span><span class="p">)</span> <span class="p">[</span><span class="n">root</span><span class="nd">@kolla</span><span class="o">-</span><span class="n">ansible</span> <span class="o">~</span><span class="p">]</span><span class="c1"># openstack port list | grep 192.168.100.50 | cut -d \| -f 2</span>
+<span class="n">f60fa760</span><span class="o">-</span><span class="n">ee28</span><span class="o">-</span><span class="mi">4</span><span class="n">dcf</span><span class="o">-</span><span class="n">bc91</span><span class="o">-</span><span class="mi">23</span><span class="n">c8fbc39ffc</span>
+</pre></div>
+</div>
+<p>通过上述结果。得出该虚拟机eth0连接的tap虚拟设备为：tapf60fa760-ee ,然后我们通过对tapf60fa760-ee抓包获取到icmp包</p>
+<p>3. 查询tapf60fa760-ee 所在的计算节点</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">bare</span><span class="p">)</span> <span class="p">[</span><span class="n">root</span><span class="nd">@kolla</span><span class="o">-</span><span class="n">ansible</span> <span class="n">kolla</span><span class="p">]</span><span class="c1"># ansible op -m shell -a &quot;ip a |grep tapf60fa760&quot;</span>
+<span class="p">[</span><span class="n">WARNING</span><span class="p">]:</span> <span class="n">log</span> <span class="n">file</span> <span class="n">at</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ansible</span><span class="o">/</span><span class="n">ansible</span><span class="o">.</span><span class="n">log</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">writeable</span> <span class="ow">and</span> <span class="n">we</span> <span class="n">cannot</span> <span class="n">create</span> <span class="n">it</span><span class="p">,</span> <span class="n">aborting</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">e17</span><span class="o">-</span><span class="n">compute1</span> <span class="o">|</span> <span class="n">CHANGED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">0</span> <span class="o">&gt;&gt;</span>
+<span class="mi">183</span><span class="p">:</span> <span class="n">tapf60fa760</span><span class="o">-</span><span class="n">ee</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">BROADCAST</span><span class="p">,</span><span class="n">MULTICAST</span><span class="p">,</span><span class="n">UP</span><span class="p">,</span><span class="n">LOWER_UP</span><span class="o">&gt;</span> <span class="n">mtu</span> <span class="mi">1450</span> <span class="n">qdisc</span> <span class="n">fq</span> <span class="n">master</span> <span class="n">brq80526879</span><span class="o">-</span><span class="mi">78</span> <span class="n">state</span> <span class="n">UNKNOWN</span> <span class="n">group</span> <span class="n">default</span> <span class="n">qlen</span> <span class="mi">1000</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">monitor43</span> <span class="o">|</span> <span class="n">FAILED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">1</span> <span class="o">&gt;&gt;</span>
+<span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="k">return</span> <span class="n">code</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">e17</span><span class="o">-</span><span class="n">compute2</span> <span class="o">|</span> <span class="n">FAILED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">1</span> <span class="o">&gt;&gt;</span>
+<span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="k">return</span> <span class="n">code</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">e17</span><span class="o">-</span><span class="n">compute3</span> <span class="o">|</span> <span class="n">FAILED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">1</span> <span class="o">&gt;&gt;</span>
+<span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="k">return</span> <span class="n">code</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">monitor42</span> <span class="o">|</span> <span class="n">FAILED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">1</span> <span class="o">&gt;&gt;</span>
+<span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="k">return</span> <span class="n">code</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">e18</span><span class="o">-</span><span class="n">neutron2</span> <span class="o">|</span> <span class="n">FAILED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">1</span> <span class="o">&gt;&gt;</span>
+<span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="k">return</span> <span class="n">code</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">e18</span><span class="o">-</span><span class="n">neutron1</span> <span class="o">|</span> <span class="n">FAILED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">1</span> <span class="o">&gt;&gt;</span>
+<span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="k">return</span> <span class="n">code</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">e18</span><span class="o">-</span><span class="n">controller2</span> <span class="o">|</span> <span class="n">FAILED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">1</span> <span class="o">&gt;&gt;</span>
+<span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="k">return</span> <span class="n">code</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">e18</span><span class="o">-</span><span class="n">controller1</span> <span class="o">|</span> <span class="n">FAILED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">1</span> <span class="o">&gt;&gt;</span>
+<span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="k">return</span> <span class="n">code</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">e18</span><span class="o">-</span><span class="n">controller3</span> <span class="o">|</span> <span class="n">FAILED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">1</span> <span class="o">&gt;&gt;</span>
+<span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="k">return</span> <span class="n">code</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">monitor41</span> <span class="o">|</span> <span class="n">FAILED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">1</span> <span class="o">&gt;&gt;</span>
+<span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="k">return</span> <span class="n">code</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">e18</span><span class="o">-</span><span class="n">neutron3</span> <span class="o">|</span> <span class="n">FAILED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">1</span> <span class="o">&gt;&gt;</span>
+<span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="k">return</span> <span class="n">code</span>
+</pre></div>
+</div>
+<p>通过上述命令我们查询到tapf60fa760-ee 设备在nanwan-e17-compute1 节点上</p>
+<p>3. 然后我们进一步查询tap虚拟设备关联的网桥设备</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#查看tap设备关联的网桥</span>
+<span class="p">[</span><span class="n">root</span><span class="nd">@nanwan</span><span class="o">-</span><span class="n">e17</span><span class="o">-</span><span class="n">compute1</span> <span class="o">~</span><span class="p">]</span><span class="c1"># ip a|grep tapf60fa760-ee</span>
+<span class="mi">183</span><span class="p">:</span> <span class="n">tapf60fa760</span><span class="o">-</span><span class="n">ee</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">BROADCAST</span><span class="p">,</span><span class="n">MULTICAST</span><span class="p">,</span><span class="n">UP</span><span class="p">,</span><span class="n">LOWER_UP</span><span class="o">&gt;</span> <span class="n">mtu</span> <span class="mi">1450</span> <span class="n">qdisc</span> <span class="n">fq</span> <span class="n">master</span> <span class="n">brq80526879</span><span class="o">-</span><span class="mi">78</span> <span class="n">state</span> <span class="n">UNKNOWN</span> <span class="n">group</span> <span class="n">default</span> <span class="n">qlen</span> <span class="mi">1000</span>
+
+<span class="c1">#对tap设备进行抓包分析</span>
+<span class="p">[</span><span class="n">root</span><span class="nd">@nanwan</span><span class="o">-</span><span class="n">e17</span><span class="o">-</span><span class="n">compute1</span> <span class="o">~</span><span class="p">]</span><span class="c1"># tcpdump -i tapf60fa760-ee</span>
+<span class="n">tcpdump</span><span class="p">:</span> <span class="n">verbose</span> <span class="n">output</span> <span class="n">suppressed</span><span class="p">,</span> <span class="n">use</span> <span class="o">-</span><span class="n">v</span> <span class="ow">or</span> <span class="o">-</span><span class="n">vv</span> <span class="k">for</span> <span class="n">full</span> <span class="n">protocol</span> <span class="n">decode</span>
+<span class="n">listening</span> <span class="n">on</span> <span class="n">tapf60fa760</span><span class="o">-</span><span class="n">ee</span><span class="p">,</span> <span class="n">link</span><span class="o">-</span><span class="nb">type</span> <span class="n">EN10MB</span> <span class="p">(</span><span class="n">Ethernet</span><span class="p">),</span> <span class="n">capture</span> <span class="n">size</span> <span class="mi">262144</span> <span class="nb">bytes</span>
+<span class="mi">16</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mf">47.046671</span> <span class="n">IP</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.50</span> <span class="o">&gt;</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.1</span><span class="p">:</span> <span class="n">ICMP</span> <span class="n">echo</span> <span class="n">request</span><span class="p">,</span> <span class="nb">id</span> <span class="mi">43009</span><span class="p">,</span> <span class="n">seq</span> <span class="mi">1708</span><span class="p">,</span> <span class="n">length</span> <span class="mi">64</span>
+<span class="mi">16</span><span class="p">:</span><span class="mi">31</span><span class="p">:</span><span class="mf">47.046972</span> <span class="n">IP</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.1</span> <span class="o">&gt;</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.50</span><span class="p">:</span> <span class="n">ICMP</span> <span class="n">echo</span> <span class="n">reply</span><span class="p">,</span> <span class="nb">id</span> <span class="mi">43009</span><span class="p">,</span> <span class="n">seq</span> <span class="mi">1708</span><span class="p">,</span> <span class="n">length</span> <span class="mi">64</span>
+
+<span class="c1">#对连接的网桥设备进行抓包分析</span>
+<span class="p">[</span><span class="n">root</span><span class="nd">@nanwan</span><span class="o">-</span><span class="n">e17</span><span class="o">-</span><span class="n">compute1</span> <span class="o">~</span><span class="p">]</span><span class="c1"># tcpdump -i brq80526879-78</span>
+<span class="n">tcpdump</span><span class="p">:</span> <span class="n">verbose</span> <span class="n">output</span> <span class="n">suppressed</span><span class="p">,</span> <span class="n">use</span> <span class="o">-</span><span class="n">v</span> <span class="ow">or</span> <span class="o">-</span><span class="n">vv</span> <span class="k">for</span> <span class="n">full</span> <span class="n">protocol</span> <span class="n">decode</span>
+<span class="n">listening</span> <span class="n">on</span> <span class="n">brq80526879</span><span class="o">-</span><span class="mi">78</span><span class="p">,</span> <span class="n">link</span><span class="o">-</span><span class="nb">type</span> <span class="n">EN10MB</span> <span class="p">(</span><span class="n">Ethernet</span><span class="p">),</span> <span class="n">capture</span> <span class="n">size</span> <span class="mi">262144</span> <span class="nb">bytes</span>
+<span class="mi">16</span><span class="p">:</span><span class="mi">38</span><span class="p">:</span><span class="mf">06.109811</span> <span class="n">IP</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.50</span> <span class="o">&gt;</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.1</span><span class="p">:</span> <span class="n">ICMP</span> <span class="n">echo</span> <span class="n">request</span><span class="p">,</span> <span class="nb">id</span> <span class="mi">43009</span><span class="p">,</span> <span class="n">seq</span> <span class="mi">2087</span><span class="p">,</span> <span class="n">length</span> <span class="mi">64</span>
+<span class="mi">16</span><span class="p">:</span><span class="mi">38</span><span class="p">:</span><span class="mf">06.110103</span> <span class="n">IP</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.1</span> <span class="o">&gt;</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.50</span><span class="p">:</span> <span class="n">ICMP</span> <span class="n">echo</span> <span class="n">reply</span><span class="p">,</span> <span class="nb">id</span> <span class="mi">43009</span><span class="p">,</span> <span class="n">seq</span> <span class="mi">2087</span><span class="p">,</span> <span class="n">length</span> <span class="mi">64</span>
+</pre></div>
+</div>
+<p>我们看到tapf60fa760-ee设备 连接到了brq80526879-78的网桥上(每个网络都会生成一个该网络的网桥设备命名规范
+为brq+网络ID前缀)，然后我们分别对两个设备进行抓包分析，发现都获取到了icmp包</p>
+<p>4. 接下来我们看看brq80526879-78网桥设备连接了哪些虚拟网络设备?</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">root</span><span class="nd">@nanwan</span><span class="o">-</span><span class="n">e17</span><span class="o">-</span><span class="n">compute1</span> <span class="o">~</span><span class="p">]</span><span class="c1"># ip a|grep brq80526879-78</span>
+<span class="mi">182</span><span class="p">:</span> <span class="n">brq80526879</span><span class="o">-</span><span class="mi">78</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">BROADCAST</span><span class="p">,</span><span class="n">MULTICAST</span><span class="p">,</span><span class="n">UP</span><span class="p">,</span><span class="n">LOWER_UP</span><span class="o">&gt;</span> <span class="n">mtu</span> <span class="mi">1450</span> <span class="n">qdisc</span> <span class="n">noqueue</span> <span class="n">state</span> <span class="n">UP</span> <span class="n">group</span> <span class="n">default</span> <span class="n">qlen</span> <span class="mi">1000</span>
+<span class="mi">183</span><span class="p">:</span> <span class="n">tapf60fa760</span><span class="o">-</span><span class="n">ee</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">BROADCAST</span><span class="p">,</span><span class="n">MULTICAST</span><span class="p">,</span><span class="n">UP</span><span class="p">,</span><span class="n">LOWER_UP</span><span class="o">&gt;</span> <span class="n">mtu</span> <span class="mi">1450</span> <span class="n">qdisc</span> <span class="n">fq</span> <span class="n">master</span> <span class="n">brq80526879</span><span class="o">-</span><span class="mi">78</span> <span class="n">state</span> <span class="n">UNKNOWN</span> <span class="n">group</span> <span class="n">default</span> <span class="n">qlen</span> <span class="mi">1000</span>
+<span class="mi">184</span><span class="p">:</span> <span class="n">tap9a6b957c</span><span class="o">-</span><span class="mi">70</span><span class="nd">@if2</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">BROADCAST</span><span class="p">,</span><span class="n">MULTICAST</span><span class="p">,</span><span class="n">UP</span><span class="p">,</span><span class="n">LOWER_UP</span><span class="o">&gt;</span> <span class="n">mtu</span> <span class="mi">1450</span> <span class="n">qdisc</span> <span class="n">noqueue</span> <span class="n">master</span> <span class="n">brq80526879</span><span class="o">-</span><span class="mi">78</span> <span class="n">state</span> <span class="n">UP</span> <span class="n">group</span> <span class="n">default</span> <span class="n">qlen</span> <span class="mi">1000</span>
+<span class="mi">185</span><span class="p">:</span> <span class="n">vxlan</span><span class="o">-</span><span class="mi">12548</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">BROADCAST</span><span class="p">,</span><span class="n">MULTICAST</span><span class="p">,</span><span class="n">UP</span><span class="p">,</span><span class="n">LOWER_UP</span><span class="o">&gt;</span> <span class="n">mtu</span> <span class="mi">1450</span> <span class="n">qdisc</span> <span class="n">noqueue</span> <span class="n">master</span> <span class="n">brq80526879</span><span class="o">-</span><span class="mi">78</span> <span class="n">state</span> <span class="n">UNKNOWN</span> <span class="n">group</span> <span class="n">default</span> <span class="n">qlen</span> <span class="mi">1000</span>
+
+<span class="c1">#这里我们也可以通过brclt命令查看</span>
+<span class="p">[</span><span class="n">root</span><span class="nd">@nanwan</span><span class="o">-</span><span class="n">e17</span><span class="o">-</span><span class="n">compute1</span> <span class="o">~</span><span class="p">]</span><span class="c1"># docker exec -it -u 0 neutron_linuxbridge_agent brctl show brq80526879-78</span>
+<span class="n">bridge</span> <span class="n">name</span> <span class="n">bridge</span> <span class="nb">id</span>               <span class="n">STP</span> <span class="n">enabled</span>     <span class="n">interfaces</span>
+<span class="n">brq80526879</span><span class="o">-</span><span class="mi">78</span>              <span class="mf">8000.068</span><span class="n">ce27f103b</span>       <span class="n">no</span>              <span class="n">tap9a6b957c</span><span class="o">-</span><span class="mi">70</span>
+                            <span class="n">tapf60fa760</span><span class="o">-</span><span class="n">ee</span>
+                            <span class="n">vxlan</span><span class="o">-</span><span class="mi">12548</span>
+</pre></div>
+</div>
+<p>可以看到连接了 <strong>vxlan-12548</strong>  、 <strong>tapf60fa760-ee</strong> 、<strong>tap9a6b957c-70</strong> 三个虚拟网络设备
+- vxlan-12548 ：demo-net网络的vxlan隧道
+- tapf60fa760-ee ：连接虚拟机的tap设备
+- tap9a6b957c-70 ： 连接路由器的tap设备</p>
+<p>我们分别在这三个设备上进行抓包分析：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">root</span><span class="nd">@nanwan</span><span class="o">-</span><span class="n">e17</span><span class="o">-</span><span class="n">compute1</span> <span class="o">~</span><span class="p">]</span><span class="c1"># tcpdump -i tap9a6b957c-70 -n</span>
+<span class="n">tcpdump</span><span class="p">:</span> <span class="n">verbose</span> <span class="n">output</span> <span class="n">suppressed</span><span class="p">,</span> <span class="n">use</span> <span class="o">-</span><span class="n">v</span> <span class="ow">or</span> <span class="o">-</span><span class="n">vv</span> <span class="k">for</span> <span class="n">full</span> <span class="n">protocol</span> <span class="n">decode</span>
+<span class="n">listening</span> <span class="n">on</span> <span class="n">tap9a6b957c</span><span class="o">-</span><span class="mi">70</span><span class="p">,</span> <span class="n">link</span><span class="o">-</span><span class="nb">type</span> <span class="n">EN10MB</span> <span class="p">(</span><span class="n">Ethernet</span><span class="p">),</span> <span class="n">capture</span> <span class="n">size</span> <span class="mi">262144</span> <span class="nb">bytes</span>
+<span class="o">^</span><span class="n">C</span>
+<span class="mi">0</span> <span class="n">packets</span> <span class="n">captured</span>
+<span class="mi">0</span> <span class="n">packets</span> <span class="n">received</span> <span class="n">by</span> <span class="nb">filter</span>
+<span class="mi">0</span> <span class="n">packets</span> <span class="n">dropped</span> <span class="n">by</span> <span class="n">kernel</span>
+<span class="p">[</span><span class="n">root</span><span class="nd">@nanwan</span><span class="o">-</span><span class="n">e17</span><span class="o">-</span><span class="n">compute1</span> <span class="o">~</span><span class="p">]</span><span class="c1"># tcpdump -i vxlan-12548 -n</span>
+<span class="n">tcpdump</span><span class="p">:</span> <span class="n">verbose</span> <span class="n">output</span> <span class="n">suppressed</span><span class="p">,</span> <span class="n">use</span> <span class="o">-</span><span class="n">v</span> <span class="ow">or</span> <span class="o">-</span><span class="n">vv</span> <span class="k">for</span> <span class="n">full</span> <span class="n">protocol</span> <span class="n">decode</span>
+<span class="n">listening</span> <span class="n">on</span> <span class="n">vxlan</span><span class="o">-</span><span class="mi">12548</span><span class="p">,</span> <span class="n">link</span><span class="o">-</span><span class="nb">type</span> <span class="n">EN10MB</span> <span class="p">(</span><span class="n">Ethernet</span><span class="p">),</span> <span class="n">capture</span> <span class="n">size</span> <span class="mi">262144</span> <span class="nb">bytes</span>
+<span class="mi">17</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mf">07.359610</span> <span class="n">IP</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.50</span> <span class="o">&gt;</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.1</span><span class="p">:</span> <span class="n">ICMP</span> <span class="n">echo</span> <span class="n">request</span><span class="p">,</span> <span class="nb">id</span> <span class="mi">43009</span><span class="p">,</span> <span class="n">seq</span> <span class="mi">3528</span><span class="p">,</span> <span class="n">length</span> <span class="mi">64</span>
+<span class="mi">17</span><span class="p">:</span><span class="mi">02</span><span class="p">:</span><span class="mf">07.359832</span> <span class="n">IP</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.1</span> <span class="o">&gt;</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.50</span><span class="p">:</span> <span class="n">ICMP</span> <span class="n">echo</span> <span class="n">reply</span><span class="p">,</span> <span class="nb">id</span> <span class="mi">43009</span><span class="p">,</span> <span class="n">seq</span> <span class="mi">3528</span><span class="p">,</span> <span class="n">length</span> <span class="mi">64</span>
+</pre></div>
+</div>
+<p>可以发现vxlan-12548 接口有收到icmp包。而tap9a6b957c-70并没有收到相应的包</p>
+<p>我们继续来看看vxlan-12548 在哪些节点上存在</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">bare</span><span class="p">)</span> <span class="p">[</span><span class="n">root</span><span class="nd">@kolla</span><span class="o">-</span><span class="n">ansible</span> <span class="n">kolla</span><span class="p">]</span><span class="c1"># ansible op -m shell -a &quot;ip a |grep vxlan-12548&quot;</span>
+<span class="p">[</span><span class="n">WARNING</span><span class="p">]:</span> <span class="n">log</span> <span class="n">file</span> <span class="n">at</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ansible</span><span class="o">/</span><span class="n">ansible</span><span class="o">.</span><span class="n">log</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">writeable</span> <span class="ow">and</span> <span class="n">we</span> <span class="n">cannot</span> <span class="n">create</span> <span class="n">it</span><span class="p">,</span> <span class="n">aborting</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">e17</span><span class="o">-</span><span class="n">compute1</span> <span class="o">|</span> <span class="n">CHANGED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">0</span> <span class="o">&gt;&gt;</span>
+<span class="mi">185</span><span class="p">:</span> <span class="n">vxlan</span><span class="o">-</span><span class="mi">12548</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">BROADCAST</span><span class="p">,</span><span class="n">MULTICAST</span><span class="p">,</span><span class="n">UP</span><span class="p">,</span><span class="n">LOWER_UP</span><span class="o">&gt;</span> <span class="n">mtu</span> <span class="mi">1450</span> <span class="n">qdisc</span> <span class="n">noqueue</span> <span class="n">master</span> <span class="n">brq80526879</span><span class="o">-</span><span class="mi">78</span> <span class="n">state</span> <span class="n">UNKNOWN</span> <span class="n">group</span> <span class="n">default</span> <span class="n">qlen</span> <span class="mi">1000</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">monitor43</span> <span class="o">|</span> <span class="n">FAILED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">1</span> <span class="o">&gt;&gt;</span>
+<span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="k">return</span> <span class="n">code</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">e17</span><span class="o">-</span><span class="n">compute3</span> <span class="o">|</span> <span class="n">FAILED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">1</span> <span class="o">&gt;&gt;</span>
+<span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="k">return</span> <span class="n">code</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">e17</span><span class="o">-</span><span class="n">compute2</span> <span class="o">|</span> <span class="n">FAILED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">1</span> <span class="o">&gt;&gt;</span>
+<span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="k">return</span> <span class="n">code</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">monitor42</span> <span class="o">|</span> <span class="n">FAILED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">1</span> <span class="o">&gt;&gt;</span>
+<span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="k">return</span> <span class="n">code</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">e18</span><span class="o">-</span><span class="n">neutron2</span> <span class="o">|</span> <span class="n">CHANGED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">0</span> <span class="o">&gt;&gt;</span>
+<span class="mi">94</span><span class="p">:</span> <span class="n">vxlan</span><span class="o">-</span><span class="mi">12548</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">BROADCAST</span><span class="p">,</span><span class="n">MULTICAST</span><span class="p">,</span><span class="n">UP</span><span class="p">,</span><span class="n">LOWER_UP</span><span class="o">&gt;</span> <span class="n">mtu</span> <span class="mi">1450</span> <span class="n">qdisc</span> <span class="n">noqueue</span> <span class="n">master</span> <span class="n">brq80526879</span><span class="o">-</span><span class="mi">78</span> <span class="n">state</span> <span class="n">UNKNOWN</span> <span class="n">group</span> <span class="n">default</span> <span class="n">qlen</span> <span class="mi">1000</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">e18</span><span class="o">-</span><span class="n">neutron1</span> <span class="o">|</span> <span class="n">FAILED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">1</span> <span class="o">&gt;&gt;</span>
+<span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="k">return</span> <span class="n">code</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">e18</span><span class="o">-</span><span class="n">controller2</span> <span class="o">|</span> <span class="n">FAILED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">1</span> <span class="o">&gt;&gt;</span>
+<span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="k">return</span> <span class="n">code</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">e18</span><span class="o">-</span><span class="n">controller1</span> <span class="o">|</span> <span class="n">FAILED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">1</span> <span class="o">&gt;&gt;</span>
+<span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="k">return</span> <span class="n">code</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">e18</span><span class="o">-</span><span class="n">controller3</span> <span class="o">|</span> <span class="n">FAILED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">1</span> <span class="o">&gt;&gt;</span>
+<span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="k">return</span> <span class="n">code</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">monitor41</span> <span class="o">|</span> <span class="n">FAILED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">1</span> <span class="o">&gt;&gt;</span>
+<span class="n">non</span><span class="o">-</span><span class="n">zero</span> <span class="k">return</span> <span class="n">code</span>
+
+<span class="n">nanwan</span><span class="o">-</span><span class="n">e18</span><span class="o">-</span><span class="n">neutron3</span> <span class="o">|</span> <span class="n">CHANGED</span> <span class="o">|</span> <span class="n">rc</span><span class="o">=</span><span class="mi">0</span> <span class="o">&gt;&gt;</span>
+<span class="mi">89</span><span class="p">:</span> <span class="n">vxlan</span><span class="o">-</span><span class="mi">12548</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">BROADCAST</span><span class="p">,</span><span class="n">MULTICAST</span><span class="p">,</span><span class="n">UP</span><span class="p">,</span><span class="n">LOWER_UP</span><span class="o">&gt;</span> <span class="n">mtu</span> <span class="mi">1450</span> <span class="n">qdisc</span> <span class="n">noqueue</span> <span class="n">master</span> <span class="n">brq80526879</span><span class="o">-</span><span class="mi">78</span> <span class="n">state</span> <span class="n">UNKNOWN</span> <span class="n">group</span> <span class="n">default</span> <span class="n">qlen</span> <span class="mi">1000</span>
+</pre></div>
+</div>
+<p>可以看出vxlan-12548 分别存在于 nanwan-e17-compute1 、nanwan-e18-neutron2 、
+nanwan-e18-neutron3 三个节点上
+然后我们分别登入到nanwan-e18-neutron2、nanwan-e18-neutron3 节点上对vxlan-12548 进行抓包</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#nanwan-e17-neutron3 节点</span>
+<span class="p">[</span><span class="n">root</span><span class="nd">@nanwan</span><span class="o">-</span><span class="n">e17</span><span class="o">-</span><span class="n">neutron3</span> <span class="o">~</span><span class="p">]</span><span class="c1"># tcpdump -i  vxlan-12548 -n icmp</span>
+<span class="n">tcpdump</span><span class="p">:</span> <span class="n">verbose</span> <span class="n">output</span> <span class="n">suppressed</span><span class="p">,</span> <span class="n">use</span> <span class="o">-</span><span class="n">v</span> <span class="ow">or</span> <span class="o">-</span><span class="n">vv</span> <span class="k">for</span> <span class="n">full</span> <span class="n">protocol</span> <span class="n">decode</span>
+<span class="n">listening</span> <span class="n">on</span> <span class="n">vxlan</span><span class="o">-</span><span class="mi">12548</span><span class="p">,</span> <span class="n">link</span><span class="o">-</span><span class="nb">type</span> <span class="n">EN10MB</span> <span class="p">(</span><span class="n">Ethernet</span><span class="p">),</span> <span class="n">capture</span> <span class="n">size</span> <span class="mi">262144</span> <span class="nb">bytes</span>
+<span class="mi">17</span><span class="p">:</span><span class="mi">40</span><span class="p">:</span><span class="mf">06.925801</span> <span class="n">IP</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.50</span> <span class="o">&gt;</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.1</span><span class="p">:</span> <span class="n">ICMP</span> <span class="n">echo</span> <span class="n">request</span><span class="p">,</span> <span class="nb">id</span> <span class="mi">43265</span><span class="p">,</span> <span class="n">seq</span> <span class="mi">97</span><span class="p">,</span> <span class="n">length</span> <span class="mi">64</span>
+<span class="mi">17</span><span class="p">:</span><span class="mi">40</span><span class="p">:</span><span class="mf">06.926062</span> <span class="n">IP</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.1</span> <span class="o">&gt;</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.50</span><span class="p">:</span> <span class="n">ICMP</span> <span class="n">echo</span> <span class="n">reply</span><span class="p">,</span> <span class="nb">id</span> <span class="mi">43265</span><span class="p">,</span> <span class="n">seq</span> <span class="mi">97</span><span class="p">,</span> <span class="n">length</span> <span class="mi">64</span>
+
+<span class="c1">#nanwan-e17-neutron2 节点</span>
+<span class="p">[</span><span class="n">root</span><span class="nd">@nanwan</span><span class="o">-</span><span class="n">e17</span><span class="o">-</span><span class="n">neutron2</span> <span class="o">~</span><span class="p">]</span><span class="c1"># tcpdump -i  vxlan-12548 -n icmp</span>
+<span class="n">tcpdump</span><span class="p">:</span> <span class="n">verbose</span> <span class="n">output</span> <span class="n">suppressed</span><span class="p">,</span> <span class="n">use</span> <span class="o">-</span><span class="n">v</span> <span class="ow">or</span> <span class="o">-</span><span class="n">vv</span> <span class="k">for</span> <span class="n">full</span> <span class="n">protocol</span> <span class="n">decode</span>
+</pre></div>
+</div>
+<p>可以看出旨在nanwan-e17-neutron3节点上获取到icmp包，同时我们在nanwan-e17-neutron3节点上
+看看网桥设备brq80526879-78抓包信息：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">root</span><span class="nd">@nanwan</span><span class="o">-</span><span class="n">e17</span><span class="o">-</span><span class="n">neutron3</span> <span class="o">~</span><span class="p">]</span><span class="c1"># tcpdump -i  brq80526879-78 -n icmp</span>
+<span class="n">tcpdump</span><span class="p">:</span> <span class="n">verbose</span> <span class="n">output</span> <span class="n">suppressed</span><span class="p">,</span> <span class="n">use</span> <span class="o">-</span><span class="n">v</span> <span class="ow">or</span> <span class="o">-</span><span class="n">vv</span> <span class="k">for</span> <span class="n">full</span> <span class="n">protocol</span> <span class="n">decode</span>
+<span class="n">listening</span> <span class="n">on</span> <span class="n">brq80526879</span><span class="o">-</span><span class="mi">78</span><span class="p">,</span> <span class="n">link</span><span class="o">-</span><span class="nb">type</span> <span class="n">EN10MB</span> <span class="p">(</span><span class="n">Ethernet</span><span class="p">),</span> <span class="n">capture</span> <span class="n">size</span> <span class="mi">262144</span> <span class="nb">bytes</span>
+<span class="mi">17</span><span class="p">:</span><span class="mi">47</span><span class="p">:</span><span class="mf">42.015171</span> <span class="n">IP</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.50</span> <span class="o">&gt;</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.1</span><span class="p">:</span> <span class="n">ICMP</span> <span class="n">echo</span> <span class="n">request</span><span class="p">,</span> <span class="nb">id</span> <span class="mi">43265</span><span class="p">,</span> <span class="n">seq</span> <span class="mi">552</span><span class="p">,</span> <span class="n">length</span> <span class="mi">64</span>
+<span class="mi">17</span><span class="p">:</span><span class="mi">47</span><span class="p">:</span><span class="mf">42.015242</span> <span class="n">IP</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.1</span> <span class="o">&gt;</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">100.50</span><span class="p">:</span> <span class="n">ICMP</span> <span class="n">echo</span> <span class="n">reply</span><span class="p">,</span> <span class="nb">id</span> <span class="mi">43265</span><span class="p">,</span> <span class="n">seq</span> <span class="mi">552</span><span class="p">,</span> <span class="n">length</span> <span class="mi">64</span>
+</pre></div>
+</div>
+<p>能抓到相应的包，然后我们看下nanwan-e17-neutron3 下的网桥brq80526879-78 连接了那些设备：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">root</span><span class="nd">@nanwan</span><span class="o">-</span><span class="n">e17</span><span class="o">-</span><span class="n">neutron3</span> <span class="o">~</span><span class="p">]</span><span class="c1"># ip a |grep brq80526879-78</span>
+<span class="mi">87</span><span class="p">:</span> <span class="n">tap9a6b957c</span><span class="o">-</span><span class="mi">70</span><span class="nd">@if4</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">BROADCAST</span><span class="p">,</span><span class="n">MULTICAST</span><span class="p">,</span><span class="n">UP</span><span class="p">,</span><span class="n">LOWER_UP</span><span class="o">&gt;</span> <span class="n">mtu</span> <span class="mi">1450</span> <span class="n">qdisc</span> <span class="n">noqueue</span> <span class="n">master</span> <span class="n">brq80526879</span><span class="o">-</span><span class="mi">78</span> <span class="n">state</span> <span class="n">UP</span> <span class="n">group</span> <span class="n">default</span> <span class="n">qlen</span> <span class="mi">1000</span>
+<span class="mi">88</span><span class="p">:</span> <span class="n">tapa136db2d</span><span class="o">-</span><span class="mi">15</span><span class="nd">@if4</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">BROADCAST</span><span class="p">,</span><span class="n">MULTICAST</span><span class="p">,</span><span class="n">UP</span><span class="p">,</span><span class="n">LOWER_UP</span><span class="o">&gt;</span> <span class="n">mtu</span> <span class="mi">1450</span> <span class="n">qdisc</span> <span class="n">noqueue</span> <span class="n">master</span> <span class="n">brq80526879</span><span class="o">-</span><span class="mi">78</span> <span class="n">state</span> <span class="n">UP</span> <span class="n">group</span> <span class="n">default</span> <span class="n">qlen</span> <span class="mi">1000</span>
+<span class="mi">89</span><span class="p">:</span> <span class="n">vxlan</span><span class="o">-</span><span class="mi">12548</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">BROADCAST</span><span class="p">,</span><span class="n">MULTICAST</span><span class="p">,</span><span class="n">UP</span><span class="p">,</span><span class="n">LOWER_UP</span><span class="o">&gt;</span> <span class="n">mtu</span> <span class="mi">1450</span> <span class="n">qdisc</span> <span class="n">noqueue</span> <span class="n">master</span> <span class="n">brq80526879</span><span class="o">-</span><span class="mi">78</span> <span class="n">state</span> <span class="n">UNKNOWN</span> <span class="n">group</span> <span class="n">default</span> <span class="n">qlen</span> <span class="mi">1000</span>
+<span class="mi">90</span><span class="p">:</span> <span class="n">brq80526879</span><span class="o">-</span><span class="mi">78</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">BROADCAST</span><span class="p">,</span><span class="n">MULTICAST</span><span class="p">,</span><span class="n">UP</span><span class="p">,</span><span class="n">LOWER_UP</span><span class="o">&gt;</span> <span class="n">mtu</span> <span class="mi">1450</span> <span class="n">qdisc</span> <span class="n">noqueue</span> <span class="n">state</span> <span class="n">UP</span> <span class="n">group</span> <span class="n">default</span> <span class="n">qlen</span> <span class="mi">1000</span>
+</pre></div>
+</div>
+<p>可以看出 设备：tap9a6b957c-70、tapa136db2d-15 、vxlan-12548连接到了网桥上，我们来看看各个设备都连接什么</p>
+<p>从上面可以看出：</p>
+<p>通过上面的梳理,我们整理出如下的网络流量图</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../monasca/index.html" class="btn btn-neutral float-right" title="4. Monasca" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="network_dev_name_rules.html" class="btn btn-neutral float-left" title="3.1. openstack网络设备总结" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, fomalhaut
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,451 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>10. 云计算-Iptables&amp;Netfilter &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/my_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="11. 云计算-Linux/Bridge详解" href="cloud_technology_linux_bridge.html" />
+    <link rel="prev" title="9. 使用virt_manager管理kvm虚拟机" href="virt_manager_kvm_vm.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Welcome to Fomalhaut's Blog
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../cloudstack/index.html">cloudstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../openstack/index.html">openstack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../redis/index.html">Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../design-pattern/index.html">设计模式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ceph/index.html">ceph</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">杂七杂八</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="sphinx_readthedoc_github.html">1. 使用 Sphinx + Readthedoc + GitHub 建立个人的博客站点</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker_promethus_snmp_smokeping.html">2. prometheus 线路监控方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switch_cmd_learning.html">3. 常用交换机命令</a></li>
+<li class="toctree-l2"><a class="reference internal" href="deploy_debain_local_source.html">4. Proxome-VE 集群部署</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install_muti_python_on_win.html">5. Windows 下安装多版本Python 环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kvm_virtul_performance_test.html">6. KVM 虚拟机性能测试</a></li>
+<li class="toctree-l2"><a class="reference internal" href="proxmoxVE_with_ceph_deploy.html">7. Proxmox-VE搭配Ceph存储组建高可用虚拟化平台</a></li>
+<li class="toctree-l2"><a class="reference internal" href="switch_traffic_monitor_system.html">8. 交换机流量监控方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virt_manager_kvm_vm.html">9. 使用virt_manager管理kvm虚拟机</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">10. 云计算-Iptables&amp;Netfilter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">10.1. 什么是Iptables/Netfilter?</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#iptables">10.1.1. Iptables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#netfilter">10.1.2. Netfilter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">10.2. Netfilter的基本原理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iptabels">10.3. Iptabels的基本使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#iptabels-chains">10.3.1. Iptabels的链 Chains</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iptables-tables">10.3.2. Iptables的表 Tables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iptables-rules">10.3.3. Iptables的规则 Rules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">10.4. 使用示例</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">10.5. 注意事项</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_technology_linux_bridge.html">11. 云计算-Linux/Bridge详解</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_technology_openvswitch.html">12. 云计算-OpenvSwitch 详解</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloud_technology_tap_tun_vnet.html">13. 云计算-虚拟网络设备</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reStructuredText_quick_copy_pic.html">14. reStructuredText 实现粘贴图片</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rst_usage.html">15. rst 用法总结</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vscode_usage.html">16. Vscode 使用技巧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="git_usage.html">17. Git 使用技巧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linux_cmd_usage.html">18. Linux 命令行 使用技巧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autoHotKey_usage.html">19. AutoHotKey 使用技巧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sphinx_doc.html">20. sphinx模板</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../work/index.html">部门管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">Linux</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Welcome to Fomalhaut's Blog</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">杂七杂八</a> &raquo;</li>
+        
+      <li>10. 云计算-Iptables&amp;Netfilter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/others/cloud_technology_iptables.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="iptables-netfilter">
+<span id="cloud-technology-iptables"></span><h1>10. 云计算-Iptables&amp;Netfilter<a class="headerlink" href="#iptables-netfilter" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>10.1. 什么是Iptables/Netfilter?<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="iptables">
+<h3>10.1.1. Iptables<a class="headerlink" href="#iptables" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Iptables是Linux的”防火墙”,这个是我们通常上的理解。其实Iptables并不是真正意义上的防火墙
+我们可以把它理解成一个防火墙的客户端软件。我们需要通过这个客户端软件去操作防火墙的相关
+功能。比如包过滤，转发等</p></li>
+<li><p>工作在用户空间</p></li>
+</ul>
+</div>
+<div class="section" id="netfilter">
+<h3>10.1.2. Netfilter<a class="headerlink" href="#netfilter" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>netfilter是linux内核中的一个数据包处理框架，用于替代原有的ipfwadm和ipchains等数据包处理程序</p></li>
+<li><p>工作在内核空间</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Linux防火墙是通过netfiler这个内核框架实现，netfiler用于管理网络数据包。不仅具有网络地址转换(NAT)的功能，也具备数据包内容修改、以及数据包过滤等防火墙功能。利用运作于用户空间的应用软件，如iptables/firewalld/ebtables等来控制netfilter</p>
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>10.2. Netfilter的基本原理<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>原理图如下：它展示了netfilter框架在协议栈的位置,它可以清楚地看到netfilter框架是如何处理通过不同协议栈路径上的数据包</p>
+<div class="figure align-default">
+<img alt="../_images/20191107_092318.png" src="../_images/20191107_092318.png" />
+</div>
+<dl>
+<dt>解读：</dt><dd><ol class="arabic">
+<li><p>iptabels 用于处理ip数据包(IPv4 packet filter) / ebtables 处理以太网帧(修改源目的MAC等),
+工作于数据链路层 <code class="docutils literal notranslate"><span class="pre">Link</span> <span class="pre">Layer</span></code></p></li>
+<li><p>有颜色的长方形方框代表iptables/ebtables的表和链</p></li>
+<li><p>绿色的小方框表示 <code class="docutils literal notranslate"><span class="pre">Network</span> <span class="pre">Layer</span></code> 即iptbales的表和链</p></li>
+<li><p>蓝色的小方框表示 <code class="docutils literal notranslate"><span class="pre">Link</span> <span class="pre">Layer</span></code> 即ebtables的表和链</p></li>
+<li><p>椭圆形的方框 <code class="docutils literal notranslate"><span class="pre">conntrack</span></code> 即为connection tracking, 用于实现链接跟踪的功能，
+通过内核模块 <strong>nf_conntrack</strong> 实现</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bridge</span> <span class="pre">check</span></code> 用于检查网络接口是否属于Bridge的某个port, 如果是就会处理Bridge的代码处理流程
+进入 <code class="docutils literal notranslate"><span class="pre">Link</span> <span class="pre">Layer</span></code> ,如果不是就会送到 网络层 <code class="docutils literal notranslate"><span class="pre">Network</span> <span class="pre">Layer</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bridging</span> <span class="pre">decision</span></code> 类似于普通二层交换机的查表转发功能(MAC端口映射表)，根据mac地址判断是转发，
+还是交给上层协议处理.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>我们可以通过在Bridge接口上抓包，来获取接口上所有的数据包。参考</p>
+<p><a class="reference internal" href="linux_networt_debug.html#linux-networt-debug"><span class="std std-ref">linux抓包分析</span></a></p>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">routing</span> <span class="pre">decision</span></code> 用于路由选择，根据系统的路由表 (ip route list| route -n)
+来决定是转发forward 还是本地处理</p></li>
+<li><p>总结：<strong>不同的包有不一样的路径，数据包总是从主机上的某一个接口进入，然后经过一系列的
+``check/decision/表链处理``
+到达主机中的某一个应用程序或者是主机中的某个接口发出，这里的接口既可以是物理网卡ethx 也可以是虚拟的网卡tun/vnex
+同时也可以是bridge的port</strong></p></li>
+</ol>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>复习一下TCP/IP四层模型的数据封装与解封过程</p>
+<div class="figure align-default">
+<img alt="../_images/20191107_100908.png" src="../_images/20191107_100908.png" />
+</div>
+</div>
+</div>
+<div class="section" id="iptabels">
+<h2>10.3. Iptabels的基本使用<a class="headerlink" href="#iptabels" title="Permalink to this headline">¶</a></h2>
+<p><strong>iptables的结构：iptables -&gt; Tables -&gt; Chains -&gt; Rules</strong></p>
+<div class="section" id="iptabels-chains">
+<h3>10.3.1. Iptabels的链 Chains<a class="headerlink" href="#iptabels-chains" title="Permalink to this headline">¶</a></h3>
+<p>我们知道 <strong>Netfilter</strong> 在内核中协议栈中的不同位置实现了5个hook点(钩子函数),其他内核模块可以向
+这些hook点注册处理函数，当数据包经过这些hook点的时候，在这些hook点上处理函数会一一的调用。</p>
+<p>5个Chains：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PREROUTING链</span></code> :  处理刚到达本机并在路由转发前的数据包。它会转换数据包中的目标IP地址
+（destination ip address），通常用于DNAT(destination NAT)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">INPUT链</span></code> ：处理输入数据包</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OUTPUT链</span></code> ：处理输出数据包</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FORWARD链</span></code> ：处理转发数据包,将数据转发到本机的其他网卡设备上</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">POSTOUTING链</span></code> ：处理即将离开本机的数据包。它会转换数据包中的源IP地址（source ip address），
+通常用于SNAT（source NAT）</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="../_images/20191107_120042.png" src="../_images/20191107_120042.png" />
+</div>
+</div>
+<div class="section" id="iptables-tables">
+<h3>10.3.2. Iptables的表 Tables<a class="headerlink" href="#iptables-tables" title="Permalink to this headline">¶</a></h3>
+<p>我们把具有相同功能的规则放在一起，这样就形成了表的概念。也就是说，iptables中的表
+就是具体特定功能的规则的集合</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">filter表</span></code>：负责数据包过滤/拦截，可以包含INPUT、FORWARD、OUTPUT这3个内置chain,
+内核模块：iptable_filter</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nat表</span></code>：IP地址或端口号转换，可以包含PREROUTING、OUTPUT、POSTROUTING
+3个内置chain，nat table在会话建立时会记录转换的对应关系，同一会话的回包和后续报文会自动地址转换，
+这是因为nat使用了ip_conntrack模块。，内核模块：iptable_nat</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mangle表</span></code>：拆解报文，用来修改IP报文，可以包含PREROUTING、OUTPUT、INPUT、FORWARD、POSTROUTING
+5个内置chain 内核模块：iptable_mangle</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">raw表</span></code>：负责过滤功能，内核模块：iptable_raw</p></li>
+</ul>
+<div class="figure align-default">
+<img alt="../_images/20191107_141313.png" src="../_images/20191107_141313.png" />
+</div>
+</div>
+<div class="section" id="iptables-rules">
+<h3>10.3.3. Iptables的规则 Rules<a class="headerlink" href="#iptables-rules" title="Permalink to this headline">¶</a></h3>
+<p>语法：
+iptables(选项)(参数)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>-t, --table table 对指定的表 table 进行操作， table 必须是 raw， nat，filter，mangle 中的一个。如果不指定此选项，默认的是 filter 表。
+
+# 通用匹配：源地址目标地址的匹配
+-p：指定要匹配的数据包协议类型；
+-s, --source [!] address[/mask] ：把指定的一个／一组地址作为源地址，按此规则进行过滤。当后面没有 mask 时，address 是一个地址，比如：192.168.1.1；当 mask 指定时，可以表示一组范围内的地址，比如：192.168.1.0/255.255.255.0。
+-d, --destination [!] address[/mask] ：地址格式同上，但这里是指定地址为目的地址，按此进行过滤。
+-i, --in-interface [!] &lt;网络接口name&gt; ：指定数据包的来自来自网络接口，比如最常见的 eth0 。注意：它只对 INPUT，FORWARD，PREROUTING 这三个链起作用。如果没有指定此选项， 说明可以来自任何一个网络接口。同前面类似，&quot;!&quot; 表示取反。
+-o, --out-interface [!] &lt;网络接口name&gt; ：指定数据包出去的网络接口。只对 OUTPUT，FORWARD，POSTROUTING 三个链起作用。
+
+# 查看管理命令
+-L, --list [chain] 列出链 chain 上面的所有规则，如果没有指定链，列出表上所有链的所有规则。
+
+# 规则管理命令
+-A, --append chain rule-specification 在指定链 chain 的末尾插入指定的规则，也就是说，这条规则会被放到最后，最后才会被执行。规则是由后面的匹配来指定。
+-I, --insert chain [rulenum] rule-specification 在链 chain 中的指定位置插入一条或多条规则。如果指定的规则号是1，则在链的头部插入。这也是默认的情况，如果没有指定规则号。
+-D, --delete chain rule-specification -D, --delete chain rulenum 在指定的链 chain 中删除一个或多个指定规则。
+-R num：Replays替换/修改第几条规则
+
+# 链管理命令（这都是立即生效的）
+-P, --policy chain target ：为指定的链 chain 设置策略 target。注意，只有内置的链才允许有策略，用户自定义的是不允许的。
+-F, --flush [chain] 清空指定链 chain 上面的所有规则。如果没有指定链，清空该表上所有链的所有规则。
+-N, --new-chain chain 用指定的名字创建一个新的链。
+-X, --delete-chain [chain] ：删除指定的链，这个链必须没有被其它任何规则引用，而且这条上必须没有任何规则。如果没有指定链名，则会删除该表中所有非内置的链。
+-E, --rename-chain old-chain new-chain ：用指定的新名字去重命名指定的链。这并不会对链内部照成任何影响。
+-Z, --zero [chain] ：把指定链，或者表中的所有链上的所有计数器清零。
+
+-j, --jump target &lt;指定目标&gt; ：即满足某条件时该执行什么样的动作。target 可以是内置的目标，比如 ACCEPT，也可以是用户自定义的链。
+-h：显示帮助信息；
+</pre></div>
+</div>
+<p><strong>基本命令格式：</strong></p>
+<p>iptables -t 表名 &lt;-A/I/D/R&gt; 规则链名 [规则号] &lt;-i/o 网卡名&gt; -p 协议名 &lt;-s 源IP/源子网&gt; –sport 源端口 &lt;-d 目标IP/目标子网&gt; –dport 目标端口 -j 动作</p>
+<p>1.数据包在内核空间会有几种状态，但是映射到用户空间iptbales，就只用5种状态(注意这里说的状态不是tcp/ip协议中tcp连接的各种状态)：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>状态</p></th>
+<th class="head"><p>解释</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NEW</p></td>
+<td><p>匹配连接的第一个包。意思就是，iptables从连接跟踪表中查到此包是某连接的第一个包。
+判断此包是某连接的第一个包是依据conntrack当前”只看到一个方向数据包”([UNREPLIED])
+不关联特定协议，因此NEW并不单指tcp连接的SYN包</p></td>
+</tr>
+<tr class="row-odd"><td><p>ESTABLISHED</p></td>
+<td><p>匹配连接的响应包及后续的包。意思是iptables从连接跟踪表中查到此包是
+属于一个已经收到响应的连接(即没有[UNREPLIED]字段)。因此在iptables状态中，
+只要发送并接到响应，连接就认为是ESTABLISHED的了。这个特点使iptables
+可以控制由谁发起的连接才可以通过，比如A与B通信，A发给B数据包属于NEW状态，
+B回复给A的数据包就变为ESTABLISHED状态。ICMP的错误和重定向等信息包也被看作是ESTABLISHED，
+只要它们是我们所发出的信息的应答。</p></td>
+</tr>
+<tr class="row-even"><td><p>RELATED</p></td>
+<td><p>匹配那些属于RELATED连接的包，这句话说了跟没说一样。
+RELATED状态有点复杂，当一个连接与另一个已经是ESTABLISHED的连接有关时，
+这个连接就被认为是RELATED。这意味着，一个连接要想成为RELATED，
+必须首先有一个已经是ESTABLISHED的连接存在。这个ESTABLISHED连接再产生一个主连接之外的新连接，
+这个新连接就是RELATED状态了，当然首先conntrack模块要能”读懂”它是RELATED。拿ftp来说，
+FTP数据传输连接就是RELATED与先前已建立的FTP控制连接，
+还有通过IRC的DCC连接。有了RELATED这个状态，ICMP错误消息、FTP传输、DCC等才能穿过防火墙正常工作。
+有些依赖此机制的TCP协议和UDP协议非常复杂，
+他们的连接被封装在其它的TCP或UDP包的数据部分(可以了解下overlay/vxlan/gre)，
+这使得conntrack需要借助其它辅助模块才能正确”读懂”这些复杂数据包，
+比如nf_conntrack_ftp这个辅助模块</p></td>
+</tr>
+<tr class="row-odd"><td><p>INVALID</p></td>
+<td><p>匹配那些无法识别或没有任何状态的数据包。
+这可能是由于系统内存不足或收到不属于任何已知连接的ICMP错误消息。
+一般情况下我们应该DROP此类状态的包</p></td>
+</tr>
+<tr class="row-even"><td><p>UNTRACKED</p></td>
+<td><p>状态比较简单，它匹配那些带有NOTRACK标签的数据包。需要注意的一点是，
+如果你在raw表中对某些数据包设置有NOTRACK标签，那上面的4种状态将无法匹配这样的数据包，
+因此你需要单独考虑NOTRACK包的放行规则</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>10.4. 使用示例<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id4">
+<h2>10.5. 注意事项<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cloud_technology_linux_bridge.html" class="btn btn-neutral float-right" title="11. 云计算-Linux/Bridge详解" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="virt_manager_kvm_vm.html" class="btn btn-neutral float-left" title="9. 使用virt_manager管理kvm虚拟机" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, fomalhaut
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

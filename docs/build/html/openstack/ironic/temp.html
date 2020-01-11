@@ -1,0 +1,380 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.7. Ironic 临时笔记 &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/my_theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="3. Neutron" href="../neutron/index.html" />
+    <link rel="prev" title="2.6. Ironic 相关概览及以及延伸知识" href="others.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Welcome to Fomalhaut's Blog
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../cloudstack/index.html">cloudstack</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">openstack</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../deploy/index.html">1. 安装部署实践</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">2. Ironic</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_packstack.html">2.1. 通过packstack 安装Ironic 安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html">2.2. 通过kolla 安装Ironic 安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualbmc_install.html">2.3. virtualbmc 使用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="openstack-dib_make_ironic-agent.html">2.4. DIB制作ironic镜像</a></li>
+<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html">2.5. openstack制作window镜像</a></li>
+<li class="toctree-l3"><a class="reference internal" href="others.html">2.6. Ironic 相关概览及以及延伸知识</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">2.7. Ironic 临时笔记</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">2.7.1. Ironic 映像</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">2.7.2. 其他</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">2.7.3. 参考引用</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../neutron/index.html">3. Neutron</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../monasca/index.html">4. Monasca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../develop/index.html">5. OpenStack 二次开发</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/index.html">6. OpenStack 源码解析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/index.html">7. OpenStack 其他相关文档</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../redis/index.html">Redis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../design-pattern/index.html">设计模式</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ceph/index.html">ceph</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../others/index.html">杂七杂八</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../work/index.html">部门管理</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../linux/index.html">Linux</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Welcome to Fomalhaut's Blog</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">openstack</a> &raquo;</li>
+        
+          <li><a href="index.html">2. Ironic</a> &raquo;</li>
+        
+      <li>2.7. Ironic 临时笔记</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/openstack/ironic/temp.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ironic">
+<h1>2.7. Ironic 临时笔记<a class="headerlink" href="#ironic" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>2.7.1. Ironic 映像<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>ironic有两种类型的镜像 <strong>deploy镜像</strong> , <strong>user 镜像</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>ironic 整个部署流程中有两组映像，分别是 deploy 映像和 user 映像， 其中 deploy 映像用在 inspector 和 部署阶段， user 映像是用户需要安装的操作系统映像。
+制作ironic deploy镜像其实就是在普通镜像中添加一个ipa服务，用来裸机和ironic通信。 官方推荐制作镜像的工具有两个，分别是CoreOS tools和disk-image-builder</p>
+</div>
+<div class="section" id="deploy">
+<h3>deploy 镜像<a class="headerlink" href="#deploy" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>获取deploy镜像有两种方式：1、通过官方下载制作好的镜像, 2、通过dib工具制作。有时候
+部署裸机的时间比较长。我们需要登入到部署系统中查看情况,两种方式制作的镜像都需要设置登入的方式</p>
+</div>
+<div class="section" id="id2">
+<h4>官网下载镜像<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<p>Ironic的deploy镜像可以直接通过官网下载, 下载链接：<a class="reference external" href="http://tarballs.openstack.org/ironic-python-agent/coreos/files/">http://tarballs.openstack.org/ironic-python-agent/coreos/files/</a>
+分别下载两个文件：</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://tarballs.openstack.org/ironic-python-agent/coreos/files/coreos_production_pxe-master.vmlinuz">coreos_production_pxe-master.vmlinuz</a></p></li>
+<li><p><a class="reference external" href="http://tarballs.openstack.org/ironic-python-agent/coreos/files/coreos_production_pxe_image-oem-master.cpio.gz">coreos_production_pxe_image-oem-master.cpio.gz</a></p></li>
+</ul>
+<p>将镜像上传到glance中</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">openstack</span> <span class="n">image</span> <span class="n">create</span> <span class="o">--</span><span class="n">disk</span><span class="o">-</span><span class="nb">format</span> <span class="n">aki</span> <span class="o">--</span><span class="n">container</span><span class="o">-</span><span class="nb">format</span> <span class="n">aki</span> <span class="o">--</span><span class="n">public</span> \
+<span class="o">--</span><span class="n">file</span> <span class="n">coreos_production_pxe</span><span class="o">-</span><span class="n">master</span><span class="o">.</span><span class="n">vmlinuz</span> <span class="n">deploy</span><span class="o">-</span><span class="n">vmlinuz</span>
+
+<span class="n">openstack</span> <span class="n">image</span> <span class="n">create</span> <span class="o">--</span><span class="n">disk</span><span class="o">-</span><span class="nb">format</span> <span class="n">ari</span> <span class="o">--</span><span class="n">container</span><span class="o">-</span><span class="nb">format</span> <span class="n">ari</span> <span class="o">--</span><span class="n">public</span> \
+<span class="o">--</span><span class="n">file</span> <span class="n">coreos_production_pxe_image</span><span class="o">-</span><span class="n">oem</span><span class="o">-</span><span class="n">master</span><span class="o">.</span><span class="n">cpio</span><span class="o">.</span><span class="n">gz</span> <span class="n">deploy</span><span class="o">-</span><span class="n">initrd</span>
+</pre></div>
+</div>
+<div class="section" id="id3">
+<h5>设置镜像登入密码<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h5>
+<p>官方的coreos镜像没有设置默认的密码,我们可以通过设置 在 <code class="docutils literal notranslate"><span class="pre">pxe_append_params</span></code> 中
+设置 <code class="docutils literal notranslate"><span class="pre">coreos.autologin</span></code> 跳过登入</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># cat /etc/ironic/ironic.conf</span>
+<span class="p">[</span><span class="n">pxe</span><span class="p">]</span>
+<span class="n">pxe_append_params</span> <span class="o">=</span> <span class="n">nofb</span> <span class="n">nomodeset</span> <span class="n">vga</span><span class="o">=</span><span class="n">normal</span> <span class="n">coreos</span><span class="o">.</span><span class="n">autologin</span> <span class="n">ipa</span><span class="o">-</span><span class="n">debug</span><span class="o">=</span><span class="mi">1</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>另外为了便于调试，可以打开IPA的DEDUG功能，在 <code class="docutils literal notranslate"><span class="pre">pxe_append_params</span></code> 追加 <code class="docutils literal notranslate"><span class="pre">ipa-debug=1</span></code></p>
+</div>
+</div>
+<div class="section" id="dib">
+<h4>通过dib制作镜像<a class="headerlink" href="#dib" title="Permalink to this headline">¶</a></h4>
+<p>dib制作的镜像可以设置密码或者ssh key登入deploy系统.
+dib 是通过 <code class="docutils literal notranslate"><span class="pre">dynamic-login</span></code> 这个元素来实现密码登入的,下面是 <code class="docutils literal notranslate"><span class="pre">dynamic-login</span></code> 的执行脚本:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>set -eu
+set -o pipefail
+
+# Reads an encrypted root password from the kernel command line and set
+# it to the root user
+if [[ $(&lt;/proc/cmdline) =~ rootpwd=\&quot;([^\&quot;]+)\&quot; ]]; then
+    echo &quot;root:${BASH_REMATCH[1]}&quot; | chpasswd -e
+fi
+
+# Reads a sshkey from the kernel command line and appends it to the root
+# user authorized_keys
+SSHDIR=/root/.ssh
+if [[ $(&lt;/proc/cmdline) =~ sshkey=\&quot;([^\&quot;]+)\&quot; ]]; then
+    mkdir -p $SSHDIR
+    chmod 700 $SSHDIR
+    echo &quot;${BASH_REMATCH[1]}&quot; &gt; $SSHDIR/authorized_keys
+    chmod 600 $SSHDIR/authorized_keys
+fi
+</pre></div>
+</div>
+<p>我们首先制作带 <code class="docutils literal notranslate"><span class="pre">`dynamic-login</span></code> 的部署镜像</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">disk</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="n">create</span> <span class="n">deploy</span><span class="o">-</span><span class="n">baremetal</span> <span class="n">centos7</span> <span class="n">dynamic</span><span class="o">-</span><span class="n">login</span> <span class="o">-</span><span class="n">o</span> <span class="n">ironic</span><span class="o">-</span><span class="n">agent</span>
+</pre></div>
+</div>
+<p>关于dib的基本使用可以参照  <a class="reference internal" href="openstack-dib_make_ironic-agent.html#openstack-dib-make-ironic-agent"><span class="std std-ref">DIB制作ironic镜像</span></a></p>
+<p>制作完镜像后。我们需要配置 <code class="docutils literal notranslate"><span class="pre">/etc/kolla/config/ironic.conf</span></code> ,我们这里使用的是kolla部署的，因此调整完这个文件后
+需要kolla-ansbile reconfigure ,如果要及时生效，也可以修改/etc/kolla/ironic/ironic.conf 文件。然后重启docker容器</p>
+<ul class="simple">
+<li><p>ssh方式 ：
+注入ssh key，修改ironic配置文件，pxe_append_params追加sshkey=”ssh-rsa AAAA…”</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># cat ~/.ssh/id_rsa.pub</span>
+<span class="n">ssh</span><span class="o">-</span><span class="n">rsa</span> <span class="n">AAAAB3NzaC1yc2EAAAADAQABAAABAQC60V3ZKk0</span><span class="o">+</span><span class="n">c3LcR3TtDbLCtnlPn7fLWmkS</span><span class="o">/</span><span class="n">KS0lQ</span><span class="o">/</span><span class="n">V5wKOXrtgZPNDCkkOwCzwC0A6HXIfllTKsaaf5HMJw8siwL6Qnmu6GpUR597QVIZ7DW1eoYBqz2MFg8lxRk9BjZ3J3IHUbqFoaVHW</span><span class="o">+</span><span class="n">k6K</span><span class="o">+</span><span class="n">d3pEXi0knR</span><span class="o">+</span><span class="n">RoIWqPKY02ImT2ThN</span><span class="o">/</span><span class="n">RZtUh4iiy6fMgzlWhsyqkOKr8uoYjLF1AC6frqLSXzAJbqGriyI4VnqqKhUtcDZFeRWHkgZ7DRVXMo1TOMpm82k56Dac3iXW</span><span class="o">++</span><span class="n">pE4r</span><span class="o">+</span><span class="n">Us603VvWf2B28FowQjxNRlNWIIsXe7RMCN6EFxypmu8113cVP23</span><span class="o">+</span><span class="n">n1Jkis3Ro37</span> <span class="n">root</span><span class="nd">@zx</span><span class="o">-</span><span class="mi">120</span>
+</pre></div>
+</div>
+<p>将sshkey 写入到配置文件中：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">pxe</span><span class="p">]</span>
+<span class="n">pxe_append_params</span> <span class="o">=</span> <span class="n">sshkey</span><span class="o">=</span><span class="s2">&quot;AAAAB3NzaC1yc2EAAAADAQABAAABAQC60V3ZKk0+c3LcR3TtDbLCtnlPn7fLWmkS/KS0lQ/V5wKOXrtgZPNDCkkOwCzwC0A6HXIfllTKsaaf5HMJw8siwL6Qnmu6GpUR597QVIZ7DW1eoYBqz2MFg8lxRk9BjZ3J3IHUbqFoaVHW+k6K+d3pEXi0knR+RoIWqPKY02ImT2ThN/RZtUh4iiy6fMgzlWhsyqkOKr8uoYjLF1AC6frqLSXzAJbqGriyI4VnqqKhUtcDZFeRWHkgZ7DRVXMo1TOMpm82k56Dac3iXW++pE4r+Us603VvWf2B28FowQjxNRlNWIIsXe7RMCN6EFxypmu8113cVP23+n1Jkis3Ro37&quot;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>password方式 :
+通过在 <code class="docutils literal notranslate"><span class="pre">pxe_append_params</span></code> 中添加 <code class="docutils literal notranslate"><span class="pre">rootpwd</span></code> 实现,从 <code class="docutils literal notranslate"><span class="pre">dynamic-login</span></code>
+脚本中可以看出, <code class="docutils literal notranslate"><span class="pre">rootpwd</span></code>
+设置的是一个密文的密码。因此我们需要通过openssl获取密码的密文</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">dib_env</span><span class="p">)</span> <span class="p">[</span><span class="n">root</span><span class="nd">@openstack</span><span class="o">-</span><span class="n">dib</span> <span class="n">opt</span><span class="p">]</span><span class="c1"># openssl</span>
+<span class="n">OpenSSL</span><span class="o">&gt;</span> <span class="n">passwd</span>
+<span class="n">Password</span><span class="p">:</span>
+<span class="n">Verifying</span> <span class="o">-</span> <span class="n">Password</span><span class="p">:</span>
+<span class="mi">9</span><span class="n">NF5pDgCPP2wY</span>
+<span class="n">OpenSSL</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>将生成的密码密文 9NF5pDgCPP2wY 设置的配置文件中</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># cat /etc/ironic/ironic.conf</span>
+
+<span class="p">[</span><span class="n">pxe</span><span class="p">]</span>
+<span class="n">pxe_append_params</span> <span class="o">=</span> <span class="n">rootpwd</span><span class="o">=</span><span class="s2">&quot;9NF5pDgCPP2wY&quot;</span>
+</pre></div>
+</div>
+<p>整合上述情况后可以设置为如下配置：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># cat /etc/ironic/ironic.conf</span>
+<span class="p">[</span><span class="n">pxe</span><span class="p">]</span>
+<span class="n">pxe_append_params</span> <span class="o">=</span> <span class="n">nofb</span> <span class="n">nomodeset</span> <span class="n">rootpwd</span><span class="o">=</span><span class="s2">&quot;9NF5pDgCPP2wY&quot;</span> <span class="n">vga</span><span class="o">=</span><span class="n">normal</span> <span class="n">coreos</span><span class="o">.</span><span class="n">autologin</span> <span class="n">ipa</span><span class="o">-</span><span class="n">debug</span><span class="o">=</span><span class="mi">1</span> <span class="n">sshkey</span><span class="o">=</span><span class="s2">&quot;ssh-dss AAAA...&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>用户镜像<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>2.7.2. 其他<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><p>切换用户</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">alias</span> <span class="n">openmember</span><span class="o">=</span><span class="s1">&#39;openstack --os-project-name project-152202708661111 --os-username 152202708661111 --os-password password&#39;</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>aa</p></li>
+</ol>
+</div>
+<div class="section" id="id6">
+<h2>2.7.3. 参考引用<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<dl class="footnote brackets">
+<dt class="label" id="id7"><span class="brackets">1</span></dt>
+<dd><p><a class="reference external" href="https://int32bit.me/2019/04/23/OpenStack-Ironic%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E5%8F%82%E8%80%83">https://int32bit.me/2019/04/23/OpenStack-Ironic%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E5%8F%82%E8%80%83</a>/#</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../neutron/index.html" class="btn btn-neutral float-right" title="3. Neutron" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="others.html" class="btn btn-neutral float-left" title="2.6. Ironic 相关概览及以及延伸知识" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, fomalhaut
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
