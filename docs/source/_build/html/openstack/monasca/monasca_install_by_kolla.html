@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>4.2. Monasca 安装(Kolla) &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
+  <title>1.2. Monasca 安装(Kolla) &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="5. OpenStack 二次开发" href="../develop/index.html" />
-    <link rel="prev" title="4.1. Monasca 介绍" href="monasca.html" /> 
+    <link rel="next" title="3. OpenStack 二次开发" href="../develop/index.html" />
+    <link rel="prev" title="1.1. Monasca 介绍" href="monasca.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -90,20 +90,20 @@
 <li class="toctree-l2"><a class="reference internal" href="../deploy/index.html">1. 安装部署实践</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ironic/index.html">2. Ironic</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../neutron/index.html">3. Neutron</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">4. Monasca</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="monasca.html">4.1. Monasca 介绍</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">4.2. Monasca 安装(Kolla)</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id2">4.2.1. 编译镜像</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#monasca">4.2.2. 开启monasca</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id3">4.2.3. 部署&amp;安装</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#libvirt">4.2.4. 配置libvirt插件</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">1. Monasca</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="monasca.html">1.1. Monasca 介绍</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1.2. Monasca 安装(Kolla)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">1.2.1. 编译镜像</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#monasca">1.2.2. 开启monasca</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">1.2.3. 部署&amp;安装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libvirt">1.2.4. 配置libvirt插件</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../develop/index.html">5. OpenStack 二次开发</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../source/index.html">6. OpenStack 源码解析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../others/index.html">7. OpenStack 其他相关文档</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../develop/index.html">3. OpenStack 二次开发</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/index.html">4. OpenStack 源码解析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/index.html">6. OpenStack 其他相关文档</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../redis/index.html">Redis</a></li>
@@ -159,9 +159,9 @@
         
           <li><a href="../index.html">openstack</a> &raquo;</li>
         
-          <li><a href="index.html">4. Monasca</a> &raquo;</li>
+          <li><a href="index.html">1. Monasca</a> &raquo;</li>
         
-      <li>4.2. Monasca 安装(Kolla)</li>
+      <li>1.2. Monasca 安装(Kolla)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -181,7 +181,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="monasca-kolla">
-<span id="monasca-install-by-kolla"></span><h1><a class="toc-backref" href="#id4">4.2. Monasca 安装(Kolla)</a><a class="headerlink" href="#monasca-kolla" title="Permalink to this headline">¶</a></h1>
+<span id="monasca-install-by-kolla"></span><h1><a class="toc-backref" href="#id4">1.2. Monasca 安装(Kolla)</a><a class="headerlink" href="#monasca-kolla" title="Permalink to this headline">¶</a></h1>
 <div class="contents topic" id="id1">
 <p class="topic-title first">目录</p>
 <ul class="simple">
@@ -197,7 +197,7 @@
 </div>
 <hr class="docutils" />
 <div class="section" id="id2">
-<h2><a class="toc-backref" href="#id5">4.2.1. 编译镜像</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id5">1.2.1. 编译镜像</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>由于我这边是通过源码编译的方式安装monasca，因此需要将monasca以及依赖的组件的镜像全部进行编译</p>
@@ -212,7 +212,7 @@
 </div>
 </div>
 <div class="section" id="monasca">
-<h2><a class="toc-backref" href="#id6">4.2.2. 开启monasca</a><a class="headerlink" href="#monasca" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id6">1.2.2. 开启monasca</a><a class="headerlink" href="#monasca" title="Permalink to this headline">¶</a></h2>
 <p>修改 <code class="docutils literal notranslate"><span class="pre">/etc/kolla/globals.yml</span></code> 文件，添加 <code class="docutils literal notranslate"><span class="pre">enable_monasca:</span> <span class="pre">&quot;yes&quot;</span></code></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">---</span>
 <span class="n">kolla_base_distro</span><span class="p">:</span> <span class="s2">&quot;centos&quot;</span>
@@ -240,7 +240,7 @@
 </div>
 </div>
 <div class="section" id="id3">
-<h2><a class="toc-backref" href="#id7">4.2.3. 部署&amp;安装</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">1.2.3. 部署&amp;安装</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#进入虚拟环境</span>
 <span class="n">source</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">os_hum</span><span class="o">/</span><span class="n">kolla</span><span class="o">-</span><span class="n">ansible_env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
 
@@ -258,7 +258,7 @@
 </div>
 </div>
 <div class="section" id="libvirt">
-<h2><a class="toc-backref" href="#id8">4.2.4. 配置libvirt插件</a><a class="headerlink" href="#libvirt" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">1.2.4. 配置libvirt插件</a><a class="headerlink" href="#libvirt" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#进入monasca collector容器 安装libvirt插件</span>
 <span class="n">docker</span> <span class="n">exec</span> <span class="o">-</span><span class="n">it</span> <span class="o">-</span><span class="n">u</span> <span class="mi">0</span> <span class="n">monasca_agent_collector</span> <span class="n">bash</span>
 
@@ -285,10 +285,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../develop/index.html" class="btn btn-neutral float-right" title="5. OpenStack 二次开发" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../develop/index.html" class="btn btn-neutral float-right" title="3. OpenStack 二次开发" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="monasca.html" class="btn btn-neutral float-left" title="4.1. Monasca 介绍" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="monasca.html" class="btn btn-neutral float-left" title="1.1. Monasca 介绍" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

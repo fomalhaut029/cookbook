@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>2.1. 通过packstack 安装Ironic 安装 &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
+  <title>1. 通过packstack 安装Ironic 安装 &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="2.2. 通过kolla 安装Ironic 安装" href="ironic_install_with_kolla.html" />
+    <link rel="next" title="2. 通过kolla 安装Ironic 安装" href="ironic_install_with_kolla.html" />
     <link rel="prev" title="2. Ironic" href="index.html" /> 
 </head>
 
@@ -89,29 +89,29 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">openstack</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../deploy/index.html">1. 安装部署实践</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">2. Ironic</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">2.1. 通过packstack 安装Ironic 安装</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id2">2.1.1. 环境说明</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id3">2.1.2. 环境准备</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#packstack">2.1.3. 安装packstack</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#packstack-packstack-cfg">2.1.4. 配置packstack安装文件 <code class="docutils literal notranslate"><span class="pre">packstack.cfg</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#openstack">2.1.5. 安装openstack</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#ironic">2.1.6. 配置ironic</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id5">2.1.7. 遇到的问题</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1. 通过packstack 安装Ironic 安装</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">1.1. 环境说明</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">1.2. 环境准备</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#packstack">1.3. 安装packstack</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#packstack-packstack-cfg">1.4. 配置packstack安装文件 <code class="docutils literal notranslate"><span class="pre">packstack.cfg</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#openstack">1.5. 安装openstack</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ironic">1.6. 配置ironic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">1.7. 遇到的问题</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html">2.2. 通过kolla 安装Ironic 安装</a></li>
-<li class="toctree-l3"><a class="reference internal" href="virtualbmc_install.html">2.3. virtualbmc 使用</a></li>
-<li class="toctree-l3"><a class="reference internal" href="openstack-dib_make_ironic-agent.html">2.4. DIB制作ironic镜像</a></li>
-<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html">2.5. openstack制作window镜像</a></li>
-<li class="toctree-l3"><a class="reference internal" href="others.html">2.6. Ironic 相关概览及以及延伸知识</a></li>
-<li class="toctree-l3"><a class="reference internal" href="temp.html">2.7. Ironic 临时笔记</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html">2. 通过kolla 安装Ironic 安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualbmc_install.html">3. virtualbmc 使用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="openstack-dib_make_ironic-agent.html">4. DIB制作ironic镜像</a></li>
+<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html">5. openstack制作window镜像</a></li>
+<li class="toctree-l3"><a class="reference internal" href="others.html">6. Ironic 相关概览及以及延伸知识</a></li>
+<li class="toctree-l3"><a class="reference internal" href="temp.html">7. Ironic 临时笔记</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../neutron/index.html">3. Neutron</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../monasca/index.html">4. Monasca</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../develop/index.html">5. OpenStack 二次开发</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../source/index.html">6. OpenStack 源码解析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../others/index.html">7. OpenStack 其他相关文档</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../develop/index.html">4. OpenStack 二次开发</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/index.html">5. OpenStack 源码解析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/index.html">6. OpenStack 其他相关文档</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../redis/index.html">Redis</a></li>
@@ -169,7 +169,7 @@
         
           <li><a href="index.html">2. Ironic</a> &raquo;</li>
         
-      <li>2.1. 通过packstack 安装Ironic 安装</li>
+      <li>1. 通过packstack 安装Ironic 安装</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -189,7 +189,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="packstack-ironic">
-<span id="ironic-install-with-packstack"></span><h1><a class="toc-backref" href="#id6">2.1. 通过packstack 安装Ironic 安装</a><a class="headerlink" href="#packstack-ironic" title="Permalink to this headline">¶</a></h1>
+<span id="ironic-install-with-packstack"></span><h1><a class="toc-backref" href="#id6">1. 通过packstack 安装Ironic 安装</a><a class="headerlink" href="#packstack-ironic" title="Permalink to this headline">¶</a></h1>
 <p>本文介绍通过packstack来安装Ironic环境</p>
 <div class="contents topic" id="id1">
 <p class="topic-title first">目录</p>
@@ -219,23 +219,23 @@
 </div>
 <hr class="docutils" />
 <div class="section" id="id2">
-<h2><a class="toc-backref" href="#id7">2.1.1. 环境说明</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id7">1.1. 环境说明</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>CentOS Linux release 7.6.1810 (Core)</p></li>
 <li><p>openstack stein</p></li>
 </ul>
 </div>
 <div class="section" id="id3">
-<h2><a class="toc-backref" href="#id8">2.1.2. 环境准备</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id8">1.2. 环境准备</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id4">
-<h3><a class="toc-backref" href="#id9">关闭防火墙</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id9">1.2.1. 关闭防火墙</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">systemctl</span> <span class="n">stop</span> <span class="n">firewalld</span>
 <span class="n">systemctl</span> <span class="n">disable</span> <span class="n">firewalld</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="selinx-etc-selinux-config">
-<h3><a class="toc-backref" href="#id10">关闭selinx <code class="docutils literal notranslate"><span class="pre">/etc/selinux/config</span></code></a><a class="headerlink" href="#selinx-etc-selinux-config" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id10">1.2.2. 关闭selinx <code class="docutils literal notranslate"><span class="pre">/etc/selinux/config</span></code></a><a class="headerlink" href="#selinx-etc-selinux-config" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">selinux</span><span class="o">/</span><span class="n">config</span>
 
 <span class="c1"># This file controls the state of SELinux on the system.</span>
@@ -256,7 +256,7 @@
 </div>
 </div>
 <div class="section" id="packstack">
-<h2><a class="toc-backref" href="#id11">2.1.3. 安装packstack</a><a class="headerlink" href="#packstack" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">1.3. 安装packstack</a><a class="headerlink" href="#packstack" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>具体参照：<a class="reference external" href="https://wiki.openstack.org/wiki/Packstack">https://wiki.openstack.org/wiki/Packstack</a></p>
@@ -273,7 +273,7 @@
 </div>
 </div>
 <div class="section" id="packstack-packstack-cfg">
-<h2><a class="toc-backref" href="#id12">2.1.4. 配置packstack安装文件 <code class="docutils literal notranslate"><span class="pre">packstack.cfg</span></code></a><a class="headerlink" href="#packstack-packstack-cfg" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id12">1.4. 配置packstack安装文件 <code class="docutils literal notranslate"><span class="pre">packstack.cfg</span></code></a><a class="headerlink" href="#packstack-packstack-cfg" title="Permalink to this headline">¶</a></h2>
 <p>启用ironic，并修改ML2驱动为openvswitch</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -286,7 +286,7 @@
 </div>
 </div>
 <div class="section" id="openstack">
-<h2><a class="toc-backref" href="#id13">2.1.5. 安装openstack</a><a class="headerlink" href="#openstack" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id13">1.5. 安装openstack</a><a class="headerlink" href="#openstack" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#启用debug模式。方便排查安装过程中的错误信息</span>
 <span class="n">packstack</span> <span class="o">--</span><span class="n">answer</span><span class="o">-</span><span class="n">file</span><span class="o">=</span><span class="n">packstack</span><span class="o">.</span><span class="n">cfg</span> <span class="o">--</span><span class="n">debug</span>
 <span class="c1">#安装完成后，设置环境变量</span>
@@ -295,13 +295,13 @@
 </div>
 </div>
 <div class="section" id="ironic">
-<h2><a class="toc-backref" href="#id14">2.1.6. 配置ironic</a><a class="headerlink" href="#ironic" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id14">1.6. 配置ironic</a><a class="headerlink" href="#ironic" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>通过packstack安装后，会自动配置ironic环境，我们这里了解一下配置信息。便于理解</p>
 </div>
 <div class="section" id="keystone">
-<h3><a class="toc-backref" href="#id15">keystone配置</a><a class="headerlink" href="#keystone" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id15">1.6.1. keystone配置</a><a class="headerlink" href="#keystone" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 注册ironic服务用户openstack user create</span>
 <span class="p">[</span><span class="n">root</span><span class="nd">@packstack</span> <span class="o">~</span><span class="p">(</span><span class="n">keystone_admin</span><span class="p">)]</span><span class="c1"># openstack user show ironic</span>
 <span class="o">+---------------------+----------------------------------+</span>
@@ -341,7 +341,7 @@
 </div>
 </div>
 <div class="section" id="nova">
-<h3><a class="toc-backref" href="#id16">nova配置</a><a class="headerlink" href="#nova" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id16">1.6.2. nova配置</a><a class="headerlink" href="#nova" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># nova配置文件</span>
 <span class="n">compute_driver</span><span class="o">=</span><span class="n">ironic</span><span class="o">.</span><span class="n">IronicDriver</span>
 
@@ -351,7 +351,7 @@
 </div>
 </div>
 <div class="section" id="id5">
-<h2><a class="toc-backref" href="#id17">2.1.7. 遇到的问题</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id17">1.7. 遇到的问题</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li></li>
 </ol>
@@ -400,7 +400,7 @@ $ ps -ef | grep rabbitmq | grep -v grep | awk &#39;{print $2}&#39; | xargs kill 
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ironic_install_with_kolla.html" class="btn btn-neutral float-right" title="2.2. 通过kolla 安装Ironic 安装" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ironic_install_with_kolla.html" class="btn btn-neutral float-right" title="2. 通过kolla 安装Ironic 安装" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral float-left" title="2. Ironic" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

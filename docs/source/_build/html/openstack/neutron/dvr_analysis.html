@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>3.2. DVR模式下网络流量分析 &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
+  <title>2. DVR模式下网络流量分析 &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
   
 
   
@@ -36,7 +36,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="4. Monasca" href="../monasca/index.html" />
-    <link rel="prev" title="3.1. openstack网络设备总结" href="network_dev_name_rules.html" /> 
+    <link rel="prev" title="1. openstack网络设备总结" href="network_dev_name_rules.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -90,19 +90,19 @@
 <li class="toctree-l2"><a class="reference internal" href="../deploy/index.html">1. 安装部署实践</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../ironic/index.html">2. Ironic</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">3. Neutron</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="network_dev_name_rules.html">3.1. openstack网络设备总结</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">3.2. DVR模式下网络流量分析</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id1">3.2.1. 实验环境</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id2">3.2.2. DVR配置</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id3">3.2.3. 实验环境1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="network_dev_name_rules.html">1. openstack网络设备总结</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">2. DVR模式下网络流量分析</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">2.1. 实验环境</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">2.2. DVR配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">2.3. 实验环境1</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../monasca/index.html">4. Monasca</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../develop/index.html">5. OpenStack 二次开发</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../source/index.html">6. OpenStack 源码解析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../others/index.html">7. OpenStack 其他相关文档</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../develop/index.html">4. OpenStack 二次开发</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/index.html">5. OpenStack 源码解析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/index.html">6. OpenStack 其他相关文档</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../redis/index.html">Redis</a></li>
@@ -160,7 +160,7 @@
         
           <li><a href="index.html">3. Neutron</a> &raquo;</li>
         
-      <li>3.2. DVR模式下网络流量分析</li>
+      <li>2. DVR模式下网络流量分析</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -180,16 +180,16 @@
            <div itemprop="articleBody">
             
   <div class="section" id="dvr">
-<span id="dvr-analysis"></span><h1>3.2. DVR模式下网络流量分析<a class="headerlink" href="#dvr" title="Permalink to this headline">¶</a></h1>
+<span id="dvr-analysis"></span><h1>2. DVR模式下网络流量分析<a class="headerlink" href="#dvr" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2>3.2.1. 实验环境<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>2.1. 实验环境<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>虚拟交换机采用 linuxbridge</p></li>
 <li><p>租户网络模式：vxlan</p></li>
 </ul>
 </div>
 <div class="section" id="id2">
-<h2>3.2.2. DVR配置<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>2.2. DVR配置<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>我这里环境采用kolla部署,相关配置如下：</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">enable_neutron_dvr</span><span class="p">:</span> <span class="s2">&quot;yes&quot;</span>
 </pre></div>
@@ -208,7 +208,7 @@
 </div>
 </div>
 <div class="section" id="id3">
-<h2>3.2.3. 实验环境1<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2>2.3. 实验环境1<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>创建一个外部网络public1 10.182.0.0/24</p></li>
 <li><p>创建一个vxlan网络demo-net 192.168.100.0/24</p></li>
@@ -455,7 +455,7 @@ nanwan-e18-neutron3 三个节点上
         <a href="../monasca/index.html" class="btn btn-neutral float-right" title="4. Monasca" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="network_dev_name_rules.html" class="btn btn-neutral float-left" title="3.1. openstack网络设备总结" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="network_dev_name_rules.html" class="btn btn-neutral float-left" title="1. openstack网络设备总结" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

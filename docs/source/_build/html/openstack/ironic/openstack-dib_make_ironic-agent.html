@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>2.4. DIB制作ironic镜像 &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
+  <title>4. DIB制作ironic镜像 &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="2.5. openstack制作window镜像" href="make_ironic_window_image.html" />
-    <link rel="prev" title="2.3. virtualbmc 使用" href="virtualbmc_install.html" /> 
+    <link rel="next" title="5. openstack制作window镜像" href="make_ironic_window_image.html" />
+    <link rel="prev" title="3. virtualbmc 使用" href="virtualbmc_install.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -89,24 +89,24 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">openstack</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../deploy/index.html">1. 安装部署实践</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">2. Ironic</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_packstack.html">2.1. 通过packstack 安装Ironic 安装</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html">2.2. 通过kolla 安装Ironic 安装</a></li>
-<li class="toctree-l3"><a class="reference internal" href="virtualbmc_install.html">2.3. virtualbmc 使用</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">2.4. DIB制作ironic镜像</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id2">2.4.1. 环境描述</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id3">2.4.2. 安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_packstack.html">1. 通过packstack 安装Ironic 安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html">2. 通过kolla 安装Ironic 安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualbmc_install.html">3. virtualbmc 使用</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">4. DIB制作ironic镜像</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">4.1. 环境描述</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">4.2. 安装</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html">2.5. openstack制作window镜像</a></li>
-<li class="toctree-l3"><a class="reference internal" href="others.html">2.6. Ironic 相关概览及以及延伸知识</a></li>
-<li class="toctree-l3"><a class="reference internal" href="temp.html">2.7. Ironic 临时笔记</a></li>
+<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html">5. openstack制作window镜像</a></li>
+<li class="toctree-l3"><a class="reference internal" href="others.html">6. Ironic 相关概览及以及延伸知识</a></li>
+<li class="toctree-l3"><a class="reference internal" href="temp.html">7. Ironic 临时笔记</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../neutron/index.html">3. Neutron</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../monasca/index.html">4. Monasca</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../develop/index.html">5. OpenStack 二次开发</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../source/index.html">6. OpenStack 源码解析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../others/index.html">7. OpenStack 其他相关文档</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../develop/index.html">4. OpenStack 二次开发</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/index.html">5. OpenStack 源码解析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/index.html">6. OpenStack 其他相关文档</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../redis/index.html">Redis</a></li>
@@ -164,7 +164,7 @@
         
           <li><a href="index.html">2. Ironic</a> &raquo;</li>
         
-      <li>2.4. DIB制作ironic镜像</li>
+      <li>4. DIB制作ironic镜像</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -184,7 +184,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="dibironic">
-<span id="openstack-dib-make-ironic-agent"></span><h1><a class="toc-backref" href="#id10">2.4. DIB制作ironic镜像</a><a class="headerlink" href="#dibironic" title="Permalink to this headline">¶</a></h1>
+<span id="openstack-dib-make-ironic-agent"></span><h1><a class="toc-backref" href="#id10">4. DIB制作ironic镜像</a><a class="headerlink" href="#dibironic" title="Permalink to this headline">¶</a></h1>
 <div class="contents topic" id="id1">
 <p class="topic-title first">目录</p>
 <ul class="simple">
@@ -213,15 +213,15 @@
 </div>
 <hr class="docutils" />
 <div class="section" id="id2">
-<h2><a class="toc-backref" href="#id11">2.4.1. 环境描述</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id11">4.1. 环境描述</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>CentOS Linux release 7.4.1708 (Core)</p></li>
 </ul>
 </div>
 <div class="section" id="id3">
-<h2><a class="toc-backref" href="#id12">2.4.2. 安装</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id12">4.2. 安装</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="yumepel">
-<h3><a class="toc-backref" href="#id13">替换yum以及epel源</a><a class="headerlink" href="#yumepel" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id13">4.2.1. 替换yum以及epel源</a><a class="headerlink" href="#yumepel" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mv</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">yum</span><span class="o">.</span><span class="n">repos</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">CentOS</span><span class="o">-</span><span class="n">Base</span><span class="o">.</span><span class="n">repo</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">yum</span><span class="o">.</span><span class="n">repos</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">CentOS</span><span class="o">-</span><span class="n">Base</span><span class="o">.</span><span class="n">repo</span><span class="o">.</span><span class="n">backup</span> <span class="c1">#备份</span>
 <span class="n">curl</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">yum</span><span class="o">.</span><span class="n">repos</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">CentOS</span><span class="o">-</span><span class="n">Base</span><span class="o">.</span><span class="n">repo</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">mirrors</span><span class="o">.</span><span class="n">aliyun</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">repo</span><span class="o">/</span><span class="n">Centos</span><span class="o">-</span><span class="mf">7.</span><span class="n">repo</span>  <span class="c1">#下载阿里云源</span>
 <span class="n">yum</span> <span class="n">clean</span> <span class="nb">all</span> <span class="o">&amp;&amp;</span> <span class="n">yum</span> <span class="n">makecache</span>
@@ -270,14 +270,14 @@ Usage: disk-image-create [OPTION]... [ELEMENT]...
 </div>
 </div>
 <div class="section" id="id6">
-<h3><a class="toc-backref" href="#id18">首先我们创建一个目录用于生成镜像文件</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id18">4.2.2. 首先我们创建一个目录用于生成镜像文件</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="o">/</span><span class="n">data</span>
 <span class="n">cd</span> <span class="o">/</span><span class="n">data</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id7">
-<h3><a class="toc-backref" href="#id19">定义镜像配置文件</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id19">4.2.3. 定义镜像配置文件</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>##创建 vm_profile文件,用于定义环境变量,内容如下
 vim vm_profile
 
@@ -298,13 +298,13 @@ export DIB_CLOUD_INIT_DATASOURCES=&quot;ConfigDrive, OpenStack, NoCloud&quot;
 </div>
 </div>
 <div class="section" id="id8">
-<h3><a class="toc-backref" href="#id20">执行制作</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id20">4.2.4. 执行制作</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">disk</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="n">create</span> <span class="n">ironic</span><span class="o">-</span><span class="n">agent</span> <span class="n">centos7</span> <span class="o">-</span><span class="n">o</span> <span class="n">ironic</span><span class="o">-</span><span class="n">agent</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="id9">
-<h3><a class="toc-backref" href="#id21">制作完成后，我们查看路径</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<h3><a class="toc-backref" href="#id21">4.2.5. 制作完成后，我们查看路径</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <p>git clone <a class="reference external" href="https://git.openstack.org/openstack/diskimage-builder">https://git.openstack.org/openstack/diskimage-builder</a>
 git clone <a class="reference external" href="https://github.com/openstack/trove-integration.git">https://github.com/openstack/trove-integration.git</a>
 git clone <a class="reference external" href="https://github.com/openstack/tripleo-image-elements">https://github.com/openstack/tripleo-image-elements</a></p>
@@ -320,10 +320,10 @@ git clone <a class="reference external" href="https://github.com/openstack/tripl
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="make_ironic_window_image.html" class="btn btn-neutral float-right" title="2.5. openstack制作window镜像" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="make_ironic_window_image.html" class="btn btn-neutral float-right" title="5. openstack制作window镜像" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="virtualbmc_install.html" class="btn btn-neutral float-left" title="2.3. virtualbmc 使用" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="virtualbmc_install.html" class="btn btn-neutral float-left" title="3. virtualbmc 使用" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>2.5. openstack制作window镜像 &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
+  <title>5. openstack制作window镜像 &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="2.6. Ironic 相关概览及以及延伸知识" href="others.html" />
-    <link rel="prev" title="2.4. DIB制作ironic镜像" href="openstack-dib_make_ironic-agent.html" /> 
+    <link rel="next" title="6. Ironic 相关概览及以及延伸知识" href="others.html" />
+    <link rel="prev" title="4. DIB制作ironic镜像" href="openstack-dib_make_ironic-agent.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -89,28 +89,28 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">openstack</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../deploy/index.html">1. 安装部署实践</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">2. Ironic</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_packstack.html">2.1. 通过packstack 安装Ironic 安装</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html">2.2. 通过kolla 安装Ironic 安装</a></li>
-<li class="toctree-l3"><a class="reference internal" href="virtualbmc_install.html">2.3. virtualbmc 使用</a></li>
-<li class="toctree-l3"><a class="reference internal" href="openstack-dib_make_ironic-agent.html">2.4. DIB制作ironic镜像</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">2.5. openstack制作window镜像</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id1">2.5.1. 环境准备</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id2">2.5.2. 安装软件</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id5">2.5.3. 安装编译镜像</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id7">2.5.4. 注意事项</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id8">2.5.5. 代码解读</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id9">2.5.6. 参考</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_packstack.html">1. 通过packstack 安装Ironic 安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html">2. 通过kolla 安装Ironic 安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualbmc_install.html">3. virtualbmc 使用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="openstack-dib_make_ironic-agent.html">4. DIB制作ironic镜像</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">5. openstack制作window镜像</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">5.1. 环境准备</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">5.2. 安装软件</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">5.3. 安装编译镜像</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">5.4. 注意事项</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">5.5. 代码解读</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">5.6. 参考</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="others.html">2.6. Ironic 相关概览及以及延伸知识</a></li>
-<li class="toctree-l3"><a class="reference internal" href="temp.html">2.7. Ironic 临时笔记</a></li>
+<li class="toctree-l3"><a class="reference internal" href="others.html">6. Ironic 相关概览及以及延伸知识</a></li>
+<li class="toctree-l3"><a class="reference internal" href="temp.html">7. Ironic 临时笔记</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../neutron/index.html">3. Neutron</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../monasca/index.html">4. Monasca</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../develop/index.html">5. OpenStack 二次开发</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../source/index.html">6. OpenStack 源码解析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../others/index.html">7. OpenStack 其他相关文档</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../develop/index.html">4. OpenStack 二次开发</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/index.html">5. OpenStack 源码解析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/index.html">6. OpenStack 其他相关文档</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../redis/index.html">Redis</a></li>
@@ -168,7 +168,7 @@
         
           <li><a href="index.html">2. Ironic</a> &raquo;</li>
         
-      <li>2.5. openstack制作window镜像</li>
+      <li>5. openstack制作window镜像</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -188,17 +188,17 @@
            <div itemprop="articleBody">
             
   <div class="section" id="openstackwindow">
-<span id="make-ironic-window-image"></span><h1>2.5. openstack制作window镜像<a class="headerlink" href="#openstackwindow" title="Permalink to this headline">¶</a></h1>
+<span id="make-ironic-window-image"></span><h1>5. openstack制作window镜像<a class="headerlink" href="#openstackwindow" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2>2.5.1. 环境准备<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>5.1. 环境准备<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="hyperv">
-<h3>启用hyperv<a class="headerlink" href="#hyperv" title="Permalink to this headline">¶</a></h3>
+<h3>5.1.1. 启用hyperv<a class="headerlink" href="#hyperv" title="Permalink to this headline">¶</a></h3>
 <div class="figure align-default">
 <img alt="../../_images/20191101_154335.png" src="../../_images/20191101_154335.png" />
 </div>
 </div>
 <div class="section" id="powershell-4-0">
-<h3>确保powershell 版本&gt;4.0<a class="headerlink" href="#powershell-4-0" title="Permalink to this headline">¶</a></h3>
+<h3>5.1.2. 确保powershell 版本&gt;4.0<a class="headerlink" href="#powershell-4-0" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>PS C:\Users\Administrator&gt; $PSVersionTable
 
 Name                           Value
@@ -218,7 +218,7 @@ PS C:\Users\Administrator&gt;
 </div>
 </div>
 <div class="section" id="windows-adk">
-<h3>安装 Windows ADK<a class="headerlink" href="#windows-adk" title="Permalink to this headline">¶</a></h3>
+<h3>5.1.3. 安装 Windows ADK<a class="headerlink" href="#windows-adk" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Windows 评估和部署工具包 (Windows ADK) 具有自定义大规模部署的 Windows 映像以及测试系统、添加的组件和在该系统上运行的应用程序的质量和性能所需的工具</p>
@@ -227,20 +227,20 @@ PS C:\Users\Administrator&gt;
 </div>
 </div>
 <div class="section" id="id2">
-<h2>2.5.2. 安装软件<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<h2>5.2. 安装软件<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="git">
-<h3>安装git环境<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h3>
+<h3>5.2.1. 安装git环境<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h3>
 <p>安装略 <a class="reference external" href="https://git-scm.com/downloads">git下载地址</a></p>
 </div>
 <div class="section" id="id4">
-<h3>配置git<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3>5.2.2. 配置git<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>修改环境变量</p>
 <div class="figure align-default">
 <img alt="../../_images/20191101_160250.png" src="../../_images/20191101_160250.png" />
 </div>
 </div>
 <div class="section" id="external">
-<h3>配置虚拟机交换机名称为：external<a class="headerlink" href="#external" title="Permalink to this headline">¶</a></h3>
+<h3>5.2.3. 配置虚拟机交换机名称为：external<a class="headerlink" href="#external" title="Permalink to this headline">¶</a></h3>
 <p><strong>服务器管理器–&gt;工具–&gt;Hyper-v 管理器–&gt;虚拟交换机管理器</strong></p>
 <div class="figure align-default">
 <img alt="../../_images/20191101_163441.png" src="../../_images/20191101_163441.png" />
@@ -248,32 +248,32 @@ PS C:\Users\Administrator&gt;
 </div>
 </div>
 <div class="section" id="id5">
-<h2>2.5.3. 安装编译镜像<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2>5.3. 安装编译镜像<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id6">
-<h3>创建目录<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h3>5.3.1. 创建目录<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">C:\image</span></code> : 用于保存生成后的镜像</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">C:\externaldriver</span></code> : 用于放置镜像需要的其他驱动。比如kvm镜像需要 virt-win.iso中的相关virt驱动</p></li>
 </ul>
 </div>
 <div class="section" id="c-externaldriver">
-<h3>拷贝和解压必要的驱动到 <code class="docutils literal notranslate"><span class="pre">C:\externaldriver</span></code> 中<a class="headerlink" href="#c-externaldriver" title="Permalink to this headline">¶</a></h3>
+<h3>5.3.2. 拷贝和解压必要的驱动到 <code class="docutils literal notranslate"><span class="pre">C:\externaldriver</span></code> 中<a class="headerlink" href="#c-externaldriver" title="Permalink to this headline">¶</a></h3>
 <p>略</p>
 </div>
 <div class="section" id="isod">
-<h3>挂载iso镜像到驱动器D:<a class="headerlink" href="#isod" title="Permalink to this headline">¶</a></h3>
+<h3>5.3.3. 挂载iso镜像到驱动器D:<a class="headerlink" href="#isod" title="Permalink to this headline">¶</a></h3>
 <div class="figure align-default">
 <img alt="../../_images/20191101_170900.png" src="../../_images/20191101_170900.png" />
 </div>
 </div>
 <div class="section" id="windows-openstack-imaging-tools">
-<h3>下载 <strong>windows-openstack-imaging-tools</strong><a class="headerlink" href="#windows-openstack-imaging-tools" title="Permalink to this headline">¶</a></h3>
+<h3>5.3.4. 下载 <strong>windows-openstack-imaging-tools</strong><a class="headerlink" href="#windows-openstack-imaging-tools" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">cloudbase</span><span class="o">/</span><span class="n">windows</span><span class="o">-</span><span class="n">openstack</span><span class="o">-</span><span class="n">imaging</span><span class="o">-</span><span class="n">tools</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="create-windows-cloud-image-ps1">
-<h3>创建和运行脚本 create-windows-cloud-image.ps1:<a class="headerlink" href="#create-windows-cloud-image-ps1" title="Permalink to this headline">¶</a></h3>
+<h3>5.3.5. 创建和运行脚本 create-windows-cloud-image.ps1:<a class="headerlink" href="#create-windows-cloud-image-ps1" title="Permalink to this headline">¶</a></h3>
 <p>参考</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd windows-openstack-imaging-tools/
 
@@ -317,10 +317,10 @@ New-WindowsOnlineImage -ConfigFilePath $configFilePath
 </div>
 </div>
 <div class="section" id="id7">
-<h2>2.5.4. 注意事项<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<h2>5.4. 注意事项<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <p>中间下载cloudbase-init会很慢。我们预先下载好相关的文件</p>
 <div class="section" id="virtio-iso">
-<h3>virtio.iso<a class="headerlink" href="#virtio-iso" title="Permalink to this headline">¶</a></h3>
+<h3>5.4.1. virtio.iso<a class="headerlink" href="#virtio-iso" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>1. 下载链接：https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.133-2/virtio-win.iso
 2. 保存位置 $VirtIOISOPath = &quot;C:\image\virtio.iso&quot;
 3. 将 ``create-windows-online-cloud-image.ps1`` 文件中的 ``(New-Object System.Net.WebClient).DownloadFile($virtIODownloadLink, $virtIOISOPath)`` 注释掉
@@ -331,7 +331,7 @@ New-WindowsOnlineImage -ConfigFilePath $configFilePath
 </div>
 </div>
 <div class="section" id="cloudbaseinitsetup-stable-x64-msi">
-<h3>CloudbaseInitSetup_Stable_x64.msi<a class="headerlink" href="#cloudbaseinitsetup-stable-x64-msi" title="Permalink to this headline">¶</a></h3>
+<h3>5.4.2. CloudbaseInitSetup_Stable_x64.msi<a class="headerlink" href="#cloudbaseinitsetup-stable-x64-msi" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>1. 下载地址： https://www.cloudbase.it/downloads/CloudbaseInitSetup_Stable_x64.msi 此链接已经失效，使用这个：https://github.com/cloudbase/cloudbase-init/releases/download/0.9.11/CloudbaseInitSetup_0_9_11_x64.msi
 2. 将改文件下载并重名为 ``CloudbaseInit.msi`` 拷贝到 *c://images* 文件夹下
 3. 设置环境变量：$MsiPath=c://images/CloudbaseInit.msi
@@ -341,13 +341,13 @@ New-WindowsOnlineImage -ConfigFilePath $configFilePath
 </div>
 </div>
 <div class="section" id="id8">
-<h2>2.5.5. 代码解读<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<h2>5.5. 代码解读<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <p>在 <a class="reference external" href="https://github.com/cloudbase/windows-openstack-imaging-tools/tree/master/Examples">https://github.com/cloudbase/windows-openstack-imaging-tools/tree/master/Examples</a> 目录下有三个可执行的脚本。使用这三个脚本可以构造不通场景下的
 window镜像，
 我们这里以 <code class="docutils literal notranslate"><span class="pre">create-windows-online-cloud-image.ps1</span></code> 为例。简单介绍一下windows-openstack-imaging-tools的基本代码</p>
 </div>
 <div class="section" id="id9">
-<h2>2.5.6. 参考<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<h2>5.6. 参考<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id10"><span class="brackets">1</span></dt>
 <dd><p><a class="reference external" href="https://github.com/cloudbase/windows-openstack-imaging-tools/">https://github.com/cloudbase/windows-openstack-imaging-tools/</a></p>
@@ -367,10 +367,10 @@ window镜像，
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="others.html" class="btn btn-neutral float-right" title="2.6. Ironic 相关概览及以及延伸知识" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="others.html" class="btn btn-neutral float-right" title="6. Ironic 相关概览及以及延伸知识" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="openstack-dib_make_ironic-agent.html" class="btn btn-neutral float-left" title="2.4. DIB制作ironic镜像" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="openstack-dib_make_ironic-agent.html" class="btn btn-neutral float-left" title="4. DIB制作ironic镜像" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

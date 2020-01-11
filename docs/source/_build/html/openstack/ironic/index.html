@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="2.1. 通过packstack 安装Ironic 安装" href="ironic_install_with_packstack.html" />
-    <link rel="prev" title="1.2. RDO搭建openstack开发环境" href="../deploy/rdo_install.html" /> 
+    <link rel="next" title="1. 通过packstack 安装Ironic 安装" href="ironic_install_with_packstack.html" />
+    <link rel="prev" title="2. RDO搭建openstack开发环境" href="../deploy/rdo_install.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -89,20 +89,20 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">openstack</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../deploy/index.html">1. 安装部署实践</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">2. Ironic</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_packstack.html">2.1. 通过packstack 安装Ironic 安装</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html">2.2. 通过kolla 安装Ironic 安装</a></li>
-<li class="toctree-l3"><a class="reference internal" href="virtualbmc_install.html">2.3. virtualbmc 使用</a></li>
-<li class="toctree-l3"><a class="reference internal" href="openstack-dib_make_ironic-agent.html">2.4. DIB制作ironic镜像</a></li>
-<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html">2.5. openstack制作window镜像</a></li>
-<li class="toctree-l3"><a class="reference internal" href="others.html">2.6. Ironic 相关概览及以及延伸知识</a></li>
-<li class="toctree-l3"><a class="reference internal" href="temp.html">2.7. Ironic 临时笔记</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_packstack.html">1. 通过packstack 安装Ironic 安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html">2. 通过kolla 安装Ironic 安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualbmc_install.html">3. virtualbmc 使用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="openstack-dib_make_ironic-agent.html">4. DIB制作ironic镜像</a></li>
+<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html">5. openstack制作window镜像</a></li>
+<li class="toctree-l3"><a class="reference internal" href="others.html">6. Ironic 相关概览及以及延伸知识</a></li>
+<li class="toctree-l3"><a class="reference internal" href="temp.html">7. Ironic 临时笔记</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../neutron/index.html">3. Neutron</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../monasca/index.html">4. Monasca</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../develop/index.html">5. OpenStack 二次开发</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../source/index.html">6. OpenStack 源码解析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../others/index.html">7. OpenStack 其他相关文档</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../develop/index.html">4. OpenStack 二次开发</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/index.html">5. OpenStack 源码解析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/index.html">6. OpenStack 其他相关文档</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../redis/index.html">Redis</a></li>
@@ -178,133 +178,133 @@
            <div itemprop="articleBody">
             
   <div class="section" id="ironic">
-<span id="id1"></span><h1>2. Ironic<a class="headerlink" href="#ironic" title="Permalink to this headline">¶</a></h1>
+<span id="id1"></span><h1>Ironic<a class="headerlink" href="#ironic" title="Permalink to this headline">¶</a></h1>
 <p>Ironic 是一个 openstack 项目，主要用来管理裸机。包括裸机的电源控制，系统部署，网络配置等。</p>
 <div class="figure align-default">
 <img alt="../../_images/20191207_112306.png" src="../../_images/20191207_112306.png" />
 </div>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="ironic_install_with_packstack.html">2.1. 通过packstack 安装Ironic 安装</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_packstack.html#id2">2.1.1. 环境说明</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_packstack.html#id3">2.1.2. 环境准备</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_packstack.html#id4">关闭防火墙</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_packstack.html#selinx-etc-selinux-config">关闭selinx <code class="docutils literal notranslate"><span class="pre">/etc/selinux/config</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="ironic_install_with_packstack.html">1. 通过packstack 安装Ironic 安装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_packstack.html#id2">1.1. 环境说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_packstack.html#id3">1.2. 环境准备</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_packstack.html#id4">1.2.1. 关闭防火墙</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_packstack.html#selinx-etc-selinux-config">1.2.2. 关闭selinx <code class="docutils literal notranslate"><span class="pre">/etc/selinux/config</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_packstack.html#packstack">2.1.3. 安装packstack</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_packstack.html#packstack-packstack-cfg">2.1.4. 配置packstack安装文件 <code class="docutils literal notranslate"><span class="pre">packstack.cfg</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_packstack.html#openstack">2.1.5. 安装openstack</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_packstack.html#ironic">2.1.6. 配置ironic</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_packstack.html#keystone">keystone配置</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_packstack.html#nova">nova配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_packstack.html#packstack">1.3. 安装packstack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_packstack.html#packstack-packstack-cfg">1.4. 配置packstack安装文件 <code class="docutils literal notranslate"><span class="pre">packstack.cfg</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_packstack.html#openstack">1.5. 安装openstack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_packstack.html#ironic">1.6. 配置ironic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_packstack.html#keystone">1.6.1. keystone配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_packstack.html#nova">1.6.2. nova配置</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_packstack.html#id5">2.1.7. 遇到的问题</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_packstack.html#id5">1.7. 遇到的问题</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ironic_install_with_kolla.html">2.2. 通过kolla 安装Ironic 安装</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_kolla.html#id2">2.2.1. 环境说明</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_kolla.html#id3">2.2.2. 环境准备</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#id4">关闭防火墙</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#id5">设置主机名称</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#selinx-etc-selinux-config">关闭selinx <code class="docutils literal notranslate"><span class="pre">/etc/selinux/config</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="ironic_install_with_kolla.html">2. 通过kolla 安装Ironic 安装</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_kolla.html#id2">2.1. 环境说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_kolla.html#id3">2.2. 环境准备</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#id4">2.2.1. 关闭防火墙</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#id5">2.2.2. 设置主机名称</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#selinx-etc-selinux-config">2.2.3. 关闭selinx <code class="docutils literal notranslate"><span class="pre">/etc/selinux/config</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_kolla.html#kolla">2.2.3. 安装kolla 环境</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_kolla.html#global-yml">2.2.4. 修改全局配置 <code class="docutils literal notranslate"><span class="pre">global.yml</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_kolla.html#id6">2.2.5. 准备部署镜像和用户镜像</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#deploy">准备deploy镜像</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#id7">准备用户镜像</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_kolla.html#kolla">2.3. 安装kolla 环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_kolla.html#global-yml">2.4. 修改全局配置 <code class="docutils literal notranslate"><span class="pre">global.yml</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_kolla.html#id6">2.5. 准备部署镜像和用户镜像</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#deploy">2.5.1. 准备deploy镜像</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#id7">2.5.2. 准备用户镜像</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_kolla.html#openstack">2.2.6. 安装openstack</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_kolla.html#id8">2.2.7. 配置openstack</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#id9">初始化环境变量</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#ironic">ironic网络配置</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#id10">配置鏡像</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#id11">生成密钥对</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#id12">配置容量</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#flavor">创建裸金属实例的 Flavor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#baremetal">创建baremetal节点</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#id13">配置baremetal节点</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#virtualbmcipmi">通过virtualbmc生成虚拟ipmi设备</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#id14">创建baremetal实例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_kolla.html#openstack">2.6. 安装openstack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_kolla.html#id8">2.7. 配置openstack</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#id9">2.7.1. 初始化环境变量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#ironic">2.7.2. ironic网络配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#id10">2.7.3. 配置鏡像</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#id11">2.7.4. 生成密钥对</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#id12">2.7.5. 配置容量</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#flavor">2.7.6. 创建裸金属实例的 Flavor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#baremetal">2.7.7. 创建baremetal节点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#id13">2.7.8. 配置baremetal节点</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#virtualbmcipmi">2.7.9. 通过virtualbmc生成虚拟ipmi设备</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#id14">2.7.10. 创建baremetal实例</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_kolla.html#id15">2.2.8. 问题总结</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#flat">创建的flat网络不通</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#dhcp">2. dhcp不通排查</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="virtualbmc_install.html">2.3. virtualbmc 使用</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="virtualbmc_install.html#id2">2.3.1. 安装</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="virtualbmc_install.html#id3">安装virtualbmc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="virtualbmc_install.html#libvirt-kvm-bridge">安装libvirt kvm，创建bridge</a></li>
-<li class="toctree-l3"><a class="reference internal" href="virtualbmc_install.html#id4">创建虚拟机</a></li>
-<li class="toctree-l3"><a class="reference internal" href="virtualbmc_install.html#vbmc">启动vbmc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ironic_install_with_kolla.html#id15">2.8. 问题总结</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#flat">2.8.1. 创建的flat网络不通</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html#dhcp">2.8.2. 2. dhcp不通排查</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="openstack-dib_make_ironic-agent.html">2.4. DIB制作ironic镜像</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="openstack-dib_make_ironic-agent.html#id2">2.4.1. 环境描述</a></li>
-<li class="toctree-l2"><a class="reference internal" href="openstack-dib_make_ironic-agent.html#id3">2.4.2. 安装</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="openstack-dib_make_ironic-agent.html#yumepel">替换yum以及epel源</a></li>
-<li class="toctree-l3"><a class="reference internal" href="openstack-dib_make_ironic-agent.html#id6">首先我们创建一个目录用于生成镜像文件</a></li>
-<li class="toctree-l3"><a class="reference internal" href="openstack-dib_make_ironic-agent.html#id7">定义镜像配置文件</a></li>
-<li class="toctree-l3"><a class="reference internal" href="openstack-dib_make_ironic-agent.html#id8">执行制作</a></li>
-<li class="toctree-l3"><a class="reference internal" href="openstack-dib_make_ironic-agent.html#id9">制作完成后，我们查看路径</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virtualbmc_install.html">3. virtualbmc 使用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="virtualbmc_install.html#id2">3.1. 安装</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="virtualbmc_install.html#id3">3.1.1. 安装virtualbmc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualbmc_install.html#libvirt-kvm-bridge">3.1.2. 安装libvirt kvm，创建bridge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualbmc_install.html#id4">3.1.3. 创建虚拟机</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualbmc_install.html#vbmc">3.1.4. 启动vbmc</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="make_ironic_window_image.html">2.5. openstack制作window镜像</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="make_ironic_window_image.html#id1">2.5.1. 环境准备</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#hyperv">启用hyperv</a></li>
-<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#powershell-4-0">确保powershell 版本&gt;4.0</a></li>
-<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#windows-adk">安装 Windows ADK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="openstack-dib_make_ironic-agent.html">4. DIB制作ironic镜像</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="openstack-dib_make_ironic-agent.html#id2">4.1. 环境描述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openstack-dib_make_ironic-agent.html#id3">4.2. 安装</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="openstack-dib_make_ironic-agent.html#yumepel">4.2.1. 替换yum以及epel源</a></li>
+<li class="toctree-l3"><a class="reference internal" href="openstack-dib_make_ironic-agent.html#id6">4.2.2. 首先我们创建一个目录用于生成镜像文件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="openstack-dib_make_ironic-agent.html#id7">4.2.3. 定义镜像配置文件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="openstack-dib_make_ironic-agent.html#id8">4.2.4. 执行制作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="openstack-dib_make_ironic-agent.html#id9">4.2.5. 制作完成后，我们查看路径</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="make_ironic_window_image.html#id2">2.5.2. 安装软件</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#git">安装git环境</a></li>
-<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#id4">配置git</a></li>
-<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#external">配置虚拟机交换机名称为：external</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="make_ironic_window_image.html#id5">2.5.3. 安装编译镜像</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#id6">创建目录</a></li>
-<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#c-externaldriver">拷贝和解压必要的驱动到 <code class="docutils literal notranslate"><span class="pre">C:\externaldriver</span></code> 中</a></li>
-<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#isod">挂载iso镜像到驱动器D:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#windows-openstack-imaging-tools">下载 <strong>windows-openstack-imaging-tools</strong></a></li>
-<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#create-windows-cloud-image-ps1">创建和运行脚本 create-windows-cloud-image.ps1:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="make_ironic_window_image.html">5. openstack制作window镜像</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="make_ironic_window_image.html#id1">5.1. 环境准备</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#hyperv">5.1.1. 启用hyperv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#powershell-4-0">5.1.2. 确保powershell 版本&gt;4.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#windows-adk">5.1.3. 安装 Windows ADK</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="make_ironic_window_image.html#id7">2.5.4. 注意事项</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#virtio-iso">virtio.iso</a></li>
-<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#cloudbaseinitsetup-stable-x64-msi">CloudbaseInitSetup_Stable_x64.msi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="make_ironic_window_image.html#id2">5.2. 安装软件</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#git">5.2.1. 安装git环境</a></li>
+<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#id4">5.2.2. 配置git</a></li>
+<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#external">5.2.3. 配置虚拟机交换机名称为：external</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="make_ironic_window_image.html#id8">2.5.5. 代码解读</a></li>
-<li class="toctree-l2"><a class="reference internal" href="make_ironic_window_image.html#id9">2.5.6. 参考</a></li>
+<li class="toctree-l2"><a class="reference internal" href="make_ironic_window_image.html#id5">5.3. 安装编译镜像</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#id6">5.3.1. 创建目录</a></li>
+<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#c-externaldriver">5.3.2. 拷贝和解压必要的驱动到 <code class="docutils literal notranslate"><span class="pre">C:\externaldriver</span></code> 中</a></li>
+<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#isod">5.3.3. 挂载iso镜像到驱动器D:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#windows-openstack-imaging-tools">5.3.4. 下载 <strong>windows-openstack-imaging-tools</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#create-windows-cloud-image-ps1">5.3.5. 创建和运行脚本 create-windows-cloud-image.ps1:</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="others.html">2.6. Ironic 相关概览及以及延伸知识</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="others.html#id2">2.6.1. 硬件管理驱动</a></li>
-<li class="toctree-l2"><a class="reference internal" href="others.html#id3">2.6.2. 硬件接口</a></li>
-<li class="toctree-l2"><a class="reference internal" href="others.html#id4">2.6.3. 引导程序</a></li>
+<li class="toctree-l2"><a class="reference internal" href="make_ironic_window_image.html#id7">5.4. 注意事项</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#virtio-iso">5.4.1. virtio.iso</a></li>
+<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html#cloudbaseinitsetup-stable-x64-msi">5.4.2. CloudbaseInitSetup_Stable_x64.msi</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="temp.html">2.7. Ironic 临时笔记</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="temp.html#id1">2.7.1. Ironic 映像</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="temp.html#deploy">deploy 镜像</a></li>
-<li class="toctree-l3"><a class="reference internal" href="temp.html#id4">用户镜像</a></li>
+<li class="toctree-l2"><a class="reference internal" href="make_ironic_window_image.html#id8">5.5. 代码解读</a></li>
+<li class="toctree-l2"><a class="reference internal" href="make_ironic_window_image.html#id9">5.6. 参考</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="temp.html#id5">2.7.2. 其他</a></li>
-<li class="toctree-l2"><a class="reference internal" href="temp.html#id6">2.7.3. 参考引用</a></li>
+<li class="toctree-l1"><a class="reference internal" href="others.html">6. Ironic 相关概览及以及延伸知识</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="others.html#id2">6.1. 硬件管理驱动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others.html#id3">6.2. 硬件接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="others.html#id4">6.3. 引导程序</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="temp.html">7. Ironic 临时笔记</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="temp.html#id1">7.1. Ironic 映像</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="temp.html#deploy">7.1.1. deploy 镜像</a></li>
+<li class="toctree-l3"><a class="reference internal" href="temp.html#id4">7.1.2. 用户镜像</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="temp.html#id5">7.2. 其他</a></li>
+<li class="toctree-l2"><a class="reference internal" href="temp.html#id6">7.3. 参考引用</a></li>
 </ul>
 </li>
 </ul>
@@ -319,10 +319,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ironic_install_with_packstack.html" class="btn btn-neutral float-right" title="2.1. 通过packstack 安装Ironic 安装" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ironic_install_with_packstack.html" class="btn btn-neutral float-right" title="1. 通过packstack 安装Ironic 安装" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../deploy/rdo_install.html" class="btn btn-neutral float-left" title="1.2. RDO搭建openstack开发环境" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../deploy/rdo_install.html" class="btn btn-neutral float-left" title="2. RDO搭建openstack开发环境" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

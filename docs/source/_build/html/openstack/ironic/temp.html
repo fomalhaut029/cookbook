@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>2.7. Ironic 临时笔记 &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
+  <title>7. Ironic 临时笔记 &mdash; Welcome to Fomalhaut&#39;s Blog 1.0 documentation</title>
   
 
   
@@ -36,7 +36,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="3. Neutron" href="../neutron/index.html" />
-    <link rel="prev" title="2.6. Ironic 相关概览及以及延伸知识" href="others.html" /> 
+    <link rel="prev" title="6. Ironic 相关概览及以及延伸知识" href="others.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -89,25 +89,25 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">openstack</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../deploy/index.html">1. 安装部署实践</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">2. Ironic</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_packstack.html">2.1. 通过packstack 安装Ironic 安装</a></li>
-<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html">2.2. 通过kolla 安装Ironic 安装</a></li>
-<li class="toctree-l3"><a class="reference internal" href="virtualbmc_install.html">2.3. virtualbmc 使用</a></li>
-<li class="toctree-l3"><a class="reference internal" href="openstack-dib_make_ironic-agent.html">2.4. DIB制作ironic镜像</a></li>
-<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html">2.5. openstack制作window镜像</a></li>
-<li class="toctree-l3"><a class="reference internal" href="others.html">2.6. Ironic 相关概览及以及延伸知识</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">2.7. Ironic 临时笔记</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id1">2.7.1. Ironic 映像</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id5">2.7.2. 其他</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id6">2.7.3. 参考引用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_packstack.html">1. 通过packstack 安装Ironic 安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ironic_install_with_kolla.html">2. 通过kolla 安装Ironic 安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualbmc_install.html">3. virtualbmc 使用</a></li>
+<li class="toctree-l3"><a class="reference internal" href="openstack-dib_make_ironic-agent.html">4. DIB制作ironic镜像</a></li>
+<li class="toctree-l3"><a class="reference internal" href="make_ironic_window_image.html">5. openstack制作window镜像</a></li>
+<li class="toctree-l3"><a class="reference internal" href="others.html">6. Ironic 相关概览及以及延伸知识</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">7. Ironic 临时笔记</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">7.1. Ironic 映像</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">7.2. 其他</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">7.3. 参考引用</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../neutron/index.html">3. Neutron</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../monasca/index.html">4. Monasca</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../develop/index.html">5. OpenStack 二次开发</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../source/index.html">6. OpenStack 源码解析</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../others/index.html">7. OpenStack 其他相关文档</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../develop/index.html">4. OpenStack 二次开发</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../source/index.html">5. OpenStack 源码解析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../others/index.html">6. OpenStack 其他相关文档</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../redis/index.html">Redis</a></li>
@@ -165,7 +165,7 @@
         
           <li><a href="index.html">2. Ironic</a> &raquo;</li>
         
-      <li>2.7. Ironic 临时笔记</li>
+      <li>7. Ironic 临时笔记</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -185,9 +185,9 @@
            <div itemprop="articleBody">
             
   <div class="section" id="ironic">
-<h1>2.7. Ironic 临时笔记<a class="headerlink" href="#ironic" title="Permalink to this headline">¶</a></h1>
+<h1>7. Ironic 临时笔记<a class="headerlink" href="#ironic" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2>2.7.1. Ironic 映像<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>7.1. Ironic 映像<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>ironic有两种类型的镜像 <strong>deploy镜像</strong> , <strong>user 镜像</strong></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -195,7 +195,7 @@
 制作ironic deploy镜像其实就是在普通镜像中添加一个ipa服务，用来裸机和ironic通信。 官方推荐制作镜像的工具有两个，分别是CoreOS tools和disk-image-builder</p>
 </div>
 <div class="section" id="deploy">
-<h3>deploy 镜像<a class="headerlink" href="#deploy" title="Permalink to this headline">¶</a></h3>
+<h3>7.1.1. deploy 镜像<a class="headerlink" href="#deploy" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>获取deploy镜像有两种方式：1、通过官方下载制作好的镜像, 2、通过dib工具制作。有时候
@@ -303,11 +303,11 @@ fi
 </div>
 </div>
 <div class="section" id="id4">
-<h3>用户镜像<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h3>7.1.2. 用户镜像<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 <div class="section" id="id5">
-<h2>2.7.2. 其他<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<h2>7.2. 其他<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p>切换用户</p></li>
 </ol>
@@ -319,7 +319,7 @@ fi
 </ol>
 </div>
 <div class="section" id="id6">
-<h2>2.7.3. 参考引用<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<h2>7.3. 参考引用<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <dl class="footnote brackets">
 <dt class="label" id="id7"><span class="brackets">1</span></dt>
 <dd><p><a class="reference external" href="https://int32bit.me/2019/04/23/OpenStack-Ironic%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E5%8F%82%E8%80%83">https://int32bit.me/2019/04/23/OpenStack-Ironic%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2%E5%8F%82%E8%80%83</a>/#</p>
@@ -339,7 +339,7 @@ fi
         <a href="../neutron/index.html" class="btn btn-neutral float-right" title="3. Neutron" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="others.html" class="btn btn-neutral float-left" title="2.6. Ironic 相关概览及以及延伸知识" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="others.html" class="btn btn-neutral float-left" title="6. Ironic 相关概览及以及延伸知识" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
